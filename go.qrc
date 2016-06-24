@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/go">
+        <file>mimetypes.xml</file>
+        <file>gopher.png</file>
+    </qresource>
+</RCC>

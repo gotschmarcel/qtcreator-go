@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
+  <mime-type type="text/x-gocreator-project">
+    <sub-class-of type="text/plain"/>
+    <comment>Go project file</comment>
+    <glob pattern="*.goproject"/>
+  </mime-type>
+
+  <mime-type type="application/x-go">
+    <sub-class-of type="text/plain"/>
+    <comment>Ruby source file</comment>
+    <glob pattern="*.go"/>
+  </mime-type>
+</mime-info>

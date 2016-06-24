@@ -1,0 +1,11 @@
+{
+    \"Name\" : \"Go\",
+    \"Version\" : \"0.0.1\",
+    \"CompatVersion\" : \"0.0.1\",
+    \"Vendor\" : \"gotschmarcel\",
+    \"Copyright\" : \"(C) Marcel Gotsch\",
+    \"License\" : \"BSD\",
+    \"Description\" : \"Go language plugin\",
+    \"Url\" : \"http://www.mycompany.com\",
+    $$dependencyList
+}
