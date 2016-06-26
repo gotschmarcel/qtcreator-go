@@ -5,6 +5,7 @@
 #include "../goconstants.h"
 #include "goprojectmanager.h"
 #include "goprojectnode.h"
+#include "gofile.h"
 
 using namespace Go;
 
@@ -21,6 +22,9 @@ Project::Project(ProjectManager *manager, const QString &fileName)
     populateProject();
 
     connect(&_fsWatcher, SIGNAL(directoryChanged(QString)), SLOT(populateProject()));
+
+    setDocument(new GoFile(Utils::FileName::fromString(fileName)));
+    setRootProjectNode(_rootNode);
 }
 
 QString Project::displayName() const

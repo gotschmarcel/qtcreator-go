@@ -10,6 +10,9 @@
 
 #include <texteditor/texteditor.h>
 #include <texteditor/texteditorsettings.h>
+#include <texteditor/simplecodestylepreferences.h>
+#include <texteditor/codestylepool.h>
+#include <texteditor/tabsettings.h>
 
 #include <utils/mimetypes/mimedatabase.h>
 
@@ -17,6 +20,8 @@
 
 #include "projects/goprojectwizard.h"
 #include "projects/goprojectmanager.h"
+#include "editor/goeditorfactory.h"
+#include "editor/gocodestylepreferencesfactory.h"
 
 using namespace Go::Internal;
 
@@ -47,6 +52,44 @@ bool GoPlugin::initialize(const QStringList &arguments, QString *errorString)
     Q_UNUSED(errorString)
 
     Utils::MimeDatabase::addMimeTypes(QLatin1String(":/go/mimetypes.xml"));
+
+    // Setup Code Style
+    auto codeStyleFactory = new CodeStylePreferencesFactory;
+    TextEditor::TextEditorSettings::registerCodeStyleFactory(codeStyleFactory);
+
+    auto codeStylePool = new TextEditor::CodeStylePool(codeStyleFactory, this);
+    TextEditor::TextEditorSettings::registerCodeStylePool(Constants::SettingsID, codeStylePool);
+
+    auto globalCodeStyle = new TextEditor::SimpleCodeStylePreferences(this);
+    globalCodeStyle->setDelegatingPool(codeStylePool);
+    globalCodeStyle->setDisplayName(tr("Global", "Settings"));
+    globalCodeStyle->setId("GoGlobal");
+
+    codeStylePool->addCodeStyle(globalCodeStyle);
+    TextEditor::TextEditorSettings::registerCodeStyle(Constants::SettingsID, globalCodeStyle);
+
+    auto goCodeStyle = new TextEditor::SimpleCodeStylePreferences;
+    goCodeStyle->setId("go");
+    goCodeStyle->setDisplayName(tr("GoCreator"));
+    goCodeStyle->setReadOnly(true);
+
+    TextEditor::TabSettings goTabSettings;
+    goTabSettings.m_tabPolicy = TextEditor::TabSettings::TabsOnlyTabPolicy;
+    goTabSettings.m_tabSize = 8;
+    goTabSettings.m_indentSize = 8;
+    goTabSettings.m_continuationAlignBehavior = TextEditor::TabSettings::ContinuationAlignWithIndent;
+
+    goCodeStyle->setTabSettings(goTabSettings);
+
+    globalCodeStyle->setCurrentDelegate(goCodeStyle);
+    codeStylePool->loadCustomCodeStyles();
+    globalCodeStyle->fromSettings(QLatin1String(Constants::SettingsID), Core::ICore::settings());
+
+    TextEditor::TextEditorSettings::registerMimeTypeForLanguageId(Constants::MIMEType, Constants::SettingsID);
+
+    //
+
+    addAutoReleasedObject(new EditorFactory);
 
     addAutoReleasedObject(new ProjectManager);
 

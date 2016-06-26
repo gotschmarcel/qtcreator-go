@@ -20,7 +20,14 @@ CONFIG += c++11
 SOURCES += goplugin.cpp \
     projects/goproject.cpp \
     projects/goprojectmanager.cpp \
-    projects/goprojectwizard.cpp
+    projects/goprojectwizard.cpp \
+    projects/gofile.cpp \
+    editor/goeditor.cpp \
+    editor/goeditorwidget.cpp \
+    editor/goeditorfactory.cpp \
+    editor/gosyntaxhighlighter.cpp \
+    editor/goscanner.cpp \
+    editor/gocodestylepreferencesfactory.cpp
 
 HEADERS += goplugin.h \
         go_global.h \
@@ -28,7 +35,15 @@ HEADERS += goplugin.h \
     projects/goproject.h \
     projects/goprojectmanager.h \
     projects/goprojectnode.h \
-    projects/goprojectwizard.h
+    projects/goprojectwizard.h \
+    projects/gofile.h \
+    editor/goeditor.h \
+    editor/goeditorwidget.h \
+    editor/goeditorfactory.h \
+    editor/gosyntaxhighlighter.h \
+    editor/goscanner.h \
+    editor/gosourcecodestream.h \
+    editor/gocodestylepreferencesfactory.h
 
 RESOURCES += \
     go.qrc
