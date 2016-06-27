@@ -4,11 +4,13 @@
 #include <texteditor/textdocument.h>
 #include <texteditor/indenter.h>
 #include <texteditor/texteditoractionhandler.h>
+#include <texteditor/codestylepool.h>
 
 #include "../goconstants.h"
 #include "goeditor.h"
 #include "goeditorwidget.h"
 #include "gosyntaxhighlighter.h"
+#include "goindenter.h"
 
 using namespace Go;
 
@@ -19,13 +21,23 @@ EditorFactory::EditorFactory()
     addMimeType(Constants::MIMEType);
     addMimeType(Constants::ProjectMIMEType);
 
-    setDocumentCreator([]() { return new TextEditor::TextDocument(Constants::EditorID); });
-    setIndenterCreator([]() { return new TextEditor::Indenter; });
+    setDocumentCreator([]() {
+        auto doc = new TextEditor::TextDocument(Constants::EditorID);
+        doc->setMimeType(QLatin1String(Constants::MIMEType));
+        return doc;
+    });
+
+    setIndenterCreator([]() { return new Indenter; });
+    setSyntaxHighlighterCreator([]() { return new SyntaxHighlighter; });
+
+    setEditorCreator([]() { return new Editor; });
     setEditorWidgetCreator([]() { return new EditorWidget; });
+
 //    setAutoCompleterCreator([]() { return new AutoCompleter; }});
 //    setCompletionAssistProvider([]() { return new CompletionAssistProvider; });
-    setSyntaxHighlighterCreator([]() { return new SyntaxHighlighter; });
+
     setCommentStyle(Utils::CommentDefinition::CppStyle);
+
     setParenthesesMatchingEnabled(true);
     setCodeFoldingSupported(true);
     setMarksVisible(true);

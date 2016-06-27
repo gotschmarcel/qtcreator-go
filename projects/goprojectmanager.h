@@ -2,9 +2,11 @@
 
 #include <projectexplorer/iprojectmanager.h>
 
+#include "../go_global.h"
+
 namespace Go {
 
-class ProjectManager final : public ProjectExplorer::IProjectManager
+class GOSHARED_EXPORT ProjectManager final : public ProjectExplorer::IProjectManager
 {
     Q_OBJECT
 

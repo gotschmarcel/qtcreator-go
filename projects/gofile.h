@@ -2,13 +2,15 @@
 
 #include <coreplugin/idocument.h>
 
+#include "../go_global.h"
+
 namespace Utils {
 class FileName;
 }
 
 namespace Go {
 
-class GoFile final : public Core::IDocument
+class GOSHARED_EXPORT GoFile final : public Core::IDocument
 {
 public:
     GoFile(const Utils::FileName& fileName);

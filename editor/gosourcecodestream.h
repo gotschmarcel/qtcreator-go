@@ -2,9 +2,11 @@
 
 #include <QString>
 
+#include "../go_global.h"
+
 namespace Go {
 
-class SourceCodeStream {
+class GOSHARED_EXPORT SourceCodeStream {
 public:
     SourceCodeStream(const QString& text)
         : _text(text),

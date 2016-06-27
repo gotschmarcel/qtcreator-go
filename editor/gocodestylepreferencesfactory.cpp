@@ -7,6 +7,7 @@
 #include <QLabel>
 
 #include "../goconstants.h"
+#include "goindenter.h"
 
 using namespace Go;
 
@@ -32,7 +33,7 @@ QWidget* CodeStylePreferencesFactory::createEditor(TextEditor::ICodeStylePrefere
 
 TextEditor::Indenter* CodeStylePreferencesFactory::createIndenter() const
 {
-    return new TextEditor::Indenter();
+    return new Indenter();
 }
 
 TextEditor::ISnippetProvider* CodeStylePreferencesFactory::snippetProvider() const

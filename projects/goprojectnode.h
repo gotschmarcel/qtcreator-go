@@ -2,11 +2,13 @@
 
 #include <projectexplorer/projectnodes.h>
 
+#include "../go_global.h"
+
 namespace Utils { class FileName; }
 
 namespace Go {
 
-class ProjectNode final : public ProjectExplorer::ProjectNode
+class GOSHARED_EXPORT ProjectNode final : public ProjectExplorer::ProjectNode
 {
 public:
     ProjectNode(const Utils::FileName& projectFilePath)

@@ -18,17 +18,17 @@ import "fmt"
 const ENV_NAME = "TEST"
 
 const (
-	Monday = iota
-	Tuesday
-	Wednesday
-	Thursday
-	Friday
-	Saturday
-	Sunday
+        Monday = iota
+        Tuesday
+        Wednesday
+        Thursday
+        Friday
+        Saturday
+        Sunday
 )
 
 var (
-	config = flag.String("config", "", "Specify a config file")
+        config = flag.String("config", "", "Specify a config file")
 )
 
 type MyUInt8 uint8

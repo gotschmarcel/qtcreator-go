@@ -1,7 +1,5 @@
 #pragma once
 
-#include "go_global.h"
-
 #include <extensionsystem/iplugin.h>
 
 namespace Go {

@@ -5,11 +5,13 @@
 
 #include <QMap>
 
+#include "../go_global.h"
+
 namespace Go {
 
 class Token;
 
-class SyntaxHighlighter final : public TextEditor::SyntaxHighlighter
+class GOSHARED_EXPORT SyntaxHighlighter final : public TextEditor::SyntaxHighlighter
 {
 public:
     SyntaxHighlighter(QTextDocument* parent = 0);

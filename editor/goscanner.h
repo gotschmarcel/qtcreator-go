@@ -141,7 +141,7 @@ public:
     Token read();
 
     int line() const;
-    int column(const Token&) const;
+    int column(const Token&t) const;
 
     int indent() const;
 
@@ -149,6 +149,7 @@ public:
     int state() const;
 
     QString value(const Token& t) const;
+    QChar character(const Token &t) const;
 
 private:
     Token readIdentifier();

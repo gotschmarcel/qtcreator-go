@@ -95,9 +95,9 @@ int Scanner::line() const
     return _line;
 }
 
-int Scanner::column(const Token&) const
+int Scanner::column(const Token& t) const
 {
-    return _line;
+    return t.pos;
 }
 
 int Scanner::indent() const
@@ -118,6 +118,11 @@ int Scanner::state() const
 QString Scanner::value(const Token& t) const
 {
     return _source.value(t.pos, t.len).toString();
+}
+
+QChar Scanner::character(const Token& t) const
+{
+    return _source.value(t.pos, t.len)[0];
 }
 
 Token Scanner::readIdentifier()

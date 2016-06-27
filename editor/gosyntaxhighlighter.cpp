@@ -172,6 +172,12 @@ QTextCharFormat SyntaxHighlighter::formatForToken(const Token& token, const QStr
     case Token::LEQ:
     case Token::GEQ:
     case Token::DEFINE:
+    case Token::LPAREN:
+    case Token::LBRACK:
+    case Token::LBRACE:
+    case Token::RPAREN:
+    case Token::RBRACK:
+    case Token::RBRACE:
     case Token::ADD_ASSIGN:
     case Token::SUB_ASSIGN:
     case Token::MUL_ASSIGN:
@@ -184,13 +190,6 @@ QTextCharFormat SyntaxHighlighter::formatForToken(const Token& token, const QStr
     case Token::SHR_ASSIGN:
     case Token::AND_NOT_ASSIGN:
     case Token::ELLIPSIS:   style = C_OPERATOR; break;
-
-    case Token::LPAREN:
-    case Token::LBRACK:
-    case Token::LBRACE:
-    case Token::RPAREN:
-    case Token::RBRACK:
-    case Token::RBRACE:     style = C_PARENTHESES; break;
 
     case Token::ILLEGAL:    style = C_ERROR; break;
 

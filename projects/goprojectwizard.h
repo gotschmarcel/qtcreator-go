@@ -2,9 +2,11 @@
 
 #include <coreplugin/basefilewizardfactory.h>
 
+#include "../go_global.h"
+
 namespace Go {
 
-class ProjectWizard final : public Core::BaseFileWizardFactory
+class GOSHARED_EXPORT ProjectWizard final : public Core::BaseFileWizardFactory
 {
     Q_OBJECT
 

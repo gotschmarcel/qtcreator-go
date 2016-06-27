@@ -9,12 +9,14 @@
 #include <QSet>
 #include <QDir>
 
+#include "../go_global.h"
+
 namespace Go {
 
 class ProjectManager;
 class ProjectNode;
 
-class Project final : public ProjectExplorer::Project
+class GOSHARED_EXPORT Project final : public ProjectExplorer::Project
 {
     Q_OBJECT
 
