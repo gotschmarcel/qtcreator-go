@@ -28,7 +28,8 @@ SOURCES += goplugin.cpp \
     editor/gosyntaxhighlighter.cpp \
     editor/goscanner.cpp \
     editor/gocodestylepreferencesfactory.cpp \
-    editor/goindenter.cpp
+    editor/goindenter.cpp \
+    settings/gocodestylepage.cpp
 
 HEADERS += goplugin.h \
         go_global.h \
@@ -45,7 +46,8 @@ HEADERS += goplugin.h \
     editor/goscanner.h \
     editor/gosourcecodestream.h \
     editor/gocodestylepreferencesfactory.h \
-    editor/goindenter.h
+    editor/goindenter.h \
+    settings/gocodestylepage.h
 
 RESOURCES += \
     go.qrc
@@ -77,3 +79,6 @@ QTC_PLUGIN_RECOMMENDS += \
 ###### End _dependencies.pri contents ######
 
 include($$QTCREATOR_SOURCES/src/qtcreatorplugin.pri)
+
+FORMS += \
+    settings/gocodestylepage.ui

@@ -23,6 +23,7 @@
 #include "projects/goprojectmanager.h"
 #include "editor/goeditorfactory.h"
 #include "editor/gocodestylepreferencesfactory.h"
+#include "settings/gocodestylepage.h"
 
 using namespace Go::Internal;
 
@@ -67,6 +68,9 @@ bool GoPlugin::initialize(const QStringList &arguments, QString *errorString)
     });
 
     addAutoReleasedObject(new ProjectWizard);
+
+    // Settings
+    addAutoReleasedObject(new CodeStylePage);
 
     // Register Icon:
     // This icon is displayed at the dock panel as MIME overlay.
