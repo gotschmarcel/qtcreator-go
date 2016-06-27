@@ -27,7 +27,6 @@ SOURCES += goplugin.cpp \
     editor/goeditorfactory.cpp \
     editor/gosyntaxhighlighter.cpp \
     editor/goscanner.cpp \
-    editor/gocodestylepreferencesfactory.cpp \
     editor/goindenter.cpp \
     settings/gocodestylepage.cpp
 
@@ -45,7 +44,6 @@ HEADERS += goplugin.h \
     editor/gosyntaxhighlighter.h \
     editor/goscanner.h \
     editor/gosourcecodestream.h \
-    editor/gocodestylepreferencesfactory.h \
     editor/goindenter.h \
     settings/gocodestylepage.h
 

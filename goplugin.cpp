@@ -22,7 +22,6 @@
 #include "projects/goprojectwizard.h"
 #include "projects/goprojectmanager.h"
 #include "editor/goeditorfactory.h"
-#include "editor/gocodestylepreferencesfactory.h"
 #include "settings/gocodestylepage.h"
 
 using namespace Go::Internal;
