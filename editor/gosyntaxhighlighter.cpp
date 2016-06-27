@@ -63,11 +63,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument* parent)
                    << TextEditor::C_NUMBER
                    << TextEditor::C_COMMENT
                    << TextEditor::C_KEYWORD
-                   << TextEditor::C_TYPE
                    << TextEditor::C_STRING
-                   << TextEditor::C_FIELD
-                   << TextEditor::C_LABEL
-                   << TextEditor::C_LOCAL
                    << TextEditor::C_OPERATOR
                    << TextEditor::C_PARENTHESES
                    << TextEditor::C_PRIMITIVE_TYPE;
