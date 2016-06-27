@@ -17,6 +17,7 @@ const char MIMEType[]           = "application/x-go";
 const char ProjectMIMEType[]    = "text/x-gocreator-project";
 
 const char ProjectFileExt[]     = ".goproject";
+const char FileExt[]            = ".go";
 
 } // namespace Go
 } // namespace Constants

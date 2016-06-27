@@ -28,7 +28,8 @@ SOURCES += goplugin.cpp \
     editor/gosyntaxhighlighter.cpp \
     editor/goscanner.cpp \
     editor/goindenter.cpp \
-    settings/gocodestylepage.cpp
+    settings/gocodestylepage.cpp \
+    projects/goapplicationwizardfactory.cpp
 
 HEADERS += goplugin.h \
         go_global.h \
@@ -45,7 +46,8 @@ HEADERS += goplugin.h \
     editor/goscanner.h \
     editor/gosourcecodestream.h \
     editor/goindenter.h \
-    settings/gocodestylepage.h
+    settings/gocodestylepage.h \
+    projects/goapplicationwizardfactory.h
 
 RESOURCES += \
     go.qrc

@@ -18,7 +18,7 @@ ProjectWizard::ProjectWizard()
     setSupportedProjectTypes({ Constants::ProjectID });
 
     setDisplayName(tr("Import Existing Go Project"));
-    setId("Z.Go");
+    setId("Z.GoImport");
     setDescription(tr("Imports existing Go projects."));
     setCategory(QLatin1String(ProjectExplorer::Constants::IMPORT_WIZARD_CATEGORY));
     setDisplayCategory(QLatin1String(ProjectExplorer::Constants::IMPORT_WIZARD_CATEGORY_DISPLAY));

@@ -3,4 +3,7 @@
         <file>mimetypes.xml</file>
         <file>gopher.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>templates/application.go</file>
+    </qresource>
 </RCC>

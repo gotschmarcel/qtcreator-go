@@ -20,6 +20,7 @@
 #include <QtPlugin>
 
 #include "projects/goprojectwizard.h"
+#include "projects/goapplicationwizardfactory.h"
 #include "projects/goprojectmanager.h"
 #include "editor/goeditorfactory.h"
 #include "settings/gocodestylepage.h"
@@ -62,11 +63,10 @@ bool GoPlugin::initialize(const QStringList &arguments, QString *errorString)
 
     addAutoReleasedObject(new ProjectManager);
 
+    // Project Wizards
     Core::IWizardFactory::registerFactoryCreator([]() {
-        return QList<Core::IWizardFactory*>() << new ProjectWizard;
+        return QList<Core::IWizardFactory*>() << new ProjectWizard << new ApplicationWizardFactory;
     });
-
-    addAutoReleasedObject(new ProjectWizard);
 
     // Settings
     addAutoReleasedObject(new CodeStylePage);
