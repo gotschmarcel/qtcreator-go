@@ -6,12 +6,12 @@
 
 namespace Go {
 
-class GOSHARED_EXPORT ProjectWizard final : public Core::BaseFileWizardFactory
+class GOSHARED_EXPORT ImportWizardFactory final : public Core::BaseFileWizardFactory
 {
     Q_OBJECT
 
 public:
-    ProjectWizard();
+    ImportWizardFactory();
 
 protected:
     Core::BaseFileWizard* create(QWidget* parent, const Core::WizardDialogParameters &parameters) const override;
