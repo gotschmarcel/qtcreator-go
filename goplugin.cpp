@@ -21,6 +21,7 @@
 
 #include "projects/goimportwizardfactory.h"
 #include "projects/goapplicationwizardfactory.h"
+#include "projects/golibrarywizardfactory.h"
 #include "projects/goprojectmanager.h"
 #include "editor/goeditorfactory.h"
 #include "settings/gocodestylepage.h"
@@ -65,7 +66,10 @@ bool GoPlugin::initialize(const QStringList &arguments, QString *errorString)
 
     // Project Wizards
     Core::IWizardFactory::registerFactoryCreator([]() {
-        return QList<Core::IWizardFactory*>() << new ImportWizardFactory << new ApplicationWizardFactory;
+        return QList<Core::IWizardFactory*>()
+                << new ImportWizardFactory
+                << new ApplicationWizardFactory
+                << new LibraryWizardFactory;
     });
 
     // Settings

@@ -29,7 +29,9 @@ SOURCES += goplugin.cpp \
     editor/goindenter.cpp \
     settings/gocodestylepage.cpp \
     projects/goapplicationwizardfactory.cpp \
-    projects/goimportwizardfactory.cpp
+    projects/goimportwizardfactory.cpp \
+    projects/golibrarywizardfactory.cpp \
+    projects/gotemplaterenderer.cpp
 
 HEADERS += goplugin.h \
         go_global.h \
@@ -47,7 +49,9 @@ HEADERS += goplugin.h \
     editor/goindenter.h \
     settings/gocodestylepage.h \
     projects/goapplicationwizardfactory.h \
-    projects/goimportwizardfactory.h
+    projects/goimportwizardfactory.h \
+    projects/golibrarywizardfactory.h \
+    projects/gotemplaterenderer.h
 
 RESOURCES += \
     go.qrc
