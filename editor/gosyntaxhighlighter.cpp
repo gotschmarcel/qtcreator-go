@@ -66,6 +66,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument* parent)
                    << TextEditor::C_STRING
                    << TextEditor::C_OPERATOR
                    << TextEditor::C_PARENTHESES
+                   << TextEditor::C_ERROR
                    << TextEditor::C_PRIMITIVE_TYPE;
 
         int i = 0;
@@ -191,6 +192,8 @@ QTextCharFormat SyntaxHighlighter::formatForToken(const Token& token, const QStr
     case Token::RBRACK:
     case Token::RBRACE:     style = C_PARENTHESES; break;
 
+    case Token::ILLEGAL:    style = C_ERROR; break;
+
     case Token::COMMA:
     case Token::SEMICOLON:
     case Token::COLON:
@@ -200,6 +203,7 @@ QTextCharFormat SyntaxHighlighter::formatForToken(const Token& token, const QStr
             style = C_PRIMITIVE_TYPE;
             break;
         }
+
     default:                style = C_TEXT; break;
     }
 
