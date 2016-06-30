@@ -3,11 +3,11 @@
 #include <projectexplorer/project.h>
 #include <projectexplorer/projectnodes.h>
 
-#include <QTimer>
+#include <QDir>
 #include <QElapsedTimer>
 #include <QFileSystemWatcher>
 #include <QSet>
-#include <QDir>
+#include <QTimer>
 
 #include "../go_global.h"
 
@@ -17,14 +17,13 @@ namespace Internal {
 class ProjectManager;
 class ProjectNode;
 
-class GOSHARED_EXPORT Project final : public ProjectExplorer::Project
-{
+class GOSHARED_EXPORT Project final : public ProjectExplorer::Project {
     Q_OBJECT
 
 public:
     static const int kMinTimeBetweenScans = 4500;
 
-    Project(ProjectManager *manager, const QString& fileName);
+    Project(ProjectManager* manager, const QString& fileName);
     QString displayName() const override;
     ProjectExplorer::IProjectManager* projectManager() const override;
     ProjectExplorer::ProjectNode* rootProjectNode() const override;
@@ -36,17 +35,17 @@ private slots:
     void populateProject();
 
 private:
-    ProjectManager*     _manager;
-    ProjectNode*        _rootNode;
+    ProjectManager* _manager;
+    ProjectNode* _rootNode;
 
-    QDir                _dir;
-    QSet<QString>       _files;
-    QFileSystemWatcher  _fsWatcher;
+    QDir _dir;
+    QSet<QString> _files;
+    QFileSystemWatcher _fsWatcher;
 
-    QElapsedTimer       _lastScan;
-    QTimer              _scanTimer;
+    QElapsedTimer _lastScan;
+    QTimer _scanTimer;
 
-    void recursiveScanDirectory(const QDir& dir, QSet<QString> &container);
+    void recursiveScanDirectory(const QDir& dir, QSet<QString>& container);
     void addNodes(const QSet<QString>& nodes);
     void removeNodes(const QSet<QString>& nodes);
     void tryRemoveEmptyFolder(ProjectExplorer::FolderNode* folder);

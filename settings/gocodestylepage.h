@@ -13,12 +13,11 @@ class CodeStylePageWidget;
 namespace Go {
 namespace Internal {
 
-class CodeStylePageWidget : public QWidget
-{
+class CodeStylePageWidget : public QWidget {
     Q_OBJECT
 
 public:
-    explicit CodeStylePageWidget(QWidget *parent = 0);
+    explicit CodeStylePageWidget(QWidget* parent = 0);
     ~CodeStylePageWidget();
 
 private:

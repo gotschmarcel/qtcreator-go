@@ -11,8 +11,7 @@ class FileName;
 namespace Go {
 namespace Internal {
 
-class GOSHARED_EXPORT GoFile final : public Core::IDocument
-{
+class GOSHARED_EXPORT GoFile final : public Core::IDocument {
 public:
     GoFile(const Utils::FileName& fileName);
     ReloadBehavior reloadBehavior(ChangeTrigger, ChangeType) const override;

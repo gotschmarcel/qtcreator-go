@@ -1,7 +1,7 @@
 #pragma once
 
-#include <texteditor/textdocumentlayout.h>
 #include <texteditor/syntaxhighlighter.h>
+#include <texteditor/textdocumentlayout.h>
 
 #include <QMap>
 
@@ -12,8 +12,7 @@ namespace Internal {
 
 class Token;
 
-class GOSHARED_EXPORT SyntaxHighlighter final : public TextEditor::SyntaxHighlighter
-{
+class GOSHARED_EXPORT SyntaxHighlighter final : public TextEditor::SyntaxHighlighter {
 public:
     SyntaxHighlighter(QTextDocument* parent = 0);
 

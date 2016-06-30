@@ -3,7 +3,4 @@
 
 using namespace Go::Internal;
 
-Editor::Editor()
-{
-    addContext(Constants::LangGo);
-}
+Editor::Editor() { addContext(Constants::LangGo); }

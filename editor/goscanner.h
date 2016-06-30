@@ -10,8 +10,7 @@
 namespace Go {
 namespace Internal {
 
-class Token
-{
+class Token {
 public:
     enum Kind {
         EOF = 0,
@@ -118,31 +117,25 @@ public:
         NUM_TOKENS = VAR
     };
 
-    Token(Kind kind = EOF, int pos = 0, int len = 0)
-        : kind(kind), pos(pos), len(len) {}
+    Token(Kind kind = EOF, int pos = 0, int len = 0) : kind(kind), pos(pos), len(len) {}
 
     Kind kind;
     int pos;
     int len;
 };
 
-class Scanner
-{
+class Scanner {
     Q_DISABLE_COPY(Scanner)
 
 public:
-    enum State {
-        Default,
-        MultiLineComment,
-        MultiLineString
-    };
+    enum State { Default, MultiLineComment, MultiLineString };
 
     Scanner(const QString& text);
 
     Token read();
 
     int line() const;
-    int column(const Token&t) const;
+    int column(const Token& t) const;
 
     int indent() const;
 
@@ -150,7 +143,7 @@ public:
     int state() const;
 
     QString value(const Token& t) const;
-    QChar character(const Token &t) const;
+    QChar character(const Token& t) const;
 
 private:
     Token readIdentifier();
@@ -170,9 +163,9 @@ private:
     void clearState();
 
     SourceCodeStream _source;
-    int              _line;
-    int              _indent;
-    int              _state;
+    int _line;
+    int _indent;
+    int _state;
 };
 
 } // Internal

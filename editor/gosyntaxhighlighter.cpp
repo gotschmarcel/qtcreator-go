@@ -50,23 +50,16 @@ static const QVector<QString> GoBuiltins = {
 
     QLatin1String("uintptr"),
 
-    QLatin1String("bool")
-};
+    QLatin1String("bool")};
 
 SyntaxHighlighter::SyntaxHighlighter(QTextDocument* parent)
-    : TextEditor::SyntaxHighlighter(parent)
-{
+    : TextEditor::SyntaxHighlighter(parent) {
     static QVector<TextEditor::TextStyle> categories;
 
     if (categories.isEmpty()) {
-        categories << TextEditor::C_TEXT
-                   << TextEditor::C_NUMBER
-                   << TextEditor::C_COMMENT
-                   << TextEditor::C_KEYWORD
-                   << TextEditor::C_STRING
-                   << TextEditor::C_OPERATOR
-                   << TextEditor::C_PARENTHESES
-                   << TextEditor::C_ERROR
+        categories << TextEditor::C_TEXT << TextEditor::C_NUMBER << TextEditor::C_COMMENT
+                   << TextEditor::C_KEYWORD << TextEditor::C_STRING << TextEditor::C_OPERATOR
+                   << TextEditor::C_PARENTHESES << TextEditor::C_ERROR
                    << TextEditor::C_PRIMITIVE_TYPE;
 
         int i = 0;
@@ -78,8 +71,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument* parent)
     setTextFormatCategories(categories);
 }
 
-void SyntaxHighlighter::highlightBlock(const QString& text)
-{
+void SyntaxHighlighter::highlightBlock(const QString& text) {
     int state = previousBlockState();
     if (state == -1) {
         state = 0;
@@ -88,8 +80,7 @@ void SyntaxHighlighter::highlightBlock(const QString& text)
     setCurrentBlockState(highlightLine(text, state));
 }
 
-int SyntaxHighlighter::highlightLine(const QString& text, int state)
-{
+int SyntaxHighlighter::highlightLine(const QString& text, int state) {
     Scanner scanner(text);
     scanner.setState(state);
 
@@ -101,8 +92,7 @@ int SyntaxHighlighter::highlightLine(const QString& text, int state)
     return scanner.state();
 }
 
-QTextCharFormat SyntaxHighlighter::formatForToken(const Token& token, const QString& val)
-{
+QTextCharFormat SyntaxHighlighter::formatForToken(const Token& token, const QString& val) {
     using namespace TextEditor;
 
     TextStyle style;
@@ -136,16 +126,24 @@ QTextCharFormat SyntaxHighlighter::formatForToken(const Token& token, const QStr
     case Token::STRUCT:
     case Token::SWITCH:
     case Token::TYPE:
-    case Token::VAR:        style = C_KEYWORD; break;
+    case Token::VAR:
+        style = C_KEYWORD;
+        break;
 
-    case Token::COMMENT:    style = C_COMMENT; break;
+    case Token::COMMENT:
+        style = C_COMMENT;
+        break;
 
     case Token::INT:
     case Token::FLOAT:
-    case Token::IMAG:       style = C_NUMBER; break;
+    case Token::IMAG:
+        style = C_NUMBER;
+        break;
 
     case Token::CHAR:
-    case Token::STRING:     style = C_STRING; break;
+    case Token::STRING:
+        style = C_STRING;
+        break;
 
     case Token::ADD:
     case Token::SUB:
@@ -189,9 +187,13 @@ QTextCharFormat SyntaxHighlighter::formatForToken(const Token& token, const QStr
     case Token::SHL_ASSIGN:
     case Token::SHR_ASSIGN:
     case Token::AND_NOT_ASSIGN:
-    case Token::ELLIPSIS:   style = C_OPERATOR; break;
+    case Token::ELLIPSIS:
+        style = C_OPERATOR;
+        break;
 
-    case Token::ILLEGAL:    style = C_ERROR; break;
+    case Token::ILLEGAL:
+        style = C_ERROR;
+        break;
 
     case Token::COMMA:
     case Token::SEMICOLON:
@@ -203,7 +205,9 @@ QTextCharFormat SyntaxHighlighter::formatForToken(const Token& token, const QStr
             break;
         }
 
-    default:                style = C_TEXT; break;
+    default:
+        style = C_TEXT;
+        break;
     }
 
     return formatForCategory(kCategories[style]);

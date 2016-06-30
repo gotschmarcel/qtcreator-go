@@ -7,24 +7,16 @@
 
 using namespace Go::Internal;
 
-CodeStylePageWidget::CodeStylePageWidget(QWidget *parent) :
-    QWidget(parent),
-    _ui(new Ui::CodeStylePageWidget)
-{
+CodeStylePageWidget::CodeStylePageWidget(QWidget* parent)
+    : QWidget(parent), _ui(new Ui::CodeStylePageWidget) {
     _ui->setupUi(this);
 }
 
-CodeStylePageWidget::~CodeStylePageWidget()
-{
-    delete _ui;
-}
+CodeStylePageWidget::~CodeStylePageWidget() { delete _ui; }
 
 // CodeStylePage
 
-CodeStylePage::CodeStylePage(QWidget *parent)
-    : Core::IOptionsPage(parent),
-      _widget(nullptr)
-{
+CodeStylePage::CodeStylePage(QWidget* parent) : Core::IOptionsPage(parent), _widget(nullptr) {
     setId(Constants::SettingsID);
     setDisplayName(QCoreApplication::translate("Go.Settings", "Code Style"));
     setCategory(Constants::SettingsCategory);
@@ -32,8 +24,7 @@ CodeStylePage::CodeStylePage(QWidget *parent)
     setCategoryIcon(QLatin1String(Constants::Icon));
 }
 
-QWidget* CodeStylePage::widget()
-{
+QWidget* CodeStylePage::widget() {
     if (!_widget) {
         _widget = new CodeStylePageWidget;
     }
@@ -41,13 +32,9 @@ QWidget* CodeStylePage::widget()
     return _widget;
 }
 
-void CodeStylePage::apply()
-{
+void CodeStylePage::apply() {}
 
-}
-
-void CodeStylePage::finish()
-{
+void CodeStylePage::finish() {
     delete _widget;
     _widget = nullptr;
 }

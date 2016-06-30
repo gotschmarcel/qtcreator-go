@@ -6,9 +6,9 @@
 #include <projectexplorer/projectexplorerconstants.h>
 #include <utils/filewizardpage.h>
 
-#include <QMap>
 #include <QDir>
 #include <QFileInfo>
+#include <QMap>
 #include <QRegularExpression>
 
 #include "../goconstants.h"
@@ -16,25 +16,26 @@
 
 using namespace Go::Internal;
 
-LibraryWizardFactory::LibraryWizardFactory()
-{
-    setSupportedProjectTypes({ Constants::ProjectID });
+LibraryWizardFactory::LibraryWizardFactory() {
+    setSupportedProjectTypes({Constants::ProjectID});
 
     setDisplayName(tr("Go Library"));
     setId("Z.GoLibrary");
     setDescription(tr("Creates a new Go library project."));
     setCategory(QLatin1String(ProjectExplorer::Constants::LIBRARIES_WIZARD_CATEGORY));
-    setDisplayCategory(QLatin1String(ProjectExplorer::Constants::LIBRARIES_WIZARD_CATEGORY_DISPLAY));
+    setDisplayCategory(
+        QLatin1String(ProjectExplorer::Constants::LIBRARIES_WIZARD_CATEGORY_DISPLAY));
 
     setIcon(QIcon(QLatin1String(Constants::Icon)));
 }
 
-Core::BaseFileWizard*LibraryWizardFactory::create(QWidget* parent, const Core::WizardDialogParameters& parameters) const
-{
+Core::BaseFileWizard*
+LibraryWizardFactory::create(QWidget* parent,
+                             const Core::WizardDialogParameters& parameters) const {
     Core::BaseFileWizard* wizard = new Core::BaseFileWizard(this, parameters.extraValues(), parent);
     wizard->setWindowTitle(displayName());
 
-    Utils::FileWizardPage *page = new Utils::FileWizardPage;
+    Utils::FileWizardPage* page = new Utils::FileWizardPage;
     page->setPath(parameters.defaultPath());
     wizard->addPage(page);
 
@@ -45,16 +46,16 @@ Core::BaseFileWizard*LibraryWizardFactory::create(QWidget* parent, const Core::W
     return wizard;
 }
 
-Core::GeneratedFiles LibraryWizardFactory::generateFiles(const QWizard* widget, QString* errorMessage) const
-{
+Core::GeneratedFiles LibraryWizardFactory::generateFiles(const QWizard* widget,
+                                                         QString* errorMessage) const {
     const auto wizard = qobject_cast<const Core::BaseFileWizard*>(widget);
-    const auto page   = wizard->find<Utils::FileWizardPage>();
+    const auto page = wizard->find<Utils::FileWizardPage>();
 
     const QDir projectRoot(page->path());
     const QDir projectDir = projectRoot.absoluteFilePath(page->fileName());
     const QString projectName = page->fileName();
     const QString packageName = projectName.trimmed().toLower().replace(
-                QRegularExpression(QLatin1String("\\s+")), QLatin1String("_"));
+        QRegularExpression(QLatin1String("\\s+")), QLatin1String("_"));
 
     // Create the project directory.
     if (!projectDir.exists() && !projectRoot.mkdir(projectName)) {
@@ -63,9 +64,8 @@ Core::GeneratedFiles LibraryWizardFactory::generateFiles(const QWizard* widget, 
     }
 
     // Create the project file.
-    const QString projectFilePath = projectDir
-            .absoluteFilePath(projectName)
-            .append(QLatin1String(Constants::ProjectFileExt));
+    const QString projectFilePath =
+        projectDir.absoluteFilePath(projectName).append(QLatin1String(Constants::ProjectFileExt));
 
     Core::GeneratedFile projectFile(projectFilePath);
     projectFile.setContents(QLatin1String("# Go Project\n"));
@@ -82,15 +82,17 @@ Core::GeneratedFiles LibraryWizardFactory::generateFiles(const QWizard* widget, 
     TemplateRenderer renderer(QString::fromUtf8(templateFile.readAll()));
 
     // Create the main.go file from the template.
-    const QString mainFilePath = projectDir.filePath(page->fileName().toLower() + QLatin1String(Constants::FileExt));
+    const QString mainFilePath =
+        projectDir.filePath(page->fileName().toLower() + QLatin1String(Constants::FileExt));
     Core::GeneratedFile mainFile(mainFilePath);
-    mainFile.setContents(renderer.render({ { QLatin1String("package_name"), packageName } }));
+    mainFile.setContents(renderer.render({{QLatin1String("package_name"), packageName}}));
     mainFile.setAttributes(Core::GeneratedFile::OpenEditorAttribute);
 
-    return { projectFile, mainFile };
+    return {projectFile, mainFile};
 }
 
-bool LibraryWizardFactory::postGenerateFiles(const QWizard*, const Core::GeneratedFiles& files, QString* errorMessage) const
-{
+bool LibraryWizardFactory::postGenerateFiles(const QWizard*,
+                                             const Core::GeneratedFiles& files,
+                                             QString* errorMessage) const {
     return ProjectExplorer::CustomProjectWizard::postGenerateOpen(files, errorMessage);
 }

@@ -3,18 +3,16 @@
 #include <QRegExp>
 
 #include "../goconstants.h"
+#include "gofile.h"
 #include "goprojectmanager.h"
 #include "goprojectnode.h"
-#include "gofile.h"
 
 using namespace Go::Internal;
 
-Project::Project(ProjectManager *manager, const QString &fileName)
-    : _manager(manager),
-      _rootNode(nullptr)
-{
-    _dir        = QFileInfo(fileName).dir();
-    _rootNode   = new ProjectNode(Utils::FileName::fromString(_dir.dirName()));
+Project::Project(ProjectManager* manager, const QString& fileName)
+    : _manager(manager), _rootNode(nullptr) {
+    _dir = QFileInfo(fileName).dir();
+    _rootNode = new ProjectNode(Utils::FileName::fromString(_dir.dirName()));
 
     _scanTimer.setSingleShot(true);
     connect(&_scanTimer, SIGNAL(timeout()), SLOT(populateProject()));
@@ -27,28 +25,15 @@ Project::Project(ProjectManager *manager, const QString &fileName)
     setRootProjectNode(_rootNode);
 }
 
-QString Project::displayName() const
-{
-    return _dir.dirName();
-}
+QString Project::displayName() const { return _dir.dirName(); }
 
-ProjectExplorer::IProjectManager* Project::projectManager() const
-{
-    return _manager;
-}
+ProjectExplorer::IProjectManager* Project::projectManager() const { return _manager; }
 
-ProjectExplorer::ProjectNode* Project::rootProjectNode() const
-{
-    return _rootNode;
-}
+ProjectExplorer::ProjectNode* Project::rootProjectNode() const { return _rootNode; }
 
-QStringList Project::files(Project::FilesMode) const
-{
-    return _files.toList();
-}
+QStringList Project::files(Project::FilesMode) const { return _files.toList(); }
 
-void Project::scheduleProjectScan()
-{
+void Project::scheduleProjectScan() {
     const auto elapsed = _lastScan.elapsed();
 
     if (elapsed < kMinTimeBetweenScans) {
@@ -63,8 +48,7 @@ void Project::scheduleProjectScan()
     populateProject();
 }
 
-void Project::populateProject()
-{
+void Project::populateProject() {
     _lastScan.start();
 
     QSet<QString> oldFiles(_files);
@@ -73,7 +57,7 @@ void Project::populateProject()
     recursiveScanDirectory(_dir, _files);
 
     const auto removedFiles = oldFiles - _files;
-    const auto addedFiles   = _files - oldFiles;
+    const auto addedFiles = _files - oldFiles;
 
     removeNodes(removedFiles);
     addNodes(addedFiles);
@@ -83,19 +67,12 @@ void Project::populateProject()
     }
 }
 
-void Project::recursiveScanDirectory(const QDir &dir, QSet<QString> &container)
-{
-    QRegExp projectFilePattern(
-                QLatin1String(".*\\") +
-                QLatin1String(Constants::ProjectFileExt) +
-                QLatin1String("(?:\\.user)?$"));
+void Project::recursiveScanDirectory(const QDir& dir, QSet<QString>& container) {
+    QRegExp projectFilePattern(QLatin1String(".*\\") + QLatin1String(Constants::ProjectFileExt) +
+                               QLatin1String("(?:\\.user)?$"));
 
-    for (const auto& info : dir.entryInfoList(
-             QDir::AllDirs |
-             QDir::Files |
-             QDir::NoDotAndDotDot |
-             QDir::NoSymLinks |
-             QDir::CaseSensitive)) {
+    for (const auto& info : dir.entryInfoList(QDir::AllDirs | QDir::Files | QDir::NoDotAndDotDot |
+                                              QDir::NoSymLinks | QDir::CaseSensitive)) {
 
         if (info.isDir()) {
             recursiveScanDirectory(info.filePath(), container);
@@ -107,22 +84,18 @@ void Project::recursiveScanDirectory(const QDir &dir, QSet<QString> &container)
     _fsWatcher.addPath(dir.absolutePath());
 }
 
-void Project::addNodes(const QSet<QString> &nodes)
-{
+void Project::addNodes(const QSet<QString>& nodes) {
     for (const auto& node : nodes) {
         const auto info = QFileInfo(_dir.relativeFilePath(node));
 
         auto folder = findFolderForRelPath(info.filePath());
         folder->addFileNodes(
-                    QList<ProjectExplorer::FileNode*>() << new ProjectExplorer::FileNode(
-                        Utils::FileName::fromString(node),
-                        ProjectExplorer::SourceType,
-                        false));
+            QList<ProjectExplorer::FileNode*>() << new ProjectExplorer::FileNode(
+                Utils::FileName::fromString(node), ProjectExplorer::SourceType, false));
     }
 }
 
-void Project::removeNodes(const QSet<QString> &nodes)
-{
+void Project::removeNodes(const QSet<QString>& nodes) {
     for (const auto& node : nodes) {
         const auto info = QFileInfo(_dir.relativeFilePath(node));
 
@@ -133,13 +106,12 @@ void Project::removeNodes(const QSet<QString> &nodes)
                 continue;
             }
 
-            folder->removeFileNodes({ file });
+            folder->removeFileNodes({file});
         }
     }
 }
 
-void Project::tryRemoveEmptyFolder(ProjectExplorer::FolderNode* folder)
-{
+void Project::tryRemoveEmptyFolder(ProjectExplorer::FolderNode* folder) {
     if (folder == _rootNode) {
         return;
     }
@@ -149,13 +121,12 @@ void Project::tryRemoveEmptyFolder(ProjectExplorer::FolderNode* folder)
         return;
     }
 
-    parent->removeFolderNodes({ folder });
+    parent->removeFolderNodes({folder});
     tryRemoveEmptyFolder(parent);
 }
 
-ProjectExplorer::FolderNode* Project::findFolderForRelPath(const QString& relPath)
-{
-    ProjectExplorer::FolderNode *folder = _rootNode;
+ProjectExplorer::FolderNode* Project::findFolderForRelPath(const QString& relPath) {
+    ProjectExplorer::FolderNode* folder = _rootNode;
 
     auto segments = relPath.split(QLatin1Char('/'));
     segments.removeLast(); // Ignore the file name itself.
@@ -176,7 +147,7 @@ ProjectExplorer::FolderNode* Project::findFolderForRelPath(const QString& relPat
 
         if (!found) {
             auto newFolder = new ProjectExplorer::FolderNode(Utils::FileName::fromString(segment));
-            folder->addFolderNodes({ newFolder });
+            folder->addFolderNodes({newFolder});
             folder = newFolder;
         }
     }

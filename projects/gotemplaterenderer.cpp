@@ -7,8 +7,7 @@ using namespace Go::Internal;
 
 class CharacterStream {
 public:
-    explicit CharacterStream(const QString& string)
-        : _s(string), _pos(0) {}
+    explicit CharacterStream(const QString& string) : _s(string), _pos(0) {}
 
     QChar peek(const int offset = 0) const {
         const int pos = _pos + offset;
@@ -24,23 +23,15 @@ public:
     bool atEnd() const { return _pos >= _s.length(); }
 
 private:
-    const QString&  _s;
-    int             _pos;
+    const QString& _s;
+    int _pos;
 };
 
-TemplateRenderer::TemplateRenderer(const QString&& tpl)
-    : _tpl(std::move(tpl))
-{
+TemplateRenderer::TemplateRenderer(const QString&& tpl) : _tpl(std::move(tpl)) {}
 
-}
+void TemplateRenderer::setTemplate(const QString&& tpl) { _tpl = std::move(tpl); }
 
-void TemplateRenderer::setTemplate(const QString&& tpl)
-{
-    _tpl = std::move(tpl);
-}
-
-QString TemplateRenderer::render(const QMap<QString, QString>&& locals) const
-{
+QString TemplateRenderer::render(const QMap<QString, QString>&& locals) const {
     enum State { S_COPY, S_PARSE_NAME };
 
     QString result;

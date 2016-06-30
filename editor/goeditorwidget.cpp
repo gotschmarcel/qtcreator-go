@@ -2,7 +2,4 @@
 
 using namespace Go::Internal;
 
-EditorWidget::EditorWidget()
-{
-
-}
+EditorWidget::EditorWidget() {}
