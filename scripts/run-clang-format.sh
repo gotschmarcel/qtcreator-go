@@ -29,4 +29,4 @@ fi
 
 # Run clang-format
 echo "Running clang-format"
-clang-format -style=file -i ./**/*.(cpp|h)
+clang-format -style=file -i ./**/*.{h,cpp}
