@@ -31,7 +31,9 @@ SOURCES += goplugin.cpp \
     projects/goapplicationwizardfactory.cpp \
     projects/goimportwizardfactory.cpp \
     projects/golibrarywizardfactory.cpp \
-    projects/gotemplaterenderer.cpp
+    projects/gotemplaterenderer.cpp \
+    gotoolchain.cpp \
+    gomessages.cpp
 
 HEADERS += goplugin.h \
         go_global.h \
@@ -51,7 +53,9 @@ HEADERS += goplugin.h \
     projects/goapplicationwizardfactory.h \
     projects/goimportwizardfactory.h \
     projects/golibrarywizardfactory.h \
-    projects/gotemplaterenderer.h
+    projects/gotemplaterenderer.h \
+    gotoolchain.h \
+    gomessages.h
 
 RESOURCES += \
     go.qrc

@@ -19,5 +19,11 @@ const char ProjectMIMEType[]    = "text/x-gocreator-project";
 const char ProjectFileExt[]     = ".goproject";
 const char FileExt[]            = ".go";
 
+const char GoPathEnvName[]      = "GOPATH";
+const char GoRootEnvName[]      = "GOROOT";
+const char GoRootDefault[]      = "/usr/local/go";
+
+const char MessagePrefix[]      = "[Go Plugin] ";
+
 } // namespace Go
 } // namespace Constants
