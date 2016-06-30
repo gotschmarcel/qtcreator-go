@@ -2,7 +2,7 @@
 
 #include <QMap>
 
-using namespace Go;
+using namespace Go::Internal;
 
 static const QMap<QString, Token::Kind> GoKeywords{
     { QLatin1String("break"),       Token::BREAK },

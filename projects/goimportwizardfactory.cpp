@@ -11,7 +11,7 @@
 
 #include "../goconstants.h"
 
-using namespace Go;
+using namespace Go::Internal;
 
 ImportWizardFactory::ImportWizardFactory()
 {
@@ -26,7 +26,7 @@ ImportWizardFactory::ImportWizardFactory()
     setIcon(QIcon(QLatin1String(Constants::Icon)));
 }
 
-Core::BaseFileWizard* Go::ImportWizardFactory::create(QWidget* parent, const Core::WizardDialogParameters& parameters) const
+Core::BaseFileWizard* ImportWizardFactory::create(QWidget* parent, const Core::WizardDialogParameters& parameters) const
 {
     Core::BaseFileWizard* wizard = new Core::BaseFileWizard(this, parameters.extraValues(), parent);
     wizard->setWindowTitle(displayName());

@@ -11,7 +11,7 @@
 
 #include "../goconstants.h"
 
-using namespace Go;
+using namespace Go::Internal;
 
 ApplicationWizardFactory::ApplicationWizardFactory()
 {

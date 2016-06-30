@@ -12,6 +12,7 @@
 #include "../go_global.h"
 
 namespace Go {
+namespace Internal {
 
 class ProjectManager;
 class ProjectNode;
@@ -53,4 +54,5 @@ private:
     ProjectExplorer::FolderNode* findFolderForRelPath(const QString& relPath);
 };
 
+} // Internal
 } // Go

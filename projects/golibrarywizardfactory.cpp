@@ -14,7 +14,7 @@
 #include "../goconstants.h"
 #include "gotemplaterenderer.h"
 
-using namespace Go;
+using namespace Go::Internal;
 
 LibraryWizardFactory::LibraryWizardFactory()
 {

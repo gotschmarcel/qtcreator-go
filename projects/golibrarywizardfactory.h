@@ -5,6 +5,7 @@
 #include "../go_global.h"
 
 namespace Go {
+namespace Internal {
 
 class GOSHARED_EXPORT LibraryWizardFactory final : public Core::BaseFileWizardFactory
 {
@@ -18,4 +19,5 @@ protected:
     bool postGenerateFiles(const QWizard*, const Core::GeneratedFiles& files, QString* errorMessage) const override;
 };
 
+} // Internal
 } // Go

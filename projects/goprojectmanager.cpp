@@ -5,7 +5,7 @@
 #include "../goconstants.h"
 #include "goproject.h"
 
-using namespace Go;
+using namespace Go::Internal;
 
 QString ProjectManager::mimeType() const
 {

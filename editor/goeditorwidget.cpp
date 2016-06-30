@@ -1,6 +1,6 @@
 #include "goeditorwidget.h"
 
-using namespace Go;
+using namespace Go::Internal;
 
 EditorWidget::EditorWidget()
 {

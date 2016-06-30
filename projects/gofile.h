@@ -9,6 +9,7 @@ class FileName;
 }
 
 namespace Go {
+namespace Internal {
 
 class GOSHARED_EXPORT GoFile final : public Core::IDocument
 {
@@ -17,4 +18,5 @@ public:
     ReloadBehavior reloadBehavior(ChangeTrigger, ChangeType) const override;
 };
 
+} // Internal
 } // Go

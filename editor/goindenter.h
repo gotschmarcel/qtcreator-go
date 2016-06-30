@@ -5,6 +5,7 @@
 #include "../go_global.h"
 
 namespace Go {
+namespace Internal {
 
 class GOSHARED_EXPORT Indenter final : public TextEditor::Indenter
 {
@@ -19,4 +20,5 @@ protected:
     int indentDiff(const QString& previousLine, const TextEditor::TabSettings& tabSettings) const;
 };
 
+} // Internal
 } // Go

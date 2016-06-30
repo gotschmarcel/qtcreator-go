@@ -3,7 +3,7 @@
 #include <QMap>
 #include <QStringBuilder>
 
-using namespace Go;
+using namespace Go::Internal;
 
 class CharacterStream {
 public:

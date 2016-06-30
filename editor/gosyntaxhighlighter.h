@@ -8,6 +8,7 @@
 #include "../go_global.h"
 
 namespace Go {
+namespace Internal {
 
 class Token;
 
@@ -26,4 +27,5 @@ private:
     static QMap<int, int> kCategories;
 };
 
+} // Internal
 } // Go

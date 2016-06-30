@@ -5,7 +5,7 @@
 
 #include "../goconstants.h"
 
-using namespace Go;
+using namespace Go::Internal;
 
 GoFile::GoFile(const Utils::FileName& fileName)
 {

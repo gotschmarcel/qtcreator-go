@@ -8,6 +8,7 @@
 #undef EOF
 
 namespace Go {
+namespace Internal {
 
 class Token
 {
@@ -174,4 +175,5 @@ private:
     int              _state;
 };
 
+} // Internal
 } // Go

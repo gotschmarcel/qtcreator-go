@@ -11,6 +11,7 @@ class CodeStylePageWidget;
 }
 
 namespace Go {
+namespace Internal {
 
 class CodeStylePageWidget : public QWidget
 {
@@ -38,4 +39,5 @@ private:
     CodeStylePageWidget* _widget;
 };
 
+} // Internal
 } // Go

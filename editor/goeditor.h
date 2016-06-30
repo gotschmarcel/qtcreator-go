@@ -5,6 +5,7 @@
 #include "../go_global.h"
 
 namespace Go {
+namespace Internal {
 
 class GOSHARED_EXPORT Editor final : public TextEditor::BaseTextEditor
 {
@@ -14,4 +15,5 @@ public:
     Editor();
 };
 
+} // Internal
 } // Go

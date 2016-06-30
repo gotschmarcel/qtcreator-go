@@ -5,6 +5,7 @@
 #include "../go_global.h"
 
 namespace Go {
+namespace Internal {
 
 class GOSHARED_EXPORT SourceCodeStream {
 public:
@@ -44,4 +45,5 @@ private:
     int            _anchor;
 };
 
+} // Internal
 } // Go

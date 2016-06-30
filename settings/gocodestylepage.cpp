@@ -5,7 +5,7 @@
 
 #include "../goconstants.h"
 
-using namespace Go;
+using namespace Go::Internal;
 
 CodeStylePageWidget::CodeStylePageWidget(QWidget *parent) :
     QWidget(parent),

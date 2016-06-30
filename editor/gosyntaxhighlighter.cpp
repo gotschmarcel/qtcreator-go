@@ -4,7 +4,7 @@
 
 #include "goscanner.h"
 
-using namespace Go;
+using namespace Go::Internal;
 
 static const QVector<QString> GoBuiltins = {
     // Functions

@@ -5,6 +5,7 @@
 #include "../go_global.h"
 
 namespace Go {
+namespace Internal {
 
 class GOSHARED_EXPORT ProjectManager final : public ProjectExplorer::IProjectManager
 {
@@ -15,4 +16,5 @@ public:
     ProjectExplorer::Project* openProject(const QString &fileName, QString *errorString) override;
 };
 
+} // Internal
 } // Go

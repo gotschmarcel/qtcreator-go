@@ -7,6 +7,7 @@
 namespace Utils { class FileName; }
 
 namespace Go {
+namespace Internal {
 
 class GOSHARED_EXPORT ProjectNode final : public ProjectExplorer::ProjectNode
 {
@@ -26,4 +27,5 @@ public:
     bool renameFile(const QString &, const QString &) override { return false; }
 };
 
+} // Internal
 } // Go

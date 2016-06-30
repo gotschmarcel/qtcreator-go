@@ -7,7 +7,7 @@
 #include "goprojectnode.h"
 #include "gofile.h"
 
-using namespace Go;
+using namespace Go::Internal;
 
 Project::Project(ProjectManager *manager, const QString &fileName)
     : _manager(manager),

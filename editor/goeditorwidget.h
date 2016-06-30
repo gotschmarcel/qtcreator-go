@@ -6,6 +6,7 @@
 #include "../go_global.h"
 
 namespace Go {
+namespace Internal {
 
 class GOSHARED_EXPORT EditorWidget final : public TextEditor::TextEditorWidget
 {
@@ -15,4 +16,5 @@ public:
     EditorWidget();
 };
 
+} // Internal
 } // Go

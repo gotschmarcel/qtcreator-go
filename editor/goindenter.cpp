@@ -7,7 +7,7 @@
 
 #include "goscanner.h"
 
-using namespace Go;
+using namespace Go::Internal;
 
 Indenter::Indenter()
 {

@@ -6,6 +6,7 @@ template <typename Key, typename Value>
 class QMap;
 
 namespace Go {
+namespace Internal {
 
 class TemplateRenderer
 {
@@ -19,4 +20,5 @@ private:
     QString _tpl;
 };
 
+} // Internal
 } // Go

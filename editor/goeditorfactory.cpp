@@ -12,7 +12,7 @@
 #include "gosyntaxhighlighter.h"
 #include "goindenter.h"
 
-using namespace Go;
+using namespace Go::Internal;
 
 EditorFactory::EditorFactory()
 {
