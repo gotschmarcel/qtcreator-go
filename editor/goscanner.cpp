@@ -92,7 +92,13 @@ int Scanner::state() const { return _state; }
 
 QString Scanner::value(const Token& t) const { return _source.value(t.pos, t.len).toString(); }
 
-QChar Scanner::character(const Token& t) const { return _source.value(t.pos, t.len)[0]; }
+QChar Scanner::character(const Token& t) const {
+    if (t.len == 0) {
+        return QChar();
+    }
+
+    return _source.value(t.pos, t.len)[0];
+}
 
 Token Scanner::readIdentifier() {
     QChar c = _source.peek();
