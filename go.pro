@@ -32,6 +32,7 @@ SOURCES += goplugin.cpp \
     projects/goimportwizardfactory.cpp \
     projects/golibrarywizardfactory.cpp \
     projects/gotemplaterenderer.cpp \
+    projects/goprojectnode.cpp \
     gotoolchain.cpp \
     gomessages.cpp
 
