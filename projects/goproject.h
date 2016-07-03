@@ -30,6 +30,8 @@ public:
 
     QStringList files(FilesMode) const override;
 
+    bool requiresTargetPanel() const override;
+
 private slots:
     void scheduleProjectScan();
     void populateProject();

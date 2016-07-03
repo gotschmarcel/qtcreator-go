@@ -1,5 +1,7 @@
 #include "goproject.h"
 
+#include <coreplugin/documentmanager.h>
+
 #include <QRegExp>
 
 #include "../goconstants.h"
@@ -21,8 +23,11 @@ Project::Project(ProjectManager* manager, const QString& fileName)
 
     connect(&_fsWatcher, SIGNAL(directoryChanged(QString)), SLOT(populateProject()));
 
+    setId(Constants::ProjectID);
     setDocument(new GoFile(Utils::FileName::fromString(fileName)));
     setRootProjectNode(_rootNode);
+
+    Core::DocumentManager::addDocument(document());
 }
 
 QString Project::displayName() const { return _dir.dirName(); }
@@ -32,6 +37,11 @@ ProjectExplorer::IProjectManager* Project::projectManager() const { return _mana
 ProjectExplorer::ProjectNode* Project::rootProjectNode() const { return _rootNode; }
 
 QStringList Project::files(Project::FilesMode) const { return _files.toList(); }
+
+bool Project::requiresTargetPanel() const
+{
+    return !targets().isEmpty();
+}
 
 void Project::scheduleProjectScan() {
     const auto elapsed = _lastScan.elapsed();
