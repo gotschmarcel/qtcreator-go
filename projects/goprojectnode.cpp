@@ -11,9 +11,7 @@ ProjectNode::ProjectNode(const Utils::FileName &projectFilePath)
     : ProjectExplorer::ProjectNode(projectFilePath) {}
 
 QList<ProjectExplorer::ProjectAction> ProjectNode::supportedActions(ProjectExplorer::Node*) const {
-    return {ProjectExplorer::AddExistingDirectory,
-                ProjectExplorer::AddExistingFile,
-                ProjectExplorer::AddNewFile,
+    return {ProjectExplorer::AddNewFile,
                 ProjectExplorer::RemoveFile,
                 ProjectExplorer::Rename};
 }
