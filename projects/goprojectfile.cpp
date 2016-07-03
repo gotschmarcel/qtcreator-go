@@ -1,4 +1,4 @@
-#include "gofile.h"
+#include "goprojectfile.h"
 
 #include <coreplugin/id.h>
 #include <utils/fileutils.h>
@@ -7,12 +7,12 @@
 
 using namespace Go::Internal;
 
-GoFile::GoFile(const Utils::FileName& fileName) {
+GoProjectFile::GoProjectFile(const Utils::FileName& fileName) {
     setId("Go.ProjectFile");
     setMimeType(QLatin1String(Constants::MIMEType));
     setFilePath(fileName);
 }
 
-Core::IDocument::ReloadBehavior GoFile::reloadBehavior(ChangeTrigger, ChangeType) const {
+Core::IDocument::ReloadBehavior GoProjectFile::reloadBehavior(ChangeTrigger, ChangeType) const {
     return BehaviorAsk;
 }

@@ -5,7 +5,7 @@
 #include <QRegExp>
 
 #include "../goconstants.h"
-#include "gofile.h"
+#include "goprojectfile.h"
 #include "goprojectmanager.h"
 #include "goprojectnode.h"
 
@@ -17,7 +17,7 @@ Project::Project(ProjectManager* manager, const QString& fileName) {
     setId(Constants::ProjectID);
     setProjectManager(manager);
     setRootProjectNode(new ProjectNode(Utils::FileName::fromString(_dir.dirName())));
-    setDocument(new GoFile(Utils::FileName::fromString(fileName)));
+    setDocument(new GoProjectFile(Utils::FileName::fromString(fileName)));
 
     Core::DocumentManager::addDocument(document());
 
