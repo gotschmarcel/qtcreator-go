@@ -38,10 +38,7 @@ ProjectExplorer::ProjectNode* Project::rootProjectNode() const { return _rootNod
 
 QStringList Project::files(Project::FilesMode) const { return _files.toList(); }
 
-bool Project::requiresTargetPanel() const
-{
-    return !targets().isEmpty();
-}
+bool Project::requiresTargetPanel() const { return !targets().isEmpty(); }
 
 void Project::scheduleProjectScan() {
     const auto elapsed = _lastScan.elapsed();
