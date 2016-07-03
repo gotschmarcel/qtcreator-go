@@ -5,6 +5,8 @@
 #include <QRegExp>
 
 #include "../goconstants.h"
+#include "../gotoolchain.h"
+#include "../gogeneralmessages.h"
 #include "goprojectfile.h"
 #include "goprojectmanager.h"
 #include "goprojectnode.h"
@@ -27,6 +29,10 @@ Project::Project(ProjectManager* manager, const QString& fileName) {
     populateProject();
 
     connect(&_fsWatcher, SIGNAL(directoryChanged(QString)), SLOT(populateProject()));
+
+    if (Toolchain::goPath().isEmpty()) {
+        GeneralMessages::warning() << "GOPATH not set. Autocomplete and other features will not work!";
+    }
 }
 
 QString Project::displayName() const { return _dir.dirName(); }
