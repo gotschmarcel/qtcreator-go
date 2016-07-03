@@ -25,6 +25,7 @@
 #include "projects/goprojectmanager.h"
 #include "editor/goeditorfactory.h"
 #include "settings/gocodestylepage.h"
+#include "settings/gobuildnrunsettingspage.h"
 
 using namespace Go::Internal;
 
@@ -74,6 +75,7 @@ bool GoPlugin::initialize(const QStringList &arguments, QString *errorString)
 
     // Settings
     addAutoReleasedObject(new CodeStylePage);
+    addAutoReleasedObject(new BuildNRunSettingsPage);
 
     // Register Icon:
     // This icon is displayed at the dock panel as MIME overlay.

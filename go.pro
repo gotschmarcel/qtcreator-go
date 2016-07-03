@@ -34,7 +34,8 @@ SOURCES += goplugin.cpp \
     projects/goprojectnode.cpp \
     gotoolchain.cpp \
     projects/goprojectfile.cpp \
-    gogeneralmessages.cpp
+    gogeneralmessages.cpp \
+    settings/gobuildnrunsettingspage.cpp
 
 HEADERS += goplugin.h \
         go_global.h \
@@ -56,7 +57,8 @@ HEADERS += goplugin.h \
     projects/gotemplaterenderer.h \
     gotoolchain.h \
     projects/goprojectfile.h \
-    gogeneralmessages.h
+    gogeneralmessages.h \
+    settings/gobuildnrunsettingspage.h
 
 RESOURCES += \
     go.qrc
@@ -90,4 +92,5 @@ QTC_PLUGIN_RECOMMENDS += \
 include($$QTCREATOR_SOURCES/src/qtcreatorplugin.pri)
 
 FORMS += \
-    settings/gocodestylepage.ui
+    settings/gocodestylepage.ui \
+    settings/buildnrunsettingspagewidget.ui

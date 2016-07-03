@@ -7,6 +7,7 @@ const char EditorID[]           = "Go.Editor";
 const char ProjectID[]          = "Go.Project";
 const char Icon[]               = ":/go/gopher.png";
 const char SettingsID[]         = "Go.Settings";
+const char SettingsBuildNRunID[] = "Z.GoBuildNRun";
 const char SettingsName[]       = "Go";
 const char SettingsCategory[]   = "I.Go";
 const char SettingsDisplayCategory[] = "Go";
