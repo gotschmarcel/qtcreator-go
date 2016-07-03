@@ -11,10 +11,15 @@
 
 using namespace Go::Internal;
 
-Project::Project(ProjectManager* manager, const QString& fileName)
-    : _manager(manager), _rootNode(nullptr) {
+Project::Project(ProjectManager* manager, const QString& fileName) {
     _dir = QFileInfo(fileName).dir();
-    _rootNode = new ProjectNode(Utils::FileName::fromString(_dir.dirName()));
+
+    setId(Constants::ProjectID);
+    setProjectManager(manager);
+    setRootProjectNode(new ProjectNode(Utils::FileName::fromString(_dir.dirName())));
+    setDocument(new GoFile(Utils::FileName::fromString(fileName)));
+
+    Core::DocumentManager::addDocument(document());
 
     _scanTimer.setSingleShot(true);
     connect(&_scanTimer, SIGNAL(timeout()), SLOT(populateProject()));
@@ -22,19 +27,9 @@ Project::Project(ProjectManager* manager, const QString& fileName)
     populateProject();
 
     connect(&_fsWatcher, SIGNAL(directoryChanged(QString)), SLOT(populateProject()));
-
-    setId(Constants::ProjectID);
-    setDocument(new GoFile(Utils::FileName::fromString(fileName)));
-    setRootProjectNode(_rootNode);
-
-    Core::DocumentManager::addDocument(document());
 }
 
 QString Project::displayName() const { return _dir.dirName(); }
-
-ProjectExplorer::IProjectManager* Project::projectManager() const { return _manager; }
-
-ProjectExplorer::ProjectNode* Project::rootProjectNode() const { return _rootNode; }
 
 QStringList Project::files(Project::FilesMode) const { return _files.toList(); }
 
@@ -121,7 +116,7 @@ void Project::removeNodes(const QSet<QString>& nodes) {
 }
 
 void Project::tryRemoveEmptyFolder(ProjectExplorer::FolderNode* folder) {
-    if (folder == _rootNode) {
+    if (folder == rootProjectNode()) {
         return;
     }
 
@@ -135,7 +130,7 @@ void Project::tryRemoveEmptyFolder(ProjectExplorer::FolderNode* folder) {
 }
 
 ProjectExplorer::FolderNode* Project::findFolderForRelPath(const QString& relPath) {
-    ProjectExplorer::FolderNode* folder = _rootNode;
+    ProjectExplorer::FolderNode* folder = rootProjectNode();
 
     auto segments = relPath.split(QLatin1Char('/'));
     segments.removeLast(); // Ignore the file name itself.

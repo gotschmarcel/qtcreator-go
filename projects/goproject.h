@@ -25,8 +25,6 @@ public:
 
     Project(ProjectManager* manager, const QString& fileName);
     QString displayName() const override;
-    ProjectExplorer::IProjectManager* projectManager() const override;
-    ProjectExplorer::ProjectNode* rootProjectNode() const override;
 
     QStringList files(FilesMode) const override;
 
@@ -37,9 +35,6 @@ private slots:
     void populateProject();
 
 private:
-    ProjectManager* _manager;
-    ProjectNode* _rootNode;
-
     QDir _dir;
     QSet<QString> _files;
     QFileSystemWatcher _fsWatcher;
