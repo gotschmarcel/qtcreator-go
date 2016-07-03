@@ -7,7 +7,7 @@ namespace Internal {
 
 class Toolchain {
 public:
-    static QDir goPath();
+    static QString goPath();
 };
 
 }
