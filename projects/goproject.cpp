@@ -118,6 +118,8 @@ void Project::removeNodes(const QSet<QString>& nodes) {
 
             folder->removeFileNodes({file});
         }
+
+        tryRemoveEmptyFolder(folder);
     }
 }
 
