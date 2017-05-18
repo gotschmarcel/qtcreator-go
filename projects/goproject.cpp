@@ -78,15 +78,12 @@ void Project::populateProject() {
 }
 
 void Project::recursiveScanDirectory(const QDir& dir, QSet<QString>& container) {
-    QRegExp projectFilePattern(QLatin1String(".*\\") + QLatin1String(Constants::ProjectFileExt) +
-                               QLatin1String("(?:\\.user)?$"));
-
     for (const auto& info : dir.entryInfoList(QDir::AllDirs | QDir::Files | QDir::NoDotAndDotDot |
                                               QDir::NoSymLinks | QDir::CaseSensitive)) {
 
         if (info.isDir()) {
             recursiveScanDirectory(info.filePath(), container);
-        } else if (projectFilePattern.indexIn(info.fileName()) == -1) {
+        } else if (info.suffix() == Constants::FileExt) {
             container << info.filePath();
         }
     }
