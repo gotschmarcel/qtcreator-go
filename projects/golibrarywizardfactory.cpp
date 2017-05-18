@@ -83,7 +83,7 @@ Core::GeneratedFiles LibraryWizardFactory::generateFiles(const QWizard* widget,
 
     // Create the main.go file from the template.
     const QString mainFilePath =
-        projectDir.filePath(page->fileName().toLower() + QLatin1String(Constants::FileExt));
+        projectDir.filePath(page->fileName().toLower() + QLatin1String(".") + QLatin1String(Constants::FileExt));
     Core::GeneratedFile mainFile(mainFilePath);
     mainFile.setContents(renderer.render({{QLatin1String("package_name"), packageName}}));
     mainFile.setAttributes(Core::GeneratedFile::OpenEditorAttribute);
