@@ -6,6 +6,6 @@
     \"Copyright\" : \"(C) Marcel Gotsch\",
     \"License\" : \"BSD\",
     \"Description\" : \"Go language plugin\",
-    \"Url\" : \"http://www.mycompany.com\",
+    \"Url\" : \"https://github.com/gotschmarcel/qtcreator-go\",
     $$dependencyList
 }
