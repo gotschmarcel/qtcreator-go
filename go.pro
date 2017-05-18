@@ -77,6 +77,7 @@ RESOURCES += \
 
 QTC_PLUGIN_NAME = Go
 QTC_LIB_DEPENDS += \
+    utils
     # nothing here at this time
 
 QTC_PLUGIN_DEPENDS += \
