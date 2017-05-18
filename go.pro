@@ -69,7 +69,8 @@ RESOURCES += \
 ##    "%LOCALAPPDATA%\QtProject\qtcreator" on Windows Vista and later
 ##    "$XDG_DATA_HOME/data/QtProject/qtcreator" or "~/.local/share/data/QtProject/qtcreator" on Linux
 ##    "~/Library/Application Support/QtProject/Qt Creator" on OS X
-# USE_USER_DESTDIR = yes
+#USE_USER_DESTDIR = yes
+isEqual(USE_USER_DESTDIR, yes): message("Installing plugin into user directory")
 
 ###### If the plugin can be depended upon by other plugins, this code needs to be outsourced to
 ###### <dirname>_dependencies.pri, where <dirname> is the name of the directory containing the
