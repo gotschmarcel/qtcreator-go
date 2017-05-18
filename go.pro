@@ -1,7 +1,12 @@
 # Qt Creator linking
-
-isEmpty(QTC_SOURCE): error(Set QTC_SOURCE to the QtCreator source code path)
-isEmpty(QTC_BUILD): error(Set QTC_BUILD to the QtCreator build path)
+isEmpty(QTC_SOURCE): QTC_SOURCE = $$PWD/qt-creator
+isEmpty(QTC_BUILD) {
+    CONFIG(debug, debug|release) {
+        QTC_BUILD = $$PWD/build/debug/qt-creator
+    } else {
+        QTC_BUILD = $$PWD/build/release/qt-creator
+    }
+}
 
 message("QtCreator sources @ $$QTC_SOURCE")
 message("QtCreator build @ $$QTC_BUILD")
