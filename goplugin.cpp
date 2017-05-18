@@ -19,6 +19,7 @@
 
 #include <QtPlugin>
 
+#include "gotoolmanager.h"
 #include "projects/goimportwizardfactory.h"
 #include "projects/goapplicationwizardfactory.h"
 #include "projects/golibrarywizardfactory.h"
@@ -72,6 +73,9 @@ bool GoPlugin::initialize(const QStringList &arguments, QString *errorString)
                 << new ApplicationWizardFactory
                 << new LibraryWizardFactory;
     });
+
+    // Auto-detect Go tools.
+    GoToolManager::instance().autoDetectTools();
 
     // Settings
     addAutoReleasedObject(new CodeStylePage);

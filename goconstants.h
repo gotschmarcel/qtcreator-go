@@ -22,7 +22,7 @@ const char FileExt[]            = ".go";
 
 const char GoPathEnvName[]      = "GOPATH";
 const char GoRootEnvName[]      = "GOROOT";
-const char GoRootDefault[]      = "/usr/local/go";
+const char GoExecName[]         = "go";
 
 const char MessagePrefix[]      = "[Go Plugin] ";
 

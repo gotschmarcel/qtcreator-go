@@ -40,7 +40,9 @@ SOURCES += goplugin.cpp \
     gotoolchain.cpp \
     projects/goprojectfile.cpp \
     gogeneralmessages.cpp \
-    settings/gobuildnrunsettingspage.cpp
+    settings/gobuildnrunsettingspage.cpp \
+    gotoolmanager.cpp \
+    gotool.cpp
 
 HEADERS += goplugin.h \
         go_global.h \
@@ -63,7 +65,9 @@ HEADERS += goplugin.h \
     gotoolchain.h \
     projects/goprojectfile.h \
     gogeneralmessages.h \
-    settings/gobuildnrunsettingspage.h
+    settings/gobuildnrunsettingspage.h \
+    gotoolmanager.h \
+    gotool.h
 
 RESOURCES += \
     go.qrc
