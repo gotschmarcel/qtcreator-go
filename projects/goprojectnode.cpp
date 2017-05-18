@@ -8,7 +8,9 @@
 using namespace Go::Internal;
 
 ProjectNode::ProjectNode(const Utils::FileName& projectFilePath)
-    : ProjectExplorer::ProjectNode(projectFilePath) {}
+    : ProjectExplorer::ProjectNode(projectFilePath) {
+    setDisplayName(QDir(projectFilePath.toString()).dirName());
+}
 
 QList<ProjectExplorer::ProjectAction> ProjectNode::supportedActions(ProjectExplorer::Node* node) const {
     if (node->nodeType() == ProjectExplorer::ProjectNodeType) {
