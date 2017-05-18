@@ -15,12 +15,13 @@ class GOSHARED_EXPORT ProjectNode final : public ProjectExplorer::ProjectNode {
 public:
     ProjectNode(const Utils::FileName& projectFilePath);
 
-    QList<ProjectExplorer::ProjectAction> supportedActions(Node*) const override;
+    QList<ProjectExplorer::ProjectAction> supportedActions(Node*node) const override;
 
-    bool addFiles(const QStringList&, QStringList* = nullptr) override;
-    bool removeFiles(const QStringList&, QStringList* = nullptr) override;
-    bool deleteFiles(const QStringList&) override;
-    bool renameFile(const QString&, const QString&) override;
+    bool addFiles(const QStringList &filePaths, QStringList *notAdded = 0) override;
+    bool removeFiles(const QStringList &filePaths, QStringList *notRemoved = 0) override;
+    bool deleteFiles(const QStringList &filePaths) override;
+    bool canRenameFile(const QString &filePath, const QString &newFilePath) override;
+    bool renameFile(const QString &filePath, const QString &newFilePath) override;
 };
 
 } // Internal
