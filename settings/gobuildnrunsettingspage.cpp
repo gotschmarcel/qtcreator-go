@@ -11,17 +11,14 @@
 
 using namespace Go::Internal;
 
+static const QString defaultToolName(QLatin1String("Go"));
+
 //
 // BuildNRunSettingsPageWidget
 //
 
 BuildNRunSettingsPageWidget::BuildNRunSettingsPageWidget() {
     _ui.setupUi(this);
-
-    connect(_ui.addButton, SIGNAL(clicked(bool)), SLOT(addTool()));
-    connect(_ui.cloneButton, SIGNAL(clicked(bool)), SLOT(cloneTool()));
-    connect(_ui.removeButton, SIGNAL(clicked(bool)), SLOT(removeTool()));
-    connect(_ui.makeDefaultButton, SIGNAL(clicked(bool)), SLOT(makeDefaultTool()));
 
     // Hide details view initially.
     _ui.details->setVisible(false);
@@ -44,11 +41,20 @@ BuildNRunSettingsPageWidget::BuildNRunSettingsPageWidget() {
     header->setSectionResizeMode(0, QHeaderView::ResizeToContents);
     header->setSectionResizeMode(1, QHeaderView::ResizeToContents);
 
+    // Setup connections.
+    connect(_ui.addButton, SIGNAL(clicked(bool)), SLOT(addTool()));
+    connect(_ui.cloneButton, SIGNAL(clicked(bool)), SLOT(cloneTool()));
+    connect(_ui.removeButton, SIGNAL(clicked(bool)), SLOT(removeTool()));
+    connect(_ui.makeDefaultButton, SIGNAL(clicked(bool)), SLOT(makeDefaultTool()));
     connect(_ui.treeView->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), SLOT(showDetails(QModelIndex)));
+    connect(_ui.nameEdit, SIGNAL(textEdited(QString)), SLOT(updateName(QString)));
+    connect(_ui.goRootChooser, SIGNAL(rawPathChanged(QString)), SLOT(updateGoRoot(QString)));
+    connect(_ui.goPathChooser, SIGNAL(rawPathChanged(QString)), SLOT(updateGoPath(QString)));
 }
 
 void BuildNRunSettingsPageWidget::addTool() {
     // TODO: Implement.
+
 }
 
 void BuildNRunSettingsPageWidget::cloneTool() {
@@ -68,12 +74,42 @@ void BuildNRunSettingsPageWidget::showDetails(const QModelIndex& index) {
     // TODO: Implement.
 }
 
-QStandardItem*BuildNRunSettingsPageWidget::autoDetectItem() {
+void BuildNRunSettingsPageWidget::updateName(const QString& name)
+{
+    auto item = selectedItem();
+    QTC_ASSERT(item, return);
+    item->setText(name);
+}
+
+void BuildNRunSettingsPageWidget::updateGoRoot(const QString& goRoot)
+{
+
+}
+
+void BuildNRunSettingsPageWidget::updateGoPath(const QString& goPath)
+{
+
+}
+
+QStandardItem*BuildNRunSettingsPageWidget::autoDetectItem() const {
     return _model.item(0);
 }
 
-QStandardItem*BuildNRunSettingsPageWidget::manualItem() {
+QStandardItem*BuildNRunSettingsPageWidget::manualItem() const {
     return _model.item(1);
+}
+
+QStandardItem*BuildNRunSettingsPageWidget::selectedItem() const
+{
+    const auto& selectedIndexes = _ui.treeView->selectionModel()->selectedIndexes();
+    if (selectedIndexes.length() == 0) {
+        return nullptr;
+    }
+
+    // Always use the first selection index,
+    // since the tree view is set up to use single selection!
+    const auto& index = selectedIndexes.at(0);
+    return _model.item(index.row(), index.column());
 }
 
 //
@@ -86,7 +122,7 @@ BuildNRunSettingsPage::BuildNRunSettingsPage(QWidget* parent)
     setDisplayName(tr("Go"));
     setCategory(ProjectExplorer::Constants::PROJECTEXPLORER_SETTINGS_CATEGORY);
     setDisplayCategory(QCoreApplication::translate("ProjectExplorer", ProjectExplorer::Constants::PROJECTEXPLORER_SETTINGS_TR_CATEGORY));
-    setCategoryIcon(QLatin1String(ProjectExplorer::Constants::PROJECTEXPLORER_SETTINGS_CATEGORY_ICON));
+    setCategoryIcon(Utils::Icon(QLatin1String(ProjectExplorer::Constants::PROJECTEXPLORER_SETTINGS_CATEGORY_ICON)));
 }
 
 QWidget* BuildNRunSettingsPage::widget() {

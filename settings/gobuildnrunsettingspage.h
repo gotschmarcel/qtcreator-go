@@ -22,10 +22,14 @@ private slots:
     void removeTool();
     void makeDefaultTool();
     void showDetails(const QModelIndex& index);
+    void updateName(const QString& name);
+    void updateGoRoot(const QString& goRoot);
+    void updateGoPath(const QString& goPath);
 
 private:
-    QStandardItem* autoDetectItem();
-    QStandardItem* manualItem();
+    QStandardItem* autoDetectItem() const;
+    QStandardItem* manualItem() const;
+    QStandardItem* selectedItem() const;
 
     Ui::BuildNRunSettingsPageWidget _ui;
     QStandardItemModel _model;
