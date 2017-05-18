@@ -97,7 +97,7 @@ QChar Scanner::character(const Token& t) const {
         return QChar();
     }
 
-    return _source.value(t.pos, t.len)[0];
+    return _source.value(t.pos, t.len).at(0);
 }
 
 Token Scanner::readIdentifier() {
