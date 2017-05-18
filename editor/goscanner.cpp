@@ -122,11 +122,7 @@ Token Scanner::readMultiLineComment() {
 
     QChar c = _source.peek();
 
-    while (c != QLatin1Char('*') && _source.peek(1) != QLatin1Char('/')) {
-        if (c == QLatin1Char('\\')) {
-            _source.advance();
-        }
-
+    while (c != QLatin1Char('*') || _source.peek(1) != QLatin1Char('/')) {
         _source.advance();
 
         if (_source.atEnd()) {
@@ -136,14 +132,13 @@ Token Scanner::readMultiLineComment() {
         c = _source.peek();
     }
 
-    _source.advance(); // Eat *
-
-    if (c == QLatin1Char('/')) {
+    if (!_source.atEnd() && c == QLatin1Char('*')) {
+        _source.advance(); // Eat *
         _source.advance(); // Eat '/'
         clearState();
     }
 
-    return {Token::STRING, _source.anchor(), _source.len()};
+    return {Token::COMMENT, _source.anchor(), _source.len()};
 }
 
 Token Scanner::readLineComment() {
