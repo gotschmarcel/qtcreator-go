@@ -1,6 +1,7 @@
 #include "goproject.h"
 
 #include <coreplugin/documentmanager.h>
+#include <coreplugin/icontext.h>
 
 #include <QRegExp>
 
@@ -17,6 +18,7 @@ Project::Project(ProjectManager* manager, const QString& fileName) {
     _dir = QFileInfo(fileName).dir();
 
     setId(Constants::ProjectID);
+    setProjectContext(Core::Context(Constants::ProjectContext));
     setProjectManager(manager);
     setRootProjectNode(new ProjectNode(Utils::FileName::fromString(_dir.dirName())));
     setDocument(new GoProjectFile(Utils::FileName::fromString(fileName)));

@@ -26,5 +26,7 @@ const char GoExecName[]         = "go";
 
 const char MessagePrefix[]      = "[Go Plugin] ";
 
+const char ProjectContext[]     = "GoProjectContext";
+
 } // namespace Go
 } // namespace Constants
