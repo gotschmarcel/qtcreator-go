@@ -21,7 +21,7 @@ CodeStylePage::CodeStylePage(QWidget* parent) : Core::IOptionsPage(parent), _wid
     setDisplayName(QCoreApplication::translate("Go.Settings", "Code Style"));
     setCategory(Constants::SettingsCategory);
     setDisplayCategory(QLatin1String(Constants::SettingsDisplayCategory));
-    setCategoryIcon(QLatin1String(Constants::Icon));
+    setCategoryIcon(Utils::Icon(QLatin1String(Constants::Icon)));
 }
 
 QWidget* CodeStylePage::widget() {
