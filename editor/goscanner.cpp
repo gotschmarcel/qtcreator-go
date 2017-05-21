@@ -34,55 +34,66 @@ static const QMap<QString, Token::Kind> GoKeywords{
 
 static const QString GoOperators(QLatin1String("+-*/%&|^<>=!;:.,()[]{}"));
 
-inline static bool isLetter(const QChar& c) { return c.isLetter() || c == QLatin1Char('_'); }
+inline static bool isLetter(const QChar &c) { return c.isLetter() || c == QLatin1Char('_'); }
 
-inline static bool isDecimalDigit(const QChar& c) {
+inline static bool isDecimalDigit(const QChar &c)
+{
     return c >= QLatin1Char('0') && c <= QLatin1Char('9');
 }
 
-inline static bool isOctalDigit(const QChar& c) {
+inline static bool isOctalDigit(const QChar &c)
+{
     return c >= QLatin1Char('0') && c <= QLatin1Char('7');
 }
 
-inline static bool isHexDigit(const QChar& c) {
-    return c.isDigit() || (c >= QLatin1Char('a') && c <= QLatin1Char('f')) ||
-           (c >= QLatin1Char('A') && c <= QLatin1Char('F'));
+inline static bool isHexDigit(const QChar &c)
+{
+    return c.isDigit() || (c >= QLatin1Char('a') && c <= QLatin1Char('f'))
+           || (c >= QLatin1Char('A') && c <= QLatin1Char('F'));
 }
 
-inline static bool isNumberLiteral(const QChar& c1, const QChar& c2) {
-    return c1.isDigit() ||
-           (c1 == QLatin1Char('.') && (c2.isDigit() || c2 == QLatin1Char('e') ||
-                                       c2 == QLatin1Char('E') || c2 == QLatin1Char('i')));
+inline static bool isNumberLiteral(const QChar &c1, const QChar &c2)
+{
+    return c1.isDigit()
+           || (c1 == QLatin1Char('.')
+               && (c2.isDigit() || c2 == QLatin1Char('e') || c2 == QLatin1Char('E')
+                   || c2 == QLatin1Char('i')));
 }
 
-inline static bool isHexLiteral(const QChar& c1, const QChar& c2) {
+inline static bool isHexLiteral(const QChar &c1, const QChar &c2)
+{
     return c1 == QLatin1Char('0') && (c2 == QLatin1Char('x') || c2 == QLatin1Char('X'));
 }
 
-inline static bool isExponent(const QChar& c) {
+inline static bool isExponent(const QChar &c)
+{
     return c == QLatin1Char('e') || c == QLatin1Char('E');
 }
 
-Scanner::Scanner(const QString& text) : _source(text), _line(0), _indent(0), _state(Default) {}
+Scanner::Scanner(const QString &text)
+    : _source(text)
+    , _line(0)
+    , _indent(0)
+    , _state(Default)
+{
+}
 
-Token Scanner::read() {
+Token Scanner::read()
+{
     if (_source.atEnd()) {
         return {Token::EOF, _source.pos(), 0};
     }
 
     switch (_state) {
-    case MultiLineString:
-        return readMultiLineStringLiteral();
-    case MultiLineComment:
-        return readMultiLineComment();
-    default:
-        return readDefaultState();
+    case MultiLineString: return readMultiLineStringLiteral();
+    case MultiLineComment: return readMultiLineComment();
+    default: return readDefaultState();
     }
 }
 
 int Scanner::line() const { return _line; }
 
-int Scanner::column(const Token& t) const { return t.pos; }
+int Scanner::column(const Token &t) const { return t.pos; }
 
 int Scanner::indent() const { return _indent; }
 
@@ -90,9 +101,10 @@ void Scanner::setState(int state) { _state = state; }
 
 int Scanner::state() const { return _state; }
 
-QString Scanner::value(const Token& t) const { return _source.value(t.pos, t.len).toString(); }
+QString Scanner::value(const Token &t) const { return _source.value(t.pos, t.len).toString(); }
 
-QChar Scanner::character(const Token& t) const {
+QChar Scanner::character(const Token &t) const
+{
     if (t.len == 0) {
         return QChar();
     }
@@ -100,7 +112,8 @@ QChar Scanner::character(const Token& t) const {
     return _source.value(t.pos, t.len).at(0);
 }
 
-Token Scanner::readIdentifier() {
+Token Scanner::readIdentifier()
+{
     QChar c = _source.peek();
 
     while (isLetter(c) || c.isDigit()) {
@@ -117,7 +130,8 @@ Token Scanner::readIdentifier() {
     return {Token::IDENT, _source.anchor(), _source.len()};
 }
 
-Token Scanner::readMultiLineComment() {
+Token Scanner::readMultiLineComment()
+{
     _state = MultiLineComment;
 
     QChar c = _source.peek();
@@ -141,7 +155,8 @@ Token Scanner::readMultiLineComment() {
     return {Token::COMMENT, _source.anchor(), _source.len()};
 }
 
-Token Scanner::readLineComment() {
+Token Scanner::readLineComment()
+{
     QChar c = _source.peek();
 
     while (c != QLatin1Char('\n')) {
@@ -159,7 +174,8 @@ Token Scanner::readLineComment() {
     return {Token::COMMENT, _source.anchor(), _source.len()};
 }
 
-Token Scanner::readOperator() {
+Token Scanner::readOperator()
+{
     const QChar c1 = _source.peek();
     _source.advance(); // Eat beginning
 
@@ -458,7 +474,8 @@ Token Scanner::readOperator() {
     return {}; // Prevent compiler warning.
 }
 
-Token Scanner::readMultiLineStringLiteral() {
+Token Scanner::readMultiLineStringLiteral()
+{
     _state = MultiLineString;
 
     QChar c = _source.peek();
@@ -485,7 +502,8 @@ Token Scanner::readMultiLineStringLiteral() {
     return {Token::STRING, _source.anchor(), _source.len()};
 }
 
-Token Scanner::readStringLiteral() {
+Token Scanner::readStringLiteral()
+{
     QChar c = _source.peek();
 
     while (c != QLatin1Char('"')) {
@@ -507,7 +525,8 @@ Token Scanner::readStringLiteral() {
     return {Token::STRING, _source.anchor(), _source.len()};
 }
 
-Token Scanner::readCharLiteral() {
+Token Scanner::readCharLiteral()
+{
     QChar c = _source.peek();
 
     while (c != QLatin1Char('\'')) {
@@ -529,8 +548,14 @@ Token Scanner::readCharLiteral() {
     return {Token::STRING, _source.anchor(), _source.len()};
 }
 
-Token Scanner::readNumberLiteral() {
-    enum NumberState { NS_INT, NS_FRACT, NS_EXP };
+Token Scanner::readNumberLiteral()
+{
+    enum NumberState
+    {
+        NS_INT,
+        NS_FRACT,
+        NS_EXP
+    };
 
     auto state = NS_INT;
     auto intDigitCheck = isDecimalDigit;
@@ -607,7 +632,8 @@ Token Scanner::readNumberLiteral() {
     return {(state == NS_INT ? Token::INT : Token::FLOAT), _source.anchor(), _source.len()};
 }
 
-Token Scanner::readDefaultState() {
+Token Scanner::readDefaultState()
+{
     // Skip any whitespace.
     while (_source.peek().isSpace()) {
         _source.advance();

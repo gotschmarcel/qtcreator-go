@@ -11,17 +11,19 @@ using namespace Go::Internal;
 
 Indenter::Indenter() {}
 
-bool Indenter::isElectricCharacter(const QChar& ch) const {
+bool Indenter::isElectricCharacter(const QChar &ch) const
+{
     return ch == QLatin1Char('{') || ch == QLatin1Char('(') || ch == QLatin1Char('[');
 }
 
-int Indenter::indentFor(const QTextBlock& block, const TextEditor::TabSettings& tabSettings) {
-    const auto& previousBlock = block.previous();
+int Indenter::indentFor(const QTextBlock &block, const TextEditor::TabSettings &tabSettings)
+{
+    const auto &previousBlock = block.previous();
     if (!previousBlock.isValid()) {
         return 0;
     }
 
-    const auto& previousLine = previousBlock.text();
+    const auto &previousLine = previousBlock.text();
     int indentation = tabSettings.indentationColumn(previousLine);
 
     if (isElectricLine(previousLine)) {
@@ -33,7 +35,8 @@ int Indenter::indentFor(const QTextBlock& block, const TextEditor::TabSettings& 
     return indentation;
 }
 
-bool Indenter::isElectricLine(const QString& previousLine) const {
+bool Indenter::isElectricLine(const QString &previousLine) const
+{
     if (previousLine.isEmpty()) {
         return false;
     }
@@ -52,38 +55,34 @@ bool Indenter::isElectricLine(const QString& previousLine) const {
     return isElectricCharacter(scanner.character(lastToken));
 }
 
-int Indenter::indentDiff(const QString& previousLine,
-                         const TextEditor::TabSettings& tabSettings) const {
+int Indenter::indentDiff(const QString &previousLine,
+                         const TextEditor::TabSettings &tabSettings) const
+{
     Scanner scanner(previousLine);
     int parens = 0;
     Token lastToken;
 
     for (Token t = scanner.read(); t.kind != Token::EOF; t = scanner.read()) {
         switch (t.kind) {
-        case Token::COMMENT:
-            continue;
+        case Token::COMMENT: continue;
 
         case Token::LPAREN:
         case Token::LBRACK:
-        case Token::LBRACE:
-            ++parens;
-            break;
+        case Token::LBRACE: ++parens; break;
 
         case Token::RPAREN:
         case Token::RBRACK:
-        case Token::RBRACE:
-            --parens;
-            break;
+        case Token::RBRACE: --parens; break;
 
-        default:
-            break;
+        default: break;
         }
 
         lastToken = t;
     }
 
-    if (parens != 0 && (lastToken.kind == Token::RPAREN || lastToken.kind == Token::RBRACK ||
-                        lastToken.kind == Token::RBRACE)) {
+    if (parens != 0
+        && (lastToken.kind == Token::RPAREN || lastToken.kind == Token::RBRACK
+            || lastToken.kind == Token::RBRACE)) {
         return -tabSettings.m_indentSize;
     }
 

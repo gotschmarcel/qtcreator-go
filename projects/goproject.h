@@ -17,13 +17,14 @@ namespace Internal {
 class ProjectManager;
 class ProjectNode;
 
-class GOSHARED_EXPORT Project final : public ProjectExplorer::Project {
+class GOSHARED_EXPORT Project final : public ProjectExplorer::Project
+{
     Q_OBJECT
 
 public:
     static const int kMinTimeBetweenScans = 4500;
 
-    Project(ProjectManager* manager, const QString& fileName);
+    Project(ProjectManager *manager, const QString &fileName);
     QString displayName() const override;
 
     QStringList files(FilesMode) const override;
@@ -42,13 +43,13 @@ private:
     QElapsedTimer _lastScan;
     QTimer _scanTimer;
 
-    void recursiveScanDirectory(const QDir& dir, QSet<QString>& container);
-    void addNodes(const QSet<QString>& nodes);
-    void removeNodes(const QSet<QString>& nodes);
-    void tryRemoveEmptyFolder(ProjectExplorer::FolderNode* folder);
+    void recursiveScanDirectory(const QDir &dir, QSet<QString> &container);
+    void addNodes(const QSet<QString> &nodes);
+    void removeNodes(const QSet<QString> &nodes);
+    void tryRemoveEmptyFolder(ProjectExplorer::FolderNode *folder);
 
-    ProjectExplorer::FolderNode* findFolderForRelPath(const QString& relPath);
+    ProjectExplorer::FolderNode *findFolderForRelPath(const QString &relPath);
 };
 
-} // Internal
-} // Go
+} // namespace Internal
+} // namespace Go

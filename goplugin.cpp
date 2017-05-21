@@ -1,32 +1,32 @@
 #include "goplugin.h"
 #include "goconstants.h"
 
-#include <coreplugin/icore.h>
-#include <coreplugin/icontext.h>
+#include <coreplugin/actionmanager/actioncontainer.h>
 #include <coreplugin/actionmanager/actionmanager.h>
 #include <coreplugin/actionmanager/command.h>
-#include <coreplugin/actionmanager/actioncontainer.h>
 #include <coreplugin/coreconstants.h>
 #include <coreplugin/fileiconprovider.h>
+#include <coreplugin/icontext.h>
+#include <coreplugin/icore.h>
 
+#include <texteditor/codestylepool.h>
+#include <texteditor/simplecodestylepreferences.h>
+#include <texteditor/tabsettings.h>
 #include <texteditor/texteditor.h>
 #include <texteditor/texteditorsettings.h>
-#include <texteditor/simplecodestylepreferences.h>
-#include <texteditor/codestylepool.h>
-#include <texteditor/tabsettings.h>
 
 #include <utils/mimetypes/mimedatabase.h>
 
 #include <QtPlugin>
 
+#include "editor/goeditorfactory.h"
 #include "gotoolmanager.h"
-#include "projects/goimportwizardfactory.h"
 #include "projects/goapplicationwizardfactory.h"
+#include "projects/goimportwizardfactory.h"
 #include "projects/golibrarywizardfactory.h"
 #include "projects/goprojectmanager.h"
-#include "editor/goeditorfactory.h"
-#include "settings/gocodestylepage.h"
 #include "settings/gobuildnrunsettingspage.h"
+#include "settings/gocodestylepage.h"
 
 using namespace Go::Internal;
 
@@ -57,8 +57,8 @@ bool GoPlugin::initialize(const QStringList &arguments, QString *errorString)
     Q_UNUSED(errorString)
 
     Utils::MimeDatabase::addMimeTypes(QLatin1String(":/go/mimetypes.xml"));
-    TextEditor::TextEditorSettings::registerMimeTypeForLanguageId(
-                Constants::MIMEType, Constants::SettingsID);
+    TextEditor::TextEditorSettings::registerMimeTypeForLanguageId(Constants::MIMEType,
+                                                                  Constants::SettingsID);
 
     //
 
@@ -68,10 +68,9 @@ bool GoPlugin::initialize(const QStringList &arguments, QString *errorString)
 
     // Project Wizards
     Core::IWizardFactory::registerFactoryCreator([]() {
-        return QList<Core::IWizardFactory*>()
-                << new ImportWizardFactory
-                << new ApplicationWizardFactory
-                << new LibraryWizardFactory;
+        return QList<Core::IWizardFactory *>()
+               << new ImportWizardFactory << new ApplicationWizardFactory
+               << new LibraryWizardFactory;
     });
 
     // Auto-detect Go tools.

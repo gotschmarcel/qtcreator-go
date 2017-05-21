@@ -5,10 +5,11 @@
 namespace Go {
 namespace Internal {
 
-class Toolchain {
+class Toolchain
+{
 public:
     static QString goPath();
 };
 
-}
-}
+} // namespace Internal
+} // namespace Go

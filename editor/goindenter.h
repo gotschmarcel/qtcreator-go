@@ -7,17 +7,18 @@
 namespace Go {
 namespace Internal {
 
-class GOSHARED_EXPORT Indenter final : public TextEditor::Indenter {
+class GOSHARED_EXPORT Indenter final : public TextEditor::Indenter
+{
 public:
     Indenter();
 
-    bool isElectricCharacter(const QChar& ch) const override;
-    int indentFor(const QTextBlock& block, const TextEditor::TabSettings& tabSettings) override;
+    bool isElectricCharacter(const QChar &ch) const override;
+    int indentFor(const QTextBlock &block, const TextEditor::TabSettings &tabSettings) override;
 
 protected:
-    bool isElectricLine(const QString& previousLine) const;
-    int indentDiff(const QString& previousLine, const TextEditor::TabSettings& tabSettings) const;
+    bool isElectricLine(const QString &previousLine) const;
+    int indentDiff(const QString &previousLine, const TextEditor::TabSettings &tabSettings) const;
 };
 
-} // Internal
-} // Go
+} // namespace Internal
+} // namespace Go

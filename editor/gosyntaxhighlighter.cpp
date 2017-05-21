@@ -8,52 +8,35 @@ using namespace Go::Internal;
 
 static const QVector<QString> GoBuiltins = {
     // Functions
-    QLatin1String("cap"),
-    QLatin1String("len"),
-    QLatin1String("make"),
-    QLatin1String("new"),
-    QLatin1String("close"),
-    QLatin1String("append"),
-    QLatin1String("delete"),
-    QLatin1String("copy"),
-    QLatin1String("complex"),
-    QLatin1String("real"),
-    QLatin1String("imag"),
-    QLatin1String("panic"),
+    QLatin1String("cap"), QLatin1String("len"), QLatin1String("make"), QLatin1String("new"),
+    QLatin1String("close"), QLatin1String("append"), QLatin1String("delete"), QLatin1String("copy"),
+    QLatin1String("complex"), QLatin1String("real"), QLatin1String("imag"), QLatin1String("panic"),
     QLatin1String("recover"),
 
     // Misc.
     QLatin1String("iota"),
 
     // Types
-    QLatin1String("uint8"),
-    QLatin1String("uint16"),
-    QLatin1String("uint32"),
+    QLatin1String("uint8"), QLatin1String("uint16"), QLatin1String("uint32"),
     QLatin1String("uint64"),
 
-    QLatin1String("int8"),
-    QLatin1String("int16"),
-    QLatin1String("int32"),
-    QLatin1String("int64"),
+    QLatin1String("int8"), QLatin1String("int16"), QLatin1String("int32"), QLatin1String("int64"),
 
-    QLatin1String("float32"),
-    QLatin1String("float64"),
+    QLatin1String("float32"), QLatin1String("float64"),
 
-    QLatin1String("complex64"),
-    QLatin1String("complex128"),
+    QLatin1String("complex64"), QLatin1String("complex128"),
 
-    QLatin1String("byte"),
-    QLatin1String("rune"),
+    QLatin1String("byte"), QLatin1String("rune"),
 
-    QLatin1String("int"),
-    QLatin1String("uint"),
+    QLatin1String("int"), QLatin1String("uint"),
 
     QLatin1String("uintptr"),
 
     QLatin1String("bool")};
 
-SyntaxHighlighter::SyntaxHighlighter(QTextDocument* parent)
-    : TextEditor::SyntaxHighlighter(parent) {
+SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent)
+    : TextEditor::SyntaxHighlighter(parent)
+{
     static QVector<TextEditor::TextStyle> categories;
 
     if (categories.isEmpty()) {
@@ -71,7 +54,8 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument* parent)
     setTextFormatCategories(categories);
 }
 
-void SyntaxHighlighter::highlightBlock(const QString& text) {
+void SyntaxHighlighter::highlightBlock(const QString &text)
+{
     int state = previousBlockState();
     if (state == -1) {
         state = 0;
@@ -80,7 +64,8 @@ void SyntaxHighlighter::highlightBlock(const QString& text) {
     setCurrentBlockState(highlightLine(text, state));
 }
 
-int SyntaxHighlighter::highlightLine(const QString& text, int state) {
+int SyntaxHighlighter::highlightLine(const QString &text, int state)
+{
     Scanner scanner(text);
     scanner.setState(state);
 
@@ -92,7 +77,8 @@ int SyntaxHighlighter::highlightLine(const QString& text, int state) {
     return scanner.state();
 }
 
-QTextCharFormat SyntaxHighlighter::formatForToken(const Token& token, const QString& val) {
+QTextCharFormat SyntaxHighlighter::formatForToken(const Token &token, const QString &val)
+{
     using namespace TextEditor;
 
     TextStyle style;
@@ -126,24 +112,16 @@ QTextCharFormat SyntaxHighlighter::formatForToken(const Token& token, const QStr
     case Token::STRUCT:
     case Token::SWITCH:
     case Token::TYPE:
-    case Token::VAR:
-        style = C_KEYWORD;
-        break;
+    case Token::VAR: style = C_KEYWORD; break;
 
-    case Token::COMMENT:
-        style = C_COMMENT;
-        break;
+    case Token::COMMENT: style = C_COMMENT; break;
 
     case Token::INT:
     case Token::FLOAT:
-    case Token::IMAG:
-        style = C_NUMBER;
-        break;
+    case Token::IMAG: style = C_NUMBER; break;
 
     case Token::CHAR:
-    case Token::STRING:
-        style = C_STRING;
-        break;
+    case Token::STRING: style = C_STRING; break;
 
     case Token::ADD:
     case Token::SUB:
@@ -187,13 +165,9 @@ QTextCharFormat SyntaxHighlighter::formatForToken(const Token& token, const QStr
     case Token::SHL_ASSIGN:
     case Token::SHR_ASSIGN:
     case Token::AND_NOT_ASSIGN:
-    case Token::ELLIPSIS:
-        style = C_OPERATOR;
-        break;
+    case Token::ELLIPSIS: style = C_OPERATOR; break;
 
-    case Token::ILLEGAL:
-        style = C_ERROR;
-        break;
+    case Token::ILLEGAL: style = C_ERROR; break;
 
     case Token::COMMA:
     case Token::SEMICOLON:
@@ -205,9 +179,7 @@ QTextCharFormat SyntaxHighlighter::formatForToken(const Token& token, const QStr
             break;
         }
 
-    default:
-        style = C_TEXT;
-        break;
+    default: style = C_TEXT; break;
     }
 
     return formatForCategory(kCategories[style]);

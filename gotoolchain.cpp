@@ -6,6 +6,7 @@
 
 using namespace Go::Internal;
 
-QString Toolchain::goPath() {
+QString Toolchain::goPath()
+{
     return QProcessEnvironment::systemEnvironment().value(QLatin1String(Constants::GoPathEnvName));
 }

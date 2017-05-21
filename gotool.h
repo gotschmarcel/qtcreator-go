@@ -11,10 +11,14 @@ namespace Internal {
 class GOSHARED_EXPORT GoTool
 {
 public:
-    enum class Detection { AUTO, MANUAL };
+    enum class Detection
+    {
+        AUTO,
+        MANUAL
+    };
 
-    explicit GoTool(const Detection& detection, const Utils::FileName& executablePath);
-    explicit GoTool(const Detection& detection);
+    explicit GoTool(const Detection &detection, const Utils::FileName &executablePath);
+    explicit GoTool(const Detection &detection);
 
     bool isAutodetected() const;
     Core::Id id() const;
@@ -23,10 +27,10 @@ public:
 private:
     Q_DISABLE_COPY(GoTool)
 
-    Detection       _detection;
+    Detection _detection;
     Utils::FileName _executablePath;
-    Core::Id        _id;
+    Core::Id _id;
 };
 
-} // Internal
-} // Go
+} // namespace Internal
+} // namespace Go

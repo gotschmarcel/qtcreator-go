@@ -11,11 +11,12 @@ class FileName;
 namespace Go {
 namespace Internal {
 
-class GOSHARED_EXPORT ProjectNode final : public ProjectExplorer::ProjectNode {
+class GOSHARED_EXPORT ProjectNode final : public ProjectExplorer::ProjectNode
+{
 public:
-    ProjectNode(const Utils::FileName& projectFilePath);
+    ProjectNode(const Utils::FileName &projectFilePath);
 
-    QList<ProjectExplorer::ProjectAction> supportedActions(Node*node) const override;
+    QList<ProjectExplorer::ProjectAction> supportedActions(Node *node) const override;
 
     bool addFiles(const QStringList &filePaths, QStringList *notAdded = 0) override;
     bool removeFiles(const QStringList &filePaths, QStringList *notRemoved = 0) override;
@@ -24,5 +25,5 @@ public:
     bool renameFile(const QString &filePath, const QString &newFilePath) override;
 };
 
-} // Internal
-} // Go
+} // namespace Internal
+} // namespace Go

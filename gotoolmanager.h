@@ -1,7 +1,7 @@
 #pragma once
 
-#include <QObject>
 #include <QList>
+#include <QObject>
 
 #include "go_global.h"
 
@@ -14,18 +14,18 @@ class GOSHARED_EXPORT GoToolManager : public QObject
 {
     Q_OBJECT
 public:
-    static GoToolManager& instance();
+    static GoToolManager &instance();
 
-    void autoDetectTools(const QStringList& additionalLocations = QStringList());
-    const QList<GoTool*>& tools() const;
+    void autoDetectTools(const QStringList &additionalLocations = QStringList());
+    const QList<GoTool *> &tools() const;
 
 private:
     Q_DISABLE_COPY(GoToolManager)
     explicit GoToolManager();
     ~GoToolManager();
 
-    QList<GoTool*> _tools;
+    QList<GoTool *> _tools;
 };
 
-} // Internal
-} // Go
+} // namespace Internal
+} // namespace Go

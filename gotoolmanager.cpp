@@ -10,7 +10,7 @@
 
 using namespace Go::Internal;
 
-void GoToolManager::autoDetectTools(const QStringList& additionalLocations)
+void GoToolManager::autoDetectTools(const QStringList &additionalLocations)
 {
     Utils::FileNameList suspects;
 
@@ -19,7 +19,7 @@ void GoToolManager::autoDetectTools(const QStringList& additionalLocations)
 
     // Check GOROOT
     if (env.hasKey(QLatin1String(Constants::GoRootEnvName))) {
-        const QString& goRoot = env.value(QLatin1String(Constants::GoRootEnvName));
+        const QString &goRoot = env.value(QLatin1String(Constants::GoRootEnvName));
         path.append(goRoot);
     } else {
         path.append(Constants::DefaultGoRoot);
@@ -41,7 +41,7 @@ void GoToolManager::autoDetectTools(const QStringList& additionalLocations)
             p += slash;
         }
 
-        for (const auto& e : execs) {
+        for (const auto &e : execs) {
             QFileInfo info(p + e);
 
             if (info.exists() && info.isFile() && info.isExecutable()) {
@@ -50,26 +50,20 @@ void GoToolManager::autoDetectTools(const QStringList& additionalLocations)
         }
     }
 
-    for (const auto& exe : suspects) {
+    for (const auto &exe : suspects) {
         _tools << new GoTool(GoTool::Detection::AUTO, exe);
     }
 }
 
-const QList<GoTool*>& GoToolManager::tools() const
-{
-    return _tools;
-}
+const QList<GoTool *> &GoToolManager::tools() const { return _tools; }
 
-GoToolManager& GoToolManager::instance()
+GoToolManager &GoToolManager::instance()
 {
     static GoToolManager m;
     return m;
 }
 
-GoToolManager::GoToolManager()
-{
-
-}
+GoToolManager::GoToolManager() {}
 
 GoToolManager::~GoToolManager()
 {

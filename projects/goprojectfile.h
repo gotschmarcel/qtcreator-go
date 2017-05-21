@@ -11,11 +11,12 @@ class FileName;
 namespace Go {
 namespace Internal {
 
-class GOSHARED_EXPORT GoProjectFile final : public Core::IDocument {
+class GOSHARED_EXPORT GoProjectFile final : public Core::IDocument
+{
 public:
-    GoProjectFile(const Utils::FileName& fileName);
+    GoProjectFile(const Utils::FileName &fileName);
     ReloadBehavior reloadBehavior(ChangeTrigger, ChangeType) const override;
 };
 
-} // Internal
-} // Go
+} // namespace Internal
+} // namespace Go

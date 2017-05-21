@@ -7,12 +7,14 @@
 
 using namespace Go::Internal;
 
-GoProjectFile::GoProjectFile(const Utils::FileName& fileName) {
+GoProjectFile::GoProjectFile(const Utils::FileName &fileName)
+{
     setId("Go.ProjectFile");
     setMimeType(QLatin1String(Constants::MIMEType));
     setFilePath(fileName);
 }
 
-Core::IDocument::ReloadBehavior GoProjectFile::reloadBehavior(ChangeTrigger, ChangeType) const {
+Core::IDocument::ReloadBehavior GoProjectFile::reloadBehavior(ChangeTrigger, ChangeType) const
+{
     return BehaviorAsk;
 }

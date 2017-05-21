@@ -4,13 +4,14 @@
 
 #include <coreplugin/dialogs/ioptionspage.h>
 
-#include "ui_buildnrunsettingspagewidget.h"
 #include "../go_global.h"
+#include "ui_buildnrunsettingspagewidget.h"
 
 namespace Go {
 namespace Internal {
 
-class GOSHARED_EXPORT BuildNRunSettingsPageWidget final : public QWidget {
+class GOSHARED_EXPORT BuildNRunSettingsPageWidget final : public QWidget
+{
     Q_OBJECT
 
 public:
@@ -21,33 +22,34 @@ private slots:
     void cloneTool();
     void removeTool();
     void makeDefaultTool();
-    void showDetails(const QModelIndex& index);
-    void updateName(const QString& name);
-    void updateGoRoot(const QString& goRoot);
-    void updateGoPath(const QString& goPath);
+    void showDetails(const QModelIndex &index);
+    void updateName(const QString &name);
+    void updateGoRoot(const QString &goRoot);
+    void updateGoPath(const QString &goPath);
 
 private:
-    QStandardItem* autoDetectItem() const;
-    QStandardItem* manualItem() const;
-    QStandardItem* selectedItem() const;
+    QStandardItem *autoDetectItem() const;
+    QStandardItem *manualItem() const;
+    QStandardItem *selectedItem() const;
 
     Ui::BuildNRunSettingsPageWidget _ui;
     QStandardItemModel _model;
 };
 
-class GOSHARED_EXPORT BuildNRunSettingsPage final : public Core::IOptionsPage {
+class GOSHARED_EXPORT BuildNRunSettingsPage final : public Core::IOptionsPage
+{
     Q_OBJECT
 
 public:
-    explicit BuildNRunSettingsPage(QWidget* parent = nullptr);
+    explicit BuildNRunSettingsPage(QWidget *parent = nullptr);
 
-    QWidget* widget() override;
+    QWidget *widget() override;
     void apply() override;
     void finish() override;
 
 private:
-    BuildNRunSettingsPageWidget* _widget = nullptr;
+    BuildNRunSettingsPageWidget *_widget = nullptr;
 };
 
-} // Internal
-} // Go
+} // namespace Internal
+} // namespace Go

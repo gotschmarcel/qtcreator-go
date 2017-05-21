@@ -3,10 +3,7 @@
 
 using namespace Go::Internal;
 
-GeneralMessages::Stream GeneralMessages::append()
-{
-    return Stream() << Constants::MessagePrefix;
-}
+GeneralMessages::Stream GeneralMessages::append() { return Stream() << Constants::MessagePrefix; }
 
 GeneralMessages::Stream GeneralMessages::warning()
 {

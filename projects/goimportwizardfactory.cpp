@@ -13,7 +13,8 @@
 
 using namespace Go::Internal;
 
-ImportWizardFactory::ImportWizardFactory() {
+ImportWizardFactory::ImportWizardFactory()
+{
     setSupportedProjectTypes({Constants::ProjectID});
 
     setDisplayName(tr("Import Existing Go Project"));
@@ -25,12 +26,13 @@ ImportWizardFactory::ImportWizardFactory() {
     setIcon(QIcon(QLatin1String(Constants::Icon)));
 }
 
-Core::BaseFileWizard*
-ImportWizardFactory::create(QWidget* parent, const Core::WizardDialogParameters& parameters) const {
-    Core::BaseFileWizard* wizard = new Core::BaseFileWizard(this, parameters.extraValues(), parent);
+Core::BaseFileWizard *
+ImportWizardFactory::create(QWidget *parent, const Core::WizardDialogParameters &parameters) const
+{
+    Core::BaseFileWizard *wizard = new Core::BaseFileWizard(this, parameters.extraValues(), parent);
     wizard->setWindowTitle(displayName());
 
-    Utils::FileWizardPage* page = new Utils::FileWizardPage;
+    Utils::FileWizardPage *page = new Utils::FileWizardPage;
     page->setPath(parameters.defaultPath());
     wizard->addPage(page);
 
@@ -41,15 +43,16 @@ ImportWizardFactory::create(QWidget* parent, const Core::WizardDialogParameters&
     return wizard;
 }
 
-Core::GeneratedFiles ImportWizardFactory::generateFiles(const QWizard* widget, QString*) const {
-    const auto wizard = qobject_cast<const Core::BaseFileWizard*>(widget);
+Core::GeneratedFiles ImportWizardFactory::generateFiles(const QWizard *widget, QString *) const
+{
+    const auto wizard = qobject_cast<const Core::BaseFileWizard *>(widget);
     const auto page = wizard->find<Utils::FileWizardPage>();
 
     const QDir projectDir(page->path());
     const QString projectName(page->fileName());
-    const QString projectFilePath =
-        QFileInfo(projectDir, projectName + QLatin1String(Constants::ProjectFileExt))
-            .absoluteFilePath();
+    const QString projectFilePath
+        = QFileInfo(projectDir, projectName + QLatin1String(Constants::ProjectFileExt))
+              .absoluteFilePath();
 
     Core::GeneratedFile projectFile(projectFilePath);
     projectFile.setContents(QLatin1String("# Go Project\n"));
@@ -58,8 +61,8 @@ Core::GeneratedFiles ImportWizardFactory::generateFiles(const QWizard* widget, Q
     return {projectFile};
 }
 
-bool ImportWizardFactory::postGenerateFiles(const QWizard*,
-                                            const Core::GeneratedFiles& files,
-                                            QString* errorMessage) const {
+bool ImportWizardFactory::postGenerateFiles(const QWizard *, const Core::GeneratedFiles &files,
+                                            QString *errorMessage) const
+{
     return ProjectExplorer::CustomProjectWizard::postGenerateOpen(files, errorMessage);
 }

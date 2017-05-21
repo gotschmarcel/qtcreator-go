@@ -13,30 +13,32 @@ class CodeStylePageWidget;
 namespace Go {
 namespace Internal {
 
-class CodeStylePageWidget : public QWidget {
+class CodeStylePageWidget : public QWidget
+{
     Q_OBJECT
 
 public:
-    explicit CodeStylePageWidget(QWidget* parent = 0);
+    explicit CodeStylePageWidget(QWidget *parent = 0);
     ~CodeStylePageWidget();
 
 private:
-    Ui::CodeStylePageWidget* _ui;
+    Ui::CodeStylePageWidget *_ui;
 };
 
-class GOSHARED_EXPORT CodeStylePage final : public Core::IOptionsPage {
+class GOSHARED_EXPORT CodeStylePage final : public Core::IOptionsPage
+{
     Q_OBJECT
 
 public:
-    explicit CodeStylePage(QWidget* parent = nullptr);
+    explicit CodeStylePage(QWidget *parent = nullptr);
 
-    QWidget* widget() override;
+    QWidget *widget() override;
     void apply() override;
     void finish() override;
 
 private:
-    CodeStylePageWidget* _widget;
+    CodeStylePageWidget *_widget;
 };
 
-} // Internal
-} // Go
+} // namespace Internal
+} // namespace Go

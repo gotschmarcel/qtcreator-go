@@ -5,11 +5,17 @@
 
 using namespace Go::Internal;
 
-class CharacterStream {
+class CharacterStream
+{
 public:
-    explicit CharacterStream(const QString& string) : _s(string), _pos(0) {}
+    explicit CharacterStream(const QString &string)
+        : _s(string)
+        , _pos(0)
+    {
+    }
 
-    QChar peek(const int offset = 0) const {
+    QChar peek(const int offset = 0) const
+    {
         const int pos = _pos + offset;
 
         if (pos >= _s.length()) {
@@ -23,16 +29,24 @@ public:
     bool atEnd() const { return _pos >= _s.length(); }
 
 private:
-    const QString& _s;
+    const QString &_s;
     int _pos;
 };
 
-TemplateRenderer::TemplateRenderer(const QString&& tpl) : _tpl(std::move(tpl)) {}
+TemplateRenderer::TemplateRenderer(const QString &&tpl)
+    : _tpl(std::move(tpl))
+{
+}
 
-void TemplateRenderer::setTemplate(const QString&& tpl) { _tpl = std::move(tpl); }
+void TemplateRenderer::setTemplate(const QString &&tpl) { _tpl = std::move(tpl); }
 
-QString TemplateRenderer::render(const QMap<QString, QString>&& locals) const {
-    enum State { S_COPY, S_PARSE_NAME };
+QString TemplateRenderer::render(const QMap<QString, QString> &&locals) const
+{
+    enum State
+    {
+        S_COPY,
+        S_PARSE_NAME
+    };
 
     QString result;
     CharacterStream stream(_tpl);
@@ -69,7 +83,7 @@ QString TemplateRenderer::render(const QMap<QString, QString>&& locals) const {
             }
 
             // Ignore non existing value placeholder.
-            const QString& trimmed = name.trimmed();
+            const QString &trimmed = name.trimmed();
 
             if (!locals.contains(trimmed)) {
                 state = S_COPY;

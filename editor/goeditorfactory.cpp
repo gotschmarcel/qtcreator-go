@@ -14,7 +14,8 @@
 
 using namespace Go::Internal;
 
-EditorFactory::EditorFactory() {
+EditorFactory::EditorFactory()
+{
     setId(Constants::EditorID);
     setDisplayName(qApp->translate("OpenWith::Editors", Constants::EditorDisplayName));
     addMimeType(Constants::MIMEType);
@@ -43,8 +44,8 @@ EditorFactory::EditorFactory() {
 
     //    addHoverHandler(new HoverHandler);
 
-    setEditorActionHandlers(TextEditor::TextEditorActionHandler::Format |
-                            TextEditor::TextEditorActionHandler::UnCommentSelection |
-                            TextEditor::TextEditorActionHandler::UnCollapseAll |
-                            TextEditor::TextEditorActionHandler::FollowSymbolUnderCursor);
+    setEditorActionHandlers(TextEditor::TextEditorActionHandler::Format
+                            | TextEditor::TextEditorActionHandler::UnCommentSelection
+                            | TextEditor::TextEditorActionHandler::UnCollapseAll
+                            | TextEditor::TextEditorActionHandler::FollowSymbolUnderCursor);
 }

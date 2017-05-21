@@ -8,12 +8,13 @@
 namespace Go {
 namespace Internal {
 
-class GOSHARED_EXPORT EditorWidget final : public TextEditor::TextEditorWidget {
+class GOSHARED_EXPORT EditorWidget final : public TextEditor::TextEditorWidget
+{
     Q_OBJECT
 
 public:
     EditorWidget();
 };
 
-} // Internal
-} // Go
+} // namespace Internal
+} // namespace Go

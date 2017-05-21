@@ -4,12 +4,12 @@
 #include <QWidget>
 
 #include <coreplugin/icore.h>
-#include <utils/qtcassert.h>
 #include <projectexplorer/projectexplorerconstants.h>
+#include <utils/qtcassert.h>
 
 #include "../goconstants.h"
-#include "../gotoolmanager.h"
 #include "../gotool.h"
+#include "../gotoolmanager.h"
 
 using namespace Go::Internal;
 
@@ -19,7 +19,8 @@ static const QString defaultToolName(QLatin1String("Go"));
 // BuildNRunSettingsPageWidget
 //
 
-BuildNRunSettingsPageWidget::BuildNRunSettingsPageWidget() {
+BuildNRunSettingsPageWidget::BuildNRunSettingsPageWidget()
+{
     _ui.setupUi(this);
 
     // Hide details view initially.
@@ -27,7 +28,8 @@ BuildNRunSettingsPageWidget::BuildNRunSettingsPageWidget() {
 
     // Setup table model.
     _model.setColumnCount(3);
-    _model.setHorizontalHeaderLabels({QLatin1String("Name"), QLatin1String("Root"), QLatin1String("Path")});
+    _model.setHorizontalHeaderLabels(
+        {QLatin1String("Name"), QLatin1String("Root"), QLatin1String("Path")});
     _model.insertRow(0, new QStandardItem(QLatin1String("Auto-detected")));
     _model.insertRow(1, new QStandardItem(QLatin1String("Manual")));
 
@@ -48,12 +50,13 @@ BuildNRunSettingsPageWidget::BuildNRunSettingsPageWidget() {
     connect(_ui.cloneButton, SIGNAL(clicked(bool)), SLOT(cloneTool()));
     connect(_ui.removeButton, SIGNAL(clicked(bool)), SLOT(removeTool()));
     connect(_ui.makeDefaultButton, SIGNAL(clicked(bool)), SLOT(makeDefaultTool()));
-    connect(_ui.treeView->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), SLOT(showDetails(QModelIndex)));
+    connect(_ui.treeView->selectionModel(), SIGNAL(currentChanged(QModelIndex, QModelIndex)),
+            SLOT(showDetails(QModelIndex)));
     connect(_ui.nameEdit, SIGNAL(textEdited(QString)), SLOT(updateName(QString)));
     connect(_ui.goRootChooser, SIGNAL(rawPathChanged(QString)), SLOT(updateGoRoot(QString)));
     connect(_ui.goPathChooser, SIGNAL(rawPathChanged(QString)), SLOT(updateGoPath(QString)));
 
-    for (const auto& tool : GoToolManager::instance().tools()) {
+    for (const auto &tool : GoToolManager::instance().tools()) {
         if (tool->isAutodetected()) {
             auto item = new QStandardItem(tool->executablePath().toString());
             _model.item(0)->appendRow(item);
@@ -61,63 +64,57 @@ BuildNRunSettingsPageWidget::BuildNRunSettingsPageWidget() {
     }
 }
 
-void BuildNRunSettingsPageWidget::addTool() {
-    // TODO: Implement.
-
-}
-
-void BuildNRunSettingsPageWidget::cloneTool() {
+void BuildNRunSettingsPageWidget::addTool()
+{
     // TODO: Implement.
 }
 
-void BuildNRunSettingsPageWidget::removeTool() {
+void BuildNRunSettingsPageWidget::cloneTool()
+{
     // TODO: Implement.
 }
 
-void BuildNRunSettingsPageWidget::makeDefaultTool() {
+void BuildNRunSettingsPageWidget::removeTool()
+{
     // TODO: Implement.
 }
 
-void BuildNRunSettingsPageWidget::showDetails(const QModelIndex& index) {
+void BuildNRunSettingsPageWidget::makeDefaultTool()
+{
+    // TODO: Implement.
+}
+
+void BuildNRunSettingsPageWidget::showDetails(const QModelIndex &index)
+{
     Q_UNUSED(index);
     // TODO: Implement.
 }
 
-void BuildNRunSettingsPageWidget::updateName(const QString& name)
+void BuildNRunSettingsPageWidget::updateName(const QString &name)
 {
     auto item = selectedItem();
-    QTC_ASSERT(item, return);
+    QTC_ASSERT(item, return );
     item->setText(name);
 }
 
-void BuildNRunSettingsPageWidget::updateGoRoot(const QString& goRoot)
+void BuildNRunSettingsPageWidget::updateGoRoot(const QString &goRoot) {}
+
+void BuildNRunSettingsPageWidget::updateGoPath(const QString &goPath) {}
+
+QStandardItem *BuildNRunSettingsPageWidget::autoDetectItem() const { return _model.item(0); }
+
+QStandardItem *BuildNRunSettingsPageWidget::manualItem() const { return _model.item(1); }
+
+QStandardItem *BuildNRunSettingsPageWidget::selectedItem() const
 {
-
-}
-
-void BuildNRunSettingsPageWidget::updateGoPath(const QString& goPath)
-{
-
-}
-
-QStandardItem*BuildNRunSettingsPageWidget::autoDetectItem() const {
-    return _model.item(0);
-}
-
-QStandardItem*BuildNRunSettingsPageWidget::manualItem() const {
-    return _model.item(1);
-}
-
-QStandardItem*BuildNRunSettingsPageWidget::selectedItem() const
-{
-    const auto& selectedIndexes = _ui.treeView->selectionModel()->selectedIndexes();
+    const auto &selectedIndexes = _ui.treeView->selectionModel()->selectedIndexes();
     if (selectedIndexes.length() == 0) {
         return nullptr;
     }
 
     // Always use the first selection index,
     // since the tree view is set up to use single selection!
-    const auto& index = selectedIndexes.at(0);
+    const auto &index = selectedIndexes.at(0);
     return _model.item(index.row(), index.column());
 }
 
@@ -125,16 +122,20 @@ QStandardItem*BuildNRunSettingsPageWidget::selectedItem() const
 // BuildNRunSettingsPage
 //
 
-BuildNRunSettingsPage::BuildNRunSettingsPage(QWidget* parent)
-    : IOptionsPage(parent) {
+BuildNRunSettingsPage::BuildNRunSettingsPage(QWidget *parent)
+    : IOptionsPage(parent)
+{
     setId(Constants::SettingsBuildNRunID);
     setDisplayName(tr("Go"));
     setCategory(ProjectExplorer::Constants::PROJECTEXPLORER_SETTINGS_CATEGORY);
-    setDisplayCategory(QCoreApplication::translate("ProjectExplorer", ProjectExplorer::Constants::PROJECTEXPLORER_SETTINGS_TR_CATEGORY));
-    setCategoryIcon(Utils::Icon(QLatin1String(ProjectExplorer::Constants::PROJECTEXPLORER_SETTINGS_CATEGORY_ICON)));
+    setDisplayCategory(QCoreApplication::translate(
+        "ProjectExplorer", ProjectExplorer::Constants::PROJECTEXPLORER_SETTINGS_TR_CATEGORY));
+    setCategoryIcon(Utils::Icon(
+        QLatin1String(ProjectExplorer::Constants::PROJECTEXPLORER_SETTINGS_CATEGORY_ICON)));
 }
 
-QWidget* BuildNRunSettingsPage::widget() {
+QWidget *BuildNRunSettingsPage::widget()
+{
     if (!_widget) {
         _widget = new BuildNRunSettingsPageWidget;
     }
@@ -142,12 +143,14 @@ QWidget* BuildNRunSettingsPage::widget() {
     return _widget;
 }
 
-void BuildNRunSettingsPage::apply() {
-    QTC_ASSERT(_widget, return);
+void BuildNRunSettingsPage::apply()
+{
+    QTC_ASSERT(_widget, return );
     // TODO: Apply
 }
 
-void BuildNRunSettingsPage::finish() {
+void BuildNRunSettingsPage::finish()
+{
     delete _widget;
     _widget = nullptr;
 }

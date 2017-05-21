@@ -12,19 +12,20 @@ namespace Internal {
 
 class Token;
 
-class GOSHARED_EXPORT SyntaxHighlighter final : public TextEditor::SyntaxHighlighter {
+class GOSHARED_EXPORT SyntaxHighlighter final : public TextEditor::SyntaxHighlighter
+{
 public:
-    SyntaxHighlighter(QTextDocument* parent = 0);
+    SyntaxHighlighter(QTextDocument *parent = 0);
 
 protected:
-    void highlightBlock(const QString& text) override;
+    void highlightBlock(const QString &text) override;
 
 private:
-    int highlightLine(const QString& text, int state);
-    QTextCharFormat formatForToken(const Token& token, const QString& val);
+    int highlightLine(const QString &text, int state);
+    QTextCharFormat formatForToken(const Token &token, const QString &val);
 
     static QMap<int, int> kCategories;
 };
 
-} // Internal
-} // Go
+} // namespace Internal
+} // namespace Go
