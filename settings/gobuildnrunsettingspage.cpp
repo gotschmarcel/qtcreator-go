@@ -8,6 +8,8 @@
 #include <projectexplorer/projectexplorerconstants.h>
 
 #include "../goconstants.h"
+#include "../gotoolmanager.h"
+#include "../gotool.h"
 
 using namespace Go::Internal;
 
@@ -50,6 +52,13 @@ BuildNRunSettingsPageWidget::BuildNRunSettingsPageWidget() {
     connect(_ui.nameEdit, SIGNAL(textEdited(QString)), SLOT(updateName(QString)));
     connect(_ui.goRootChooser, SIGNAL(rawPathChanged(QString)), SLOT(updateGoRoot(QString)));
     connect(_ui.goPathChooser, SIGNAL(rawPathChanged(QString)), SLOT(updateGoPath(QString)));
+
+    for (const auto& tool : GoToolManager::instance().tools()) {
+        if (tool->isAutodetected()) {
+            auto item = new QStandardItem(tool->executablePath().toString());
+            _model.item(0)->appendRow(item);
+        }
+    }
 }
 
 void BuildNRunSettingsPageWidget::addTool() {

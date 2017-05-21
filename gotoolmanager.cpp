@@ -55,6 +55,11 @@ void GoToolManager::autoDetectTools(const QStringList& additionalLocations)
     }
 }
 
+const QList<GoTool*>& GoToolManager::tools() const
+{
+    return _tools;
+}
+
 GoToolManager& GoToolManager::instance()
 {
     static GoToolManager m;

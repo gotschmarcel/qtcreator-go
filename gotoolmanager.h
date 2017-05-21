@@ -17,6 +17,7 @@ public:
     static GoToolManager& instance();
 
     void autoDetectTools(const QStringList& additionalLocations = QStringList());
+    const QList<GoTool*>& tools() const;
 
 private:
     Q_DISABLE_COPY(GoToolManager)
