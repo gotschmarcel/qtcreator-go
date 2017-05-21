@@ -10,14 +10,6 @@
 
 using namespace Go::Internal;
 
-#if defined(Q_OS_WIN32)
-static const QString defaultGoRoot = QLatin1String("C:\\go\\bin");
-#elif defined(Q_OS_MAC) || defined(Q_OS_LINUX)
-static const QString defaultGoRoot = QLatin1String("/usr/local/go/bin");
-#else
-#error "Unsupported OS"
-#endif
-
 void GoToolManager::autoDetectTools(const QStringList& additionalLocations)
 {
     Utils::FileNameList suspects;
@@ -30,7 +22,7 @@ void GoToolManager::autoDetectTools(const QStringList& additionalLocations)
         const QString& goRoot = env.value(QLatin1String(Constants::GoRootEnvName));
         path.append(goRoot);
     } else {
-        path.append(defaultGoRoot);
+        path.append(Constants::DefaultGoRoot);
     }
 
     path.append(additionalLocations);

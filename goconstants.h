@@ -28,5 +28,14 @@ const char MessagePrefix[]      = "[Go Plugin] ";
 
 const char ProjectContext[]     = "GoProjectContext";
 
+// Toolchain
+#if defined(Q_OS_WIN32)
+static const QString DefaultGoRoot(QLatin1String("C:\\go\\bin"));
+#elif defined(Q_OS_MAC) || defined(Q_OS_LINUX)
+static const QString DefaultGoRoot(QLatin1String("/usr/local/go/bin"));
+#else
+#error "Unsupported OS"
+#endif
+
 } // namespace Go
 } // namespace Constants
