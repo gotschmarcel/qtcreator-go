@@ -14,6 +14,7 @@ More features like code completion, go to definition and more are coming in the 
 ### Requirements
 
 - Qt 5.6 (other versions not tested)
+- QtCreator 4.4.x
 
 ### Instructions (\*NIX)
 
