@@ -17,25 +17,11 @@ More features like code completion, go to definition and more are coming in the 
 
 ### Instructions (\*NIX)
 
-After cloning into this repository, you need to checkout the Qt Creator source code using:
+The following instructions guide you through the process of building the plugin All instructions are run from the project root.
+Create the build directory.
 
 ```sh
-$ git submodule update --init --recursive
-```
-
-Create the Qt Creator build output directory
-
-```sh
-$ mkdir -p build/release/qt-creator
-$ cd build/release/qt-creator
-```
-
-Build Qt Creator
-
-```sh
-$ qmake ../../../qt-creator/qt-creator.pro -spec <spec> CONFIG+=release CONFIG+=x86_64
-$ make qmake_all
-$ make
+$ mkdir <PROJECT_ROOT>/build
 ```
 
 Build the plugin

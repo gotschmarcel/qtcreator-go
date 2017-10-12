@@ -16,7 +16,7 @@ class GOSHARED_EXPORT ProjectNode final : public ProjectExplorer::ProjectNode
 public:
     ProjectNode(const Utils::FileName &projectFilePath);
 
-    QList<ProjectExplorer::ProjectAction> supportedActions(Node *node) const override;
+    bool supportsAction(ProjectExplorer::ProjectAction action, ProjectExplorer::Node *node) const override;
 
     bool addFiles(const QStringList &filePaths, QStringList *notAdded = 0) override;
     bool removeFiles(const QStringList &filePaths, QStringList *notRemoved = 0) override;

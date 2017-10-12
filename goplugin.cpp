@@ -15,6 +15,8 @@
 #include <texteditor/texteditor.h>
 #include <texteditor/texteditorsettings.h>
 
+#include <projectexplorer/projectmanager.h>
+
 #include <utils/mimetypes/mimedatabase.h>
 
 #include <QtPlugin>
@@ -24,7 +26,7 @@
 #include "projects/goapplicationwizardfactory.h"
 #include "projects/goimportwizardfactory.h"
 #include "projects/golibrarywizardfactory.h"
-#include "projects/goprojectmanager.h"
+#include "projects/goproject.h"
 #include "settings/gobuildnrunsettingspage.h"
 #include "settings/gocodestylepage.h"
 
@@ -56,7 +58,6 @@ bool GoPlugin::initialize(const QStringList &arguments, QString *errorString)
     Q_UNUSED(arguments)
     Q_UNUSED(errorString)
 
-    Utils::MimeDatabase::addMimeTypes(QLatin1String(":/go/mimetypes.xml"));
     TextEditor::TextEditorSettings::registerMimeTypeForLanguageId(Constants::MIMEType,
                                                                   Constants::SettingsID);
 
@@ -64,7 +65,7 @@ bool GoPlugin::initialize(const QStringList &arguments, QString *errorString)
 
     addAutoReleasedObject(new EditorFactory);
 
-    addAutoReleasedObject(new ProjectManager);
+    ProjectExplorer::ProjectManager::registerProjectType<Project>(Constants::ProjectMIMEType);
 
     // Project Wizards
     Core::IWizardFactory::registerFactoryCreator([]() {

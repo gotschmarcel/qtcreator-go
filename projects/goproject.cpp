@@ -9,20 +9,17 @@
 #include "../gogeneralmessages.h"
 #include "../gotoolchain.h"
 #include "goprojectfile.h"
-#include "goprojectmanager.h"
 #include "goprojectnode.h"
 
 using namespace Go::Internal;
 
-Project::Project(ProjectManager *manager, const QString &fileName)
+Project::Project(const Utils::FileName& fileName)
+    : ProjectExplorer::Project(Constants::ProjectMIMEType, fileName)
 {
-    _dir = QFileInfo(fileName).dir();
+    _dir = QFileInfo(fileName.toString()).dir();
 
     setId(Constants::ProjectID);
-    setProjectContext(Core::Context(Constants::ProjectContext));
-    setProjectManager(manager);
     setRootProjectNode(new ProjectNode(Utils::FileName::fromString(_dir.dirName())));
-    setDocument(new GoProjectFile(Utils::FileName::fromString(fileName)));
 
     Core::DocumentManager::addDocument(document());
 
@@ -38,10 +35,6 @@ Project::Project(ProjectManager *manager, const QString &fileName)
             << "GOPATH not set. Autocomplete and other features will not work!";
     }
 }
-
-QString Project::displayName() const { return _dir.dirName(); }
-
-QStringList Project::files(Project::FilesMode) const { return _files.toList(); }
 
 bool Project::requiresTargetPanel() const { return !targets().isEmpty(); }
 
@@ -100,11 +93,8 @@ void Project::addNodes(const QSet<QString> &nodes)
 {
     for (const auto &node : nodes) {
         const auto info = QFileInfo(_dir.relativeFilePath(node));
-
         auto folder = findFolderForRelPath(info.filePath());
-        folder->addFileNodes(QList<ProjectExplorer::FileNode *>()
-                             << new ProjectExplorer::FileNode(Utils::FileName::fromString(node),
-                                                              ProjectExplorer::SourceType, false));
+        folder->addNestedNode(new ProjectExplorer::FileNode{Utils::FileName::fromString(node), ProjectExplorer::FileType::Source, false});
     }
 }
 
@@ -120,7 +110,7 @@ void Project::removeNodes(const QSet<QString> &nodes)
                 continue;
             }
 
-            folder->removeFileNodes({file});
+            folder->removeNode(file);
         }
 
         tryRemoveEmptyFolder(folder);
@@ -134,11 +124,11 @@ void Project::tryRemoveEmptyFolder(ProjectExplorer::FolderNode *folder)
     }
 
     auto parent = folder->parentFolderNode();
-    if (!parent || !folder->fileNodes().empty() || !folder->subFolderNodes().empty()) {
+    if (!parent || !folder->fileNodes().empty() || !folder->folderNodes().empty()) {
         return;
     }
 
-    parent->removeFolderNodes({folder});
+    parent->removeNode(folder);
     tryRemoveEmptyFolder(parent);
 }
 
@@ -152,7 +142,7 @@ ProjectExplorer::FolderNode *Project::findFolderForRelPath(const QString &relPat
     for (const auto &segment : segments) {
         bool found = false;
 
-        for (auto subFolder : folder->subFolderNodes()) {
+        for (auto subFolder : folder->folderNodes()) {
             if (subFolder->displayName() != segment) {
                 continue;
             }
@@ -165,7 +155,7 @@ ProjectExplorer::FolderNode *Project::findFolderForRelPath(const QString &relPat
 
         if (!found) {
             auto newFolder = new ProjectExplorer::FolderNode(Utils::FileName::fromString(segment));
-            folder->addFolderNodes({newFolder});
+            folder->addNode(newFolder);
             folder = newFolder;
         }
     }

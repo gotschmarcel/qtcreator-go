@@ -13,25 +13,22 @@ ProjectNode::ProjectNode(const Utils::FileName &projectFilePath)
     setDisplayName(QDir(projectFilePath.toString()).dirName());
 }
 
-QList<ProjectExplorer::ProjectAction>
-ProjectNode::supportedActions(ProjectExplorer::Node *node) const
+bool ProjectNode::supportsAction(ProjectExplorer::ProjectAction action, ProjectExplorer::Node* node) const
 {
-    if (node->nodeType() == ProjectExplorer::ProjectNodeType) {
-        return {ProjectExplorer::AddNewFile, ProjectExplorer::AddExistingFile,
-                ProjectExplorer::AddExistingDirectory};
+    switch (node->nodeType()) {
+    case ProjectExplorer::NodeType::Project:
+    case ProjectExplorer::NodeType::Folder:
+       return action == ProjectExplorer::AddNewFile
+           || action == ProjectExplorer::AddExistingFile
+           || action == ProjectExplorer::AddExistingDirectory;
+    case ProjectExplorer::NodeType::File:
+        return action == ProjectExplorer::RemoveFile
+            || action == ProjectExplorer::Rename
+            || action == ProjectExplorer::DuplicateFile;
+    default:
+        break;
     }
-
-    if (node->nodeType() == ProjectExplorer::FolderNodeType) {
-        return {ProjectExplorer::AddNewFile, ProjectExplorer::AddExistingFile,
-                ProjectExplorer::AddExistingDirectory, ProjectExplorer::Rename};
-    }
-
-    if (node->nodeType() == ProjectExplorer::FileNodeType) {
-        return {ProjectExplorer::RemoveFile, ProjectExplorer::Rename,
-                ProjectExplorer::DuplicateFile};
-    }
-
-    return {};
+    return false;
 }
 
 bool ProjectNode::addFiles(const QStringList &filePaths, QStringList *notAdded)

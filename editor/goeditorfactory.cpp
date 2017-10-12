@@ -36,7 +36,7 @@ EditorFactory::EditorFactory()
     //    setAutoCompleterCreator([]() { return new AutoCompleter; }});
     //    setCompletionAssistProvider([]() { return new CompletionAssistProvider; });
 
-    setCommentStyle(Utils::CommentDefinition::CppStyle);
+    setCommentDefinition(Utils::CommentDefinition::CppStyle);
 
     setParenthesesMatchingEnabled(true);
     setCodeFoldingSupported(true);

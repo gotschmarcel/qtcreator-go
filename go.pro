@@ -1,30 +1,7 @@
-# Qt Creator linking
-isEmpty(QTC_SOURCE): QTC_SOURCE = $$PWD/qt-creator
-isEmpty(QTC_BUILD) {
-    CONFIG(debug, debug|release) {
-        QTC_BUILD = $$PWD/build/debug/qt-creator
-    } else {
-        QTC_BUILD = $$PWD/build/release/qt-creator
-    }
-}
-
-message("QtCreator sources @ $$QTC_SOURCE")
-message("QtCreator build @ $$QTC_BUILD")
-
-QTCREATOR_SOURCES = $$QTC_SOURCE
-IDE_BUILD_TREE = $$QTC_BUILD
-
-# Setup
-
 DEFINES += GO_LIBRARY
-
-CONFIG += c++11
-
-# Go files
 
 SOURCES += goplugin.cpp \
     projects/goproject.cpp \
-    projects/goprojectmanager.cpp \
     editor/goeditor.cpp \
     editor/goeditorwidget.cpp \
     editor/goeditorfactory.cpp \
@@ -45,10 +22,9 @@ SOURCES += goplugin.cpp \
     gotool.cpp
 
 HEADERS += goplugin.h \
-        go_global.h \
-        goconstants.h \
+    go_global.h \
+    goconstants.h \
     projects/goproject.h \
-    projects/goprojectmanager.h \
     projects/goprojectnode.h \
     editor/goeditor.h \
     editor/goeditorwidget.h \
@@ -72,6 +48,10 @@ HEADERS += goplugin.h \
 RESOURCES += \
     go.qrc
 
+FORMS += \
+    settings/gocodestylepage.ui \
+    settings/buildnrunsettingspagewidget.ui
+
 ## uncomment to build plugin into user config directory
 ## <localappdata>/plugins/<ideversion>
 ##    where <localappdata> is e.g.
@@ -79,7 +59,6 @@ RESOURCES += \
 ##    "$XDG_DATA_HOME/data/QtProject/qtcreator" or "~/.local/share/data/QtProject/qtcreator" on Linux
 ##    "~/Library/Application Support/QtProject/Qt Creator" on OS X
 #USE_USER_DESTDIR = yes
-isEqual(USE_USER_DESTDIR, yes): message("Installing plugin into user directory")
 
 ###### If the plugin can be depended upon by other plugins, this code needs to be outsourced to
 ###### <dirname>_dependencies.pri, where <dirname> is the name of the directory containing the
@@ -100,8 +79,5 @@ QTC_PLUGIN_RECOMMENDS += \
 
 ###### End _dependencies.pri contents ######
 
-include($$QTCREATOR_SOURCES/src/qtcreatorplugin.pri)
-
-FORMS += \
-    settings/gocodestylepage.ui \
-    settings/buildnrunsettingspagewidget.ui
+include(config.pri)
+include($$IDE_SOURCE_TREE/src/qtcreatorplugin.pri)

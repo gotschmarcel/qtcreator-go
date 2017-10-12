@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>CodeStylePageWidget</class>
- <widget class="QWidget" name="CodeStylePageWidget">
+ <class>Go::Internal::CodeStylePageWidget</class>
+ <widget class="QWidget" name="Go::Internal::CodeStylePageWidget">
   <property name="geometry">
    <rect>
     <x>0</x>

@@ -6,12 +6,11 @@
 
 #include "../go_global.h"
 
+namespace Go {
+namespace Internal {
 namespace Ui {
 class CodeStylePageWidget;
 }
-
-namespace Go {
-namespace Internal {
 
 class CodeStylePageWidget : public QWidget
 {

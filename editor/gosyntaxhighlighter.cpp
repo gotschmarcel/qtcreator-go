@@ -37,21 +37,7 @@ static const QVector<QString> GoBuiltins = {
 SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent)
     : TextEditor::SyntaxHighlighter(parent)
 {
-    static QVector<TextEditor::TextStyle> categories;
-
-    if (categories.isEmpty()) {
-        categories << TextEditor::C_TEXT << TextEditor::C_NUMBER << TextEditor::C_COMMENT
-                   << TextEditor::C_KEYWORD << TextEditor::C_STRING << TextEditor::C_OPERATOR
-                   << TextEditor::C_PARENTHESES << TextEditor::C_ERROR
-                   << TextEditor::C_PRIMITIVE_TYPE;
-
-        int i = 0;
-        for (const auto c : categories) {
-            kCategories[c] = i++;
-        }
-    }
-
-    setTextFormatCategories(categories);
+    setDefaultTextFormatCategories();
 }
 
 void SyntaxHighlighter::highlightBlock(const QString &text)
@@ -182,7 +168,5 @@ QTextCharFormat SyntaxHighlighter::formatForToken(const Token &token, const QStr
     default: style = C_TEXT; break;
     }
 
-    return formatForCategory(kCategories[style]);
+    return formatForCategory(style);
 }
-
-QMap<int, int> SyntaxHighlighter::kCategories;

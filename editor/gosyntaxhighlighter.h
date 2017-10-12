@@ -23,8 +23,6 @@ protected:
 private:
     int highlightLine(const QString &text, int state);
     QTextCharFormat formatForToken(const Token &token, const QString &val);
-
-    static QMap<int, int> kCategories;
 };
 
 } // namespace Internal

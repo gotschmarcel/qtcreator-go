@@ -24,11 +24,7 @@ class GOSHARED_EXPORT Project final : public ProjectExplorer::Project
 public:
     static const int kMinTimeBetweenScans = 4500;
 
-    Project(ProjectManager *manager, const QString &fileName);
-    QString displayName() const override;
-
-    QStringList files(FilesMode) const override;
-
+    Project(const Utils::FileName& fileName);
     bool requiresTargetPanel() const override;
 
 private slots:
