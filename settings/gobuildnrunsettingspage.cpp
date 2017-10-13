@@ -17,10 +17,10 @@ namespace Internal {
 static const QString defaultToolName(QLatin1String("Go"));
 
 //
-// BuildNRunSettingsPageWidget
+// GoBuildNRunSettingsPageWidget
 //
 
-BuildNRunSettingsPageWidget::BuildNRunSettingsPageWidget()
+GoBuildNRunSettingsPageWidget::GoBuildNRunSettingsPageWidget()
 {
     _ui.setupUi(this);
 
@@ -65,48 +65,48 @@ BuildNRunSettingsPageWidget::BuildNRunSettingsPageWidget()
     }
 }
 
-void BuildNRunSettingsPageWidget::addTool()
+void GoBuildNRunSettingsPageWidget::addTool()
 {
     // TODO: Implement.
 }
 
-void BuildNRunSettingsPageWidget::cloneTool()
+void GoBuildNRunSettingsPageWidget::cloneTool()
 {
     // TODO: Implement.
 }
 
-void BuildNRunSettingsPageWidget::removeTool()
+void GoBuildNRunSettingsPageWidget::removeTool()
 {
     // TODO: Implement.
 }
 
-void BuildNRunSettingsPageWidget::makeDefaultTool()
+void GoBuildNRunSettingsPageWidget::makeDefaultTool()
 {
     // TODO: Implement.
 }
 
-void BuildNRunSettingsPageWidget::showDetails(const QModelIndex &index)
+void GoBuildNRunSettingsPageWidget::showDetails(const QModelIndex &index)
 {
     Q_UNUSED(index);
     // TODO: Implement.
 }
 
-void BuildNRunSettingsPageWidget::updateName(const QString &name)
+void GoBuildNRunSettingsPageWidget::updateName(const QString &name)
 {
     auto item = selectedItem();
     QTC_ASSERT(item, return );
     item->setText(name);
 }
 
-void BuildNRunSettingsPageWidget::updateGoRoot(const QString &goRoot) {}
+void GoBuildNRunSettingsPageWidget::updateGoRoot(const QString &goRoot) {}
 
-void BuildNRunSettingsPageWidget::updateGoPath(const QString &goPath) {}
+void GoBuildNRunSettingsPageWidget::updateGoPath(const QString &goPath) {}
 
-QStandardItem *BuildNRunSettingsPageWidget::autoDetectItem() const { return _model.item(0); }
+QStandardItem *GoBuildNRunSettingsPageWidget::autoDetectItem() const { return _model.item(0); }
 
-QStandardItem *BuildNRunSettingsPageWidget::manualItem() const { return _model.item(1); }
+QStandardItem *GoBuildNRunSettingsPageWidget::manualItem() const { return _model.item(1); }
 
-QStandardItem *BuildNRunSettingsPageWidget::selectedItem() const
+QStandardItem *GoBuildNRunSettingsPageWidget::selectedItem() const
 {
     const auto &selectedIndexes = _ui.treeView->selectionModel()->selectedIndexes();
     if (selectedIndexes.length() == 0) {
@@ -123,7 +123,7 @@ QStandardItem *BuildNRunSettingsPageWidget::selectedItem() const
 // BuildNRunSettingsPage
 //
 
-BuildNRunSettingsPage::BuildNRunSettingsPage(QWidget *parent)
+GoBuildNRunSettingsPage::GoBuildNRunSettingsPage(QWidget *parent)
     : IOptionsPage(parent)
 {
     setId(Constants::SettingsBuildNRunID);
@@ -135,22 +135,22 @@ BuildNRunSettingsPage::BuildNRunSettingsPage(QWidget *parent)
         QLatin1String(ProjectExplorer::Constants::PROJECTEXPLORER_SETTINGS_CATEGORY_ICON)));
 }
 
-QWidget *BuildNRunSettingsPage::widget()
+QWidget *GoBuildNRunSettingsPage::widget()
 {
     if (!_widget) {
-        _widget = new BuildNRunSettingsPageWidget;
+        _widget = new GoBuildNRunSettingsPageWidget;
     }
 
     return _widget;
 }
 
-void BuildNRunSettingsPage::apply()
+void GoBuildNRunSettingsPage::apply()
 {
     QTC_ASSERT(_widget, return );
     // TODO: Apply
 }
 
-void BuildNRunSettingsPage::finish()
+void GoBuildNRunSettingsPage::finish()
 {
     delete _widget;
     _widget = nullptr;

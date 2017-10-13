@@ -7,12 +7,12 @@
 namespace Go {
 namespace Internal {
 
-class ImportWizardFactory : public Core::BaseFileWizardFactory
+class GoImportWizardFactory : public Core::BaseFileWizardFactory
 {
     Q_OBJECT
 
 public:
-    ImportWizardFactory();
+    GoImportWizardFactory();
 
 protected:
     Core::BaseFileWizard *create(QWidget *parent,

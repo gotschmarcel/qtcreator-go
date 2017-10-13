@@ -10,19 +10,19 @@
 namespace Go {
 namespace Internal {
 
-class Token;
+class GoToken;
 
-class SyntaxHighlighter : public TextEditor::SyntaxHighlighter
+class GoSyntaxHighlighter : public TextEditor::SyntaxHighlighter
 {
 public:
-    SyntaxHighlighter(QTextDocument *parent = 0);
+    GoSyntaxHighlighter(QTextDocument *parent = 0);
 
 protected:
     void highlightBlock(const QString &text) override;
 
 private:
     int highlightLine(const QString &text, int state);
-    QTextCharFormat formatForToken(const Token &token, const QString &val);
+    QTextCharFormat formatForToken(const GoToken &token, const QString &val);
 };
 
 } // namespace Internal

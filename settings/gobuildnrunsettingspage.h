@@ -10,12 +10,12 @@
 namespace Go {
 namespace Internal {
 
-class BuildNRunSettingsPageWidget : public QWidget
+class GoBuildNRunSettingsPageWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit BuildNRunSettingsPageWidget();
+    explicit GoBuildNRunSettingsPageWidget();
 
 private slots:
     void addTool();
@@ -36,19 +36,19 @@ private:
     QStandardItemModel _model;
 };
 
-class BuildNRunSettingsPage : public Core::IOptionsPage
+class GoBuildNRunSettingsPage : public Core::IOptionsPage
 {
     Q_OBJECT
 
 public:
-    explicit BuildNRunSettingsPage(QWidget *parent = nullptr);
+    explicit GoBuildNRunSettingsPage(QWidget *parent = nullptr);
 
     QWidget *widget() override;
     void apply() override;
     void finish() override;
 
 private:
-    BuildNRunSettingsPageWidget *_widget = nullptr;
+    GoBuildNRunSettingsPageWidget *_widget = nullptr;
 };
 
 } // namespace Internal

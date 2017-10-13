@@ -9,34 +9,34 @@
 namespace Go {
 namespace Internal {
 namespace Ui {
-class CodeStylePageWidget;
+class GoCodeStylePageWidget;
 }
 
-class CodeStylePageWidget : public QWidget
+class GoCodeStylePageWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit CodeStylePageWidget(QWidget *parent = 0);
-    ~CodeStylePageWidget();
+    explicit GoCodeStylePageWidget(QWidget *parent = 0);
+    ~GoCodeStylePageWidget();
 
 private:
-    Ui::CodeStylePageWidget *_ui;
+    Ui::GoCodeStylePageWidget *_ui;
 };
 
-class CodeStylePage : public Core::IOptionsPage
+class GoCodeStylePage : public Core::IOptionsPage
 {
     Q_OBJECT
 
 public:
-    explicit CodeStylePage(QWidget *parent = nullptr);
+    explicit GoCodeStylePage(QWidget *parent = nullptr);
 
     QWidget *widget() override;
     void apply() override;
     void finish() override;
 
 private:
-    CodeStylePageWidget *_widget;
+    GoCodeStylePageWidget *_widget;
 };
 
 } // namespace Internal

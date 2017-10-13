@@ -10,14 +10,14 @@
 namespace Go {
 namespace Internal {
 
-Indenter::Indenter() {}
+GoIndenter::GoIndenter() {}
 
-bool Indenter::isElectricCharacter(const QChar &ch) const
+bool GoIndenter::isElectricCharacter(const QChar &ch) const
 {
     return ch == QLatin1Char('{') || ch == QLatin1Char('(') || ch == QLatin1Char('[');
 }
 
-int Indenter::indentFor(const QTextBlock &block, const TextEditor::TabSettings &tabSettings)
+int GoIndenter::indentFor(const QTextBlock &block, const TextEditor::TabSettings &tabSettings)
 {
     const auto &previousBlock = block.previous();
     if (!previousBlock.isValid()) {
@@ -36,17 +36,17 @@ int Indenter::indentFor(const QTextBlock &block, const TextEditor::TabSettings &
     return indentation;
 }
 
-bool Indenter::isElectricLine(const QString &previousLine) const
+bool GoIndenter::isElectricLine(const QString &previousLine) const
 {
     if (previousLine.isEmpty()) {
         return false;
     }
 
-    Scanner scanner(previousLine);
-    Token lastToken;
+    GoScanner scanner(previousLine);
+    GoToken lastToken;
 
-    for (Token t = scanner.read(); t.kind != Token::EOF; t = scanner.read()) {
-        if (t.kind == Token::COMMENT) {
+    for (GoToken t = scanner.read(); t.kind != GoToken::EOF; t = scanner.read()) {
+        if (t.kind == GoToken::COMMENT) {
             continue;
         }
 
@@ -56,24 +56,24 @@ bool Indenter::isElectricLine(const QString &previousLine) const
     return isElectricCharacter(scanner.character(lastToken));
 }
 
-int Indenter::indentDiff(const QString &previousLine,
+int GoIndenter::indentDiff(const QString &previousLine,
                          const TextEditor::TabSettings &tabSettings) const
 {
-    Scanner scanner(previousLine);
+    GoScanner scanner(previousLine);
     int parens = 0;
-    Token lastToken;
+    GoToken lastToken;
 
-    for (Token t = scanner.read(); t.kind != Token::EOF; t = scanner.read()) {
+    for (GoToken t = scanner.read(); t.kind != GoToken::EOF; t = scanner.read()) {
         switch (t.kind) {
-        case Token::COMMENT: continue;
+        case GoToken::COMMENT: continue;
 
-        case Token::LPAREN:
-        case Token::LBRACK:
-        case Token::LBRACE: ++parens; break;
+        case GoToken::LPAREN:
+        case GoToken::LBRACK:
+        case GoToken::LBRACE: ++parens; break;
 
-        case Token::RPAREN:
-        case Token::RBRACK:
-        case Token::RBRACE: --parens; break;
+        case GoToken::RPAREN:
+        case GoToken::RBRACK:
+        case GoToken::RBRACE: --parens; break;
 
         default: break;
         }
@@ -82,8 +82,8 @@ int Indenter::indentDiff(const QString &previousLine,
     }
 
     if (parens != 0
-        && (lastToken.kind == Token::RPAREN || lastToken.kind == Token::RBRACK
-            || lastToken.kind == Token::RBRACE)) {
+        && (lastToken.kind == GoToken::RPAREN || lastToken.kind == GoToken::RBRACK
+            || lastToken.kind == GoToken::RBRACE)) {
         return -tabSettings.m_indentSize;
     }
 

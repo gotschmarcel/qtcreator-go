@@ -14,17 +14,17 @@
 namespace Go {
 namespace Internal {
 
-class ProjectManager;
-class ProjectNode;
+class GOProjectManager;
+class GoProjectNode;
 
-class Project : public ProjectExplorer::Project
+class GoProject : public ProjectExplorer::Project
 {
     Q_OBJECT
 
 public:
     static const int kMinTimeBetweenScans = 4500;
 
-    Project(const Utils::FileName& fileName);
+    GoProject(const Utils::FileName& fileName);
     bool requiresTargetPanel() const override;
 
 private slots:

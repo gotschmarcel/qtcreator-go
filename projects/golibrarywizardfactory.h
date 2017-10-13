@@ -7,11 +7,11 @@
 namespace Go {
 namespace Internal {
 
-class LibraryWizardFactory : public Core::BaseFileWizardFactory
+class GoLibraryWizardFactory : public Core::BaseFileWizardFactory
 {
     Q_OBJECT
 public:
-    explicit LibraryWizardFactory();
+    explicit GoLibraryWizardFactory();
 
 protected:
     Core::BaseFileWizard *create(QWidget *parent,

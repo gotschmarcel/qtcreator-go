@@ -14,7 +14,7 @@
 namespace Go {
 namespace Internal {
 
-ApplicationWizardFactory::ApplicationWizardFactory()
+GoApplicationWizardFactory::GoApplicationWizardFactory()
 {
     setSupportedProjectTypes({Constants::ProjectID});
 
@@ -29,8 +29,8 @@ ApplicationWizardFactory::ApplicationWizardFactory()
 }
 
 Core::BaseFileWizard *
-ApplicationWizardFactory::create(QWidget *parent,
-                                 const Core::WizardDialogParameters &parameters) const
+GoApplicationWizardFactory::create(QWidget *parent,
+                                   const Core::WizardDialogParameters &parameters) const
 {
     Core::BaseFileWizard *wizard = new Core::BaseFileWizard(this, parameters.extraValues(), parent);
     wizard->setWindowTitle(displayName());
@@ -46,8 +46,8 @@ ApplicationWizardFactory::create(QWidget *parent,
     return wizard;
 }
 
-Core::GeneratedFiles ApplicationWizardFactory::generateFiles(const QWizard *widget,
-                                                             QString *errorMessage) const
+Core::GeneratedFiles GoApplicationWizardFactory::generateFiles(const QWizard *widget,
+                                                               QString *errorMessage) const
 {
     const auto wizard = qobject_cast<const Core::BaseFileWizard *>(widget);
     const auto page = wizard->find<Utils::FileWizardPage>();
@@ -85,8 +85,8 @@ Core::GeneratedFiles ApplicationWizardFactory::generateFiles(const QWizard *widg
     return {projectFile, mainFile};
 }
 
-bool ApplicationWizardFactory::postGenerateFiles(const QWizard *, const Core::GeneratedFiles &files,
-                                                 QString *errorMessage) const
+bool GoApplicationWizardFactory::postGenerateFiles(const QWizard *, const Core::GeneratedFiles &files,
+                                                   QString *errorMessage) const
 {
     return ProjectExplorer::CustomProjectWizard::postGenerateOpen(files, errorMessage);
 }

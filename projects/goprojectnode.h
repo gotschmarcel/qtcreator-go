@@ -11,10 +11,10 @@ class FileName;
 namespace Go {
 namespace Internal {
 
-class ProjectNode : public ProjectExplorer::ProjectNode
+class GoProjectNode : public ProjectExplorer::ProjectNode
 {
 public:
-    ProjectNode(const Utils::FileName &projectFilePath);
+    GoProjectNode(const Utils::FileName &projectFilePath);
 
     bool supportsAction(ProjectExplorer::ProjectAction action, ProjectExplorer::Node *node) const override;
 

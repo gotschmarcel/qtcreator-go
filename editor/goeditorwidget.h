@@ -8,12 +8,12 @@
 namespace Go {
 namespace Internal {
 
-class EditorWidget : public TextEditor::TextEditorWidget
+class GoEditorWidget : public TextEditor::TextEditorWidget
 {
     Q_OBJECT
 
 public:
-    EditorWidget();
+    GoEditorWidget();
 };
 
 } // namespace Internal

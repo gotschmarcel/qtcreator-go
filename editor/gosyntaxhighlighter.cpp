@@ -35,13 +35,13 @@ static const QVector<QString> GoBuiltins = {
 
     QLatin1String("bool")};
 
-SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent)
+GoSyntaxHighlighter::GoSyntaxHighlighter(QTextDocument *parent)
     : TextEditor::SyntaxHighlighter(parent)
 {
     setDefaultTextFormatCategories();
 }
 
-void SyntaxHighlighter::highlightBlock(const QString &text)
+void GoSyntaxHighlighter::highlightBlock(const QString &text)
 {
     int state = previousBlockState();
     if (state == -1) {
@@ -51,116 +51,116 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
     setCurrentBlockState(highlightLine(text, state));
 }
 
-int SyntaxHighlighter::highlightLine(const QString &text, int state)
+int GoSyntaxHighlighter::highlightLine(const QString &text, int state)
 {
-    Scanner scanner(text);
+    GoScanner scanner(text);
     scanner.setState(state);
 
-    Token token;
-    while ((token = scanner.read()).kind != Token::EOF) {
+    GoToken token;
+    while ((token = scanner.read()).kind != GoToken::EOF) {
         setFormat(token.pos, token.len, formatForToken(token, scanner.value(token)));
     }
 
     return scanner.state();
 }
 
-QTextCharFormat SyntaxHighlighter::formatForToken(const Token &token, const QString &val)
+QTextCharFormat GoSyntaxHighlighter::formatForToken(const GoToken &token, const QString &val)
 {
     using namespace TextEditor;
 
     TextStyle style;
 
     switch (token.kind) {
-    case Token::BREAK:
-    case Token::CASE:
-    case Token::CHAN:
-    case Token::CONST:
-    case Token::CONTINUE:
+    case GoToken::BREAK:
+    case GoToken::CASE:
+    case GoToken::CHAN:
+    case GoToken::CONST:
+    case GoToken::CONTINUE:
 
-    case Token::DEFAULT:
-    case Token::DEFER:
-    case Token::ELSE:
-    case Token::FALLTHROUGH:
-    case Token::FOR:
+    case GoToken::DEFAULT:
+    case GoToken::DEFER:
+    case GoToken::ELSE:
+    case GoToken::FALLTHROUGH:
+    case GoToken::FOR:
 
-    case Token::FUNC:
-    case Token::GO:
-    case Token::GOTO:
-    case Token::IF:
-    case Token::IMPORT:
+    case GoToken::FUNC:
+    case GoToken::GO:
+    case GoToken::GOTO:
+    case GoToken::IF:
+    case GoToken::IMPORT:
 
-    case Token::INTERFACE:
-    case Token::MAP:
-    case Token::PACKAGE:
-    case Token::RANGE:
-    case Token::RETURN:
+    case GoToken::INTERFACE:
+    case GoToken::MAP:
+    case GoToken::PACKAGE:
+    case GoToken::RANGE:
+    case GoToken::RETURN:
 
-    case Token::SELECT:
-    case Token::STRUCT:
-    case Token::SWITCH:
-    case Token::TYPE:
-    case Token::VAR: style = C_KEYWORD; break;
+    case GoToken::SELECT:
+    case GoToken::STRUCT:
+    case GoToken::SWITCH:
+    case GoToken::TYPE:
+    case GoToken::VAR: style = C_KEYWORD; break;
 
-    case Token::COMMENT: style = C_COMMENT; break;
+    case GoToken::COMMENT: style = C_COMMENT; break;
 
-    case Token::INT:
-    case Token::FLOAT:
-    case Token::IMAG: style = C_NUMBER; break;
+    case GoToken::INT:
+    case GoToken::FLOAT:
+    case GoToken::IMAG: style = C_NUMBER; break;
 
-    case Token::CHAR:
-    case Token::STRING: style = C_STRING; break;
+    case GoToken::CHAR:
+    case GoToken::STRING: style = C_STRING; break;
 
-    case Token::ADD:
-    case Token::SUB:
-    case Token::MUL:
-    case Token::QUO:
-    case Token::REM:
-    case Token::AND:
-    case Token::OR:
-    case Token::XOR:
-    case Token::SHL:
-    case Token::SHR:
-    case Token::AND_NOT:
-    case Token::LAND:
-    case Token::LOR:
-    case Token::ARROW:
-    case Token::INC:
-    case Token::DEC:
-    case Token::EQL:
-    case Token::LSS:
-    case Token::GTR:
-    case Token::ASSIGN:
-    case Token::NOT:
-    case Token::NEQ:
-    case Token::LEQ:
-    case Token::GEQ:
-    case Token::DEFINE:
-    case Token::LPAREN:
-    case Token::LBRACK:
-    case Token::LBRACE:
-    case Token::RPAREN:
-    case Token::RBRACK:
-    case Token::RBRACE:
-    case Token::ADD_ASSIGN:
-    case Token::SUB_ASSIGN:
-    case Token::MUL_ASSIGN:
-    case Token::QUO_ASSIGN:
-    case Token::REM_ASSIGN:
-    case Token::AND_ASSIGN:
-    case Token::OR_ASSIGN:
-    case Token::XOR_ASSIGN:
-    case Token::SHL_ASSIGN:
-    case Token::SHR_ASSIGN:
-    case Token::AND_NOT_ASSIGN:
-    case Token::ELLIPSIS: style = C_OPERATOR; break;
+    case GoToken::ADD:
+    case GoToken::SUB:
+    case GoToken::MUL:
+    case GoToken::QUO:
+    case GoToken::REM:
+    case GoToken::AND:
+    case GoToken::OR:
+    case GoToken::XOR:
+    case GoToken::SHL:
+    case GoToken::SHR:
+    case GoToken::AND_NOT:
+    case GoToken::LAND:
+    case GoToken::LOR:
+    case GoToken::ARROW:
+    case GoToken::INC:
+    case GoToken::DEC:
+    case GoToken::EQL:
+    case GoToken::LSS:
+    case GoToken::GTR:
+    case GoToken::ASSIGN:
+    case GoToken::NOT:
+    case GoToken::NEQ:
+    case GoToken::LEQ:
+    case GoToken::GEQ:
+    case GoToken::DEFINE:
+    case GoToken::LPAREN:
+    case GoToken::LBRACK:
+    case GoToken::LBRACE:
+    case GoToken::RPAREN:
+    case GoToken::RBRACK:
+    case GoToken::RBRACE:
+    case GoToken::ADD_ASSIGN:
+    case GoToken::SUB_ASSIGN:
+    case GoToken::MUL_ASSIGN:
+    case GoToken::QUO_ASSIGN:
+    case GoToken::REM_ASSIGN:
+    case GoToken::AND_ASSIGN:
+    case GoToken::OR_ASSIGN:
+    case GoToken::XOR_ASSIGN:
+    case GoToken::SHL_ASSIGN:
+    case GoToken::SHR_ASSIGN:
+    case GoToken::AND_NOT_ASSIGN:
+    case GoToken::ELLIPSIS: style = C_OPERATOR; break;
 
-    case Token::ILLEGAL: style = C_ERROR; break;
+    case GoToken::ILLEGAL: style = C_ERROR; break;
 
-    case Token::COMMA:
-    case Token::SEMICOLON:
-    case Token::COLON:
+    case GoToken::COMMA:
+    case GoToken::SEMICOLON:
+    case GoToken::COLON:
 
-    case Token::IDENT:
+    case GoToken::IDENT:
         if (GoBuiltins.contains(val)) {
             style = C_PRIMITIVE_TYPE;
             break;

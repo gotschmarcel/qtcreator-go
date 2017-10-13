@@ -4,7 +4,7 @@
 namespace Go {
 namespace Internal {
 
-Editor::Editor() { addContext(Constants::LangGo); }
+GoEditor::GoEditor() { addContext(Constants::LangGo); }
 
 } // Internal
 } // Go

@@ -8,10 +8,10 @@ class QMap;
 namespace Go {
 namespace Internal {
 
-class TemplateRenderer
+class GoTemplateRenderer
 {
 public:
-    explicit TemplateRenderer(const QString &&tpl);
+    explicit GoTemplateRenderer(const QString &&tpl);
 
     void setTemplate(const QString &&tpl);
     QString render(const QMap<QString, QString> &&locals) const;

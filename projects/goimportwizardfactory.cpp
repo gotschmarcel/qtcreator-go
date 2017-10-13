@@ -14,7 +14,7 @@
 namespace Go {
 namespace Internal {
 
-ImportWizardFactory::ImportWizardFactory()
+GoImportWizardFactory::GoImportWizardFactory()
 {
     setSupportedProjectTypes({Constants::ProjectID});
 
@@ -28,7 +28,7 @@ ImportWizardFactory::ImportWizardFactory()
 }
 
 Core::BaseFileWizard *
-ImportWizardFactory::create(QWidget *parent, const Core::WizardDialogParameters &parameters) const
+GoImportWizardFactory::create(QWidget *parent, const Core::WizardDialogParameters &parameters) const
 {
     Core::BaseFileWizard *wizard = new Core::BaseFileWizard(this, parameters.extraValues(), parent);
     wizard->setWindowTitle(displayName());
@@ -44,7 +44,7 @@ ImportWizardFactory::create(QWidget *parent, const Core::WizardDialogParameters 
     return wizard;
 }
 
-Core::GeneratedFiles ImportWizardFactory::generateFiles(const QWizard *widget, QString *) const
+Core::GeneratedFiles GoImportWizardFactory::generateFiles(const QWizard *widget, QString *) const
 {
     const auto wizard = qobject_cast<const Core::BaseFileWizard *>(widget);
     const auto page = wizard->find<Utils::FileWizardPage>();
@@ -62,8 +62,8 @@ Core::GeneratedFiles ImportWizardFactory::generateFiles(const QWizard *widget, Q
     return {projectFile};
 }
 
-bool ImportWizardFactory::postGenerateFiles(const QWizard *, const Core::GeneratedFiles &files,
-                                            QString *errorMessage) const
+bool GoImportWizardFactory::postGenerateFiles(const QWizard *, const Core::GeneratedFiles &files,
+                                              QString *errorMessage) const
 {
     return ProjectExplorer::CustomProjectWizard::postGenerateOpen(files, errorMessage);
 }

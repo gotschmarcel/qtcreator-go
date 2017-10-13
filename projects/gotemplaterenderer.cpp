@@ -34,14 +34,14 @@ private:
     int _pos;
 };
 
-TemplateRenderer::TemplateRenderer(const QString &&tpl)
+GoTemplateRenderer::GoTemplateRenderer(const QString &&tpl)
     : _tpl(std::move(tpl))
 {
 }
 
-void TemplateRenderer::setTemplate(const QString &&tpl) { _tpl = std::move(tpl); }
+void GoTemplateRenderer::setTemplate(const QString &&tpl) { _tpl = std::move(tpl); }
 
-QString TemplateRenderer::render(const QMap<QString, QString> &&locals) const
+QString GoTemplateRenderer::render(const QMap<QString, QString> &&locals) const
 {
     enum State
     {

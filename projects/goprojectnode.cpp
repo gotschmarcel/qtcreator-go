@@ -8,13 +8,13 @@
 namespace Go {
 namespace Internal {
 
-ProjectNode::ProjectNode(const Utils::FileName &projectFilePath)
+GoProjectNode::GoProjectNode(const Utils::FileName &projectFilePath)
     : ProjectExplorer::ProjectNode(projectFilePath)
 {
     setDisplayName(QDir(projectFilePath.toString()).dirName());
 }
 
-bool ProjectNode::supportsAction(ProjectExplorer::ProjectAction action, ProjectExplorer::Node* node) const
+bool GoProjectNode::supportsAction(ProjectExplorer::ProjectAction action, ProjectExplorer::Node* node) const
 {
     switch (node->nodeType()) {
     case ProjectExplorer::NodeType::Project:
@@ -32,34 +32,34 @@ bool ProjectNode::supportsAction(ProjectExplorer::ProjectAction action, ProjectE
     return false;
 }
 
-bool ProjectNode::addFiles(const QStringList &filePaths, QStringList *notAdded)
+bool GoProjectNode::addFiles(const QStringList &filePaths, QStringList *notAdded)
 {
     Q_UNUSED(filePaths);
     Q_UNUSED(notAdded);
     return true;
 }
 
-bool ProjectNode::removeFiles(const QStringList &filePaths, QStringList *notRemoved)
+bool GoProjectNode::removeFiles(const QStringList &filePaths, QStringList *notRemoved)
 {
     Q_UNUSED(filePaths);
     Q_UNUSED(notRemoved);
     return true;
 }
 
-bool ProjectNode::deleteFiles(const QStringList &filePaths)
+bool GoProjectNode::deleteFiles(const QStringList &filePaths)
 {
     Q_UNUSED(filePaths);
     return true;
 }
 
-bool ProjectNode::canRenameFile(const QString &filePath, const QString &newFilePath)
+bool GoProjectNode::canRenameFile(const QString &filePath, const QString &newFilePath)
 {
     Q_UNUSED(filePath);
     Q_UNUSED(newFilePath);
     return true;
 }
 
-bool ProjectNode::renameFile(const QString &filePath, const QString &newFilePath)
+bool GoProjectNode::renameFile(const QString &filePath, const QString &newFilePath)
 {
     Q_UNUSED(filePath);
     Q_UNUSED(newFilePath);

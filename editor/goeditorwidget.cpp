@@ -3,7 +3,7 @@
 namespace Go {
 namespace Internal {
 
-EditorWidget::EditorWidget() {}
+GoEditorWidget::GoEditorWidget() {}
 
 } // Internal
 } // Go

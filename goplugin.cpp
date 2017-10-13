@@ -42,9 +42,6 @@ GoPlugin::~GoPlugin()
 {
     // Unregister objects from the plugin manager's object pool
     // Delete members
-    TextEditor::TextEditorSettings::unregisterCodeStyle(Constants::SettingsID);
-    TextEditor::TextEditorSettings::unregisterCodeStylePool(Constants::SettingsID);
-    TextEditor::TextEditorSettings::unregisterCodeStyleFactory(Constants::SettingsID);
 }
 
 bool GoPlugin::initialize(const QStringList &arguments, QString *errorString)
@@ -59,28 +56,16 @@ bool GoPlugin::initialize(const QStringList &arguments, QString *errorString)
     Q_UNUSED(arguments)
     Q_UNUSED(errorString)
 
-    TextEditor::TextEditorSettings::registerMimeTypeForLanguageId(Constants::MIMEType,
-                                                                  Constants::SettingsID);
+    addAutoReleasedObject(new GoEditorFactory);
 
-    //
-
-    addAutoReleasedObject(new EditorFactory);
-
-    ProjectExplorer::ProjectManager::registerProjectType<Project>(Constants::ProjectMIMEType);
+    ProjectExplorer::ProjectManager::registerProjectType<GoProject>(Constants::ProjectMIMEType);
 
     // Project Wizards
     Core::IWizardFactory::registerFactoryCreator([]() {
         return QList<Core::IWizardFactory *>()
-               << new ImportWizardFactory << new ApplicationWizardFactory
-               << new LibraryWizardFactory;
+               << new GoImportWizardFactory << new GoApplicationWizardFactory
+               << new GoLibraryWizardFactory;
     });
-
-    // Auto-detect Go tools.
-    GoToolManager::instance().autoDetectTools();
-
-    // Settings
-    addAutoReleasedObject(new CodeStylePage);
-    addAutoReleasedObject(new BuildNRunSettingsPage);
 
     // Register Icon:
     // This icon is displayed at the dock panel as MIME overlay.

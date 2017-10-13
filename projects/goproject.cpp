@@ -6,7 +6,7 @@
 #include <QRegExp>
 
 #include "../goconstants.h"
-#include "../gogeneralmessages.h"
+#include "../generalmessages.h"
 #include "../gotoolchain.h"
 #include "goprojectfile.h"
 #include "goprojectnode.h"
@@ -14,13 +14,13 @@
 namespace Go {
 namespace Internal {
 
-Project::Project(const Utils::FileName& fileName)
+GoProject::GoProject(const Utils::FileName& fileName)
     : ProjectExplorer::Project(Constants::ProjectMIMEType, fileName)
 {
     _dir = QFileInfo(fileName.toString()).dir();
 
     setId(Constants::ProjectID);
-    setRootProjectNode(new ProjectNode(Utils::FileName::fromString(_dir.dirName())));
+    setRootProjectNode(new GoProjectNode(Utils::FileName::fromString(_dir.dirName())));
 
     Core::DocumentManager::addDocument(document());
 
@@ -31,15 +31,15 @@ Project::Project(const Utils::FileName& fileName)
 
     connect(&_fsWatcher, SIGNAL(directoryChanged(QString)), SLOT(populateProject()));
 
-    if (Toolchain::goPath().isEmpty()) {
+    if (GoToolchain::goPath().isEmpty()) {
         GeneralMessages::warning()
             << "GOPATH not set. Autocomplete and other features will not work!";
     }
 }
 
-bool Project::requiresTargetPanel() const { return !targets().isEmpty(); }
+bool GoProject::requiresTargetPanel() const { return !targets().isEmpty(); }
 
-void Project::scheduleProjectScan()
+void GoProject::scheduleProjectScan()
 {
     const auto elapsed = _lastScan.elapsed();
 
@@ -55,7 +55,7 @@ void Project::scheduleProjectScan()
     populateProject();
 }
 
-void Project::populateProject()
+void GoProject::populateProject()
 {
     _lastScan.start();
 
@@ -75,7 +75,7 @@ void Project::populateProject()
     }
 }
 
-void Project::recursiveScanDirectory(const QDir &dir, QSet<QString> &container)
+void GoProject::recursiveScanDirectory(const QDir &dir, QSet<QString> &container)
 {
     for (const auto &info : dir.entryInfoList(QDir::AllDirs | QDir::Files | QDir::NoDotAndDotDot
                                               | QDir::NoSymLinks | QDir::CaseSensitive)) {
@@ -90,7 +90,7 @@ void Project::recursiveScanDirectory(const QDir &dir, QSet<QString> &container)
     _fsWatcher.addPath(dir.absolutePath());
 }
 
-void Project::addNodes(const QSet<QString> &nodes)
+void GoProject::addNodes(const QSet<QString> &nodes)
 {
     for (const auto &node : nodes) {
         const auto info = QFileInfo(_dir.relativeFilePath(node));
@@ -99,7 +99,7 @@ void Project::addNodes(const QSet<QString> &nodes)
     }
 }
 
-void Project::removeNodes(const QSet<QString> &nodes)
+void GoProject::removeNodes(const QSet<QString> &nodes)
 {
     for (const auto &node : nodes) {
         const auto info = QFileInfo(_dir.relativeFilePath(node));
@@ -118,7 +118,7 @@ void Project::removeNodes(const QSet<QString> &nodes)
     }
 }
 
-void Project::tryRemoveEmptyFolder(ProjectExplorer::FolderNode *folder)
+void GoProject::tryRemoveEmptyFolder(ProjectExplorer::FolderNode *folder)
 {
     if (folder == rootProjectNode()) {
         return;
@@ -133,7 +133,7 @@ void Project::tryRemoveEmptyFolder(ProjectExplorer::FolderNode *folder)
     tryRemoveEmptyFolder(parent);
 }
 
-ProjectExplorer::FolderNode *Project::findFolderForRelPath(const QString &relPath)
+ProjectExplorer::FolderNode *GoProject::findFolderForRelPath(const QString &relPath)
 {
     ProjectExplorer::FolderNode *folder = rootProjectNode();
 

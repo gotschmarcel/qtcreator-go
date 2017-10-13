@@ -2,7 +2,7 @@
 
 #include <QtGlobal>
 
-#include "gosourcecodestream.h"
+#include "sourcecodestream.h"
 
 // Undef EOF macro
 #undef EOF
@@ -10,7 +10,7 @@
 namespace Go {
 namespace Internal {
 
-class Token
+class GoToken
 {
 public:
     enum Kind
@@ -119,7 +119,7 @@ public:
         NUM_TOKENS = VAR
     };
 
-    Token(Kind kind = EOF, int pos = 0, int len = 0)
+    GoToken(Kind kind = EOF, int pos = 0, int len = 0)
         : kind(kind)
         , pos(pos)
         , len(len)
@@ -131,9 +131,9 @@ public:
     int len;
 };
 
-class Scanner
+class GoScanner
 {
-    Q_DISABLE_COPY(Scanner)
+    Q_DISABLE_COPY(GoScanner)
 
 public:
     enum State
@@ -143,35 +143,35 @@ public:
         MultiLineString
     };
 
-    Scanner(const QString &text);
+    GoScanner(const QString &text);
 
-    Token read();
+    GoToken read();
 
     int line() const;
-    int column(const Token &t) const;
+    int column(const GoToken &t) const;
 
     int indent() const;
 
     void setState(int state);
     int state() const;
 
-    QString value(const Token &t) const;
-    QChar character(const Token &t) const;
+    QString value(const GoToken &t) const;
+    QChar character(const GoToken &t) const;
 
 private:
-    Token readIdentifier();
+    GoToken readIdentifier();
 
-    Token readMultiLineComment();
-    Token readLineComment();
+    GoToken readMultiLineComment();
+    GoToken readLineComment();
 
-    Token readOperator();
+    GoToken readOperator();
 
-    Token readMultiLineStringLiteral();
-    Token readStringLiteral();
-    Token readCharLiteral();
-    Token readNumberLiteral();
+    GoToken readMultiLineStringLiteral();
+    GoToken readStringLiteral();
+    GoToken readCharLiteral();
+    GoToken readNumberLiteral();
 
-    Token readDefaultState();
+    GoToken readDefaultState();
 
     void clearState();
 

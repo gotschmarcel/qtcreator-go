@@ -17,7 +17,7 @@
 namespace Go {
 namespace Internal {
 
-LibraryWizardFactory::LibraryWizardFactory()
+GoLibraryWizardFactory::GoLibraryWizardFactory()
 {
     setSupportedProjectTypes({Constants::ProjectID});
 
@@ -32,7 +32,7 @@ LibraryWizardFactory::LibraryWizardFactory()
 }
 
 Core::BaseFileWizard *
-LibraryWizardFactory::create(QWidget *parent, const Core::WizardDialogParameters &parameters) const
+GoLibraryWizardFactory::create(QWidget *parent, const Core::WizardDialogParameters &parameters) const
 {
     Core::BaseFileWizard *wizard = new Core::BaseFileWizard(this, parameters.extraValues(), parent);
     wizard->setWindowTitle(displayName());
@@ -48,8 +48,8 @@ LibraryWizardFactory::create(QWidget *parent, const Core::WizardDialogParameters
     return wizard;
 }
 
-Core::GeneratedFiles LibraryWizardFactory::generateFiles(const QWizard *widget,
-                                                         QString *errorMessage) const
+Core::GeneratedFiles GoLibraryWizardFactory::generateFiles(const QWizard *widget,
+                                                           QString *errorMessage) const
 {
     const auto wizard = qobject_cast<const Core::BaseFileWizard *>(widget);
     const auto page = wizard->find<Utils::FileWizardPage>();
@@ -82,7 +82,7 @@ Core::GeneratedFiles LibraryWizardFactory::generateFiles(const QWizard *widget,
     }
 
     // Render the template
-    TemplateRenderer renderer(QString::fromUtf8(templateFile.readAll()));
+    GoTemplateRenderer renderer(QString::fromUtf8(templateFile.readAll()));
 
     // Create the main.go file from the template.
     const QString mainFilePath = projectDir.filePath(page->fileName().toLower() + QLatin1String(".")
@@ -94,8 +94,8 @@ Core::GeneratedFiles LibraryWizardFactory::generateFiles(const QWizard *widget,
     return {projectFile, mainFile};
 }
 
-bool LibraryWizardFactory::postGenerateFiles(const QWizard *, const Core::GeneratedFiles &files,
-                                             QString *errorMessage) const
+bool GoLibraryWizardFactory::postGenerateFiles(const QWizard *, const Core::GeneratedFiles &files,
+                                               QString *errorMessage) const
 {
     return ProjectExplorer::CustomProjectWizard::postGenerateOpen(files, errorMessage);
 }

@@ -5,7 +5,7 @@
 namespace Go {
 namespace Internal {
 
-class Toolchain
+class GoToolchain
 {
 public:
     static QString goPath();

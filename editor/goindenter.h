@@ -7,10 +7,10 @@
 namespace Go {
 namespace Internal {
 
-class Indenter : public TextEditor::Indenter
+class GoIndenter : public TextEditor::Indenter
 {
 public:
-    Indenter();
+    GoIndenter();
 
     bool isElectricCharacter(const QChar &ch) const override;
     int indentFor(const QTextBlock &block, const TextEditor::TabSettings &tabSettings) override;

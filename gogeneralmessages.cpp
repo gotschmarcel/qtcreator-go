@@ -1,4 +1,4 @@
-#include "gogeneralmessages.h"
+#include "generalmessages.h"
 #include "goconstants.h"
 
 namespace Go {

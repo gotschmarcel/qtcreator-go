@@ -6,32 +6,32 @@ namespace Go {
 namespace Internal {
 
 
-static const QMap<QString, Token::Kind> GoKeywords{
-    {QLatin1String("break"), Token::BREAK},
-    {QLatin1String("case"), Token::CASE},
-    {QLatin1String("chan"), Token::CHAN},
-    {QLatin1String("const"), Token::CONST},
-    {QLatin1String("continue"), Token::CONTINUE},
-    {QLatin1String("default"), Token::DEFAULT},
-    {QLatin1String("defer"), Token::DEFER},
-    {QLatin1String("else"), Token::ELSE},
-    {QLatin1String("fallthrough"), Token::FALLTHROUGH},
-    {QLatin1String("for"), Token::FOR},
-    {QLatin1String("func"), Token::FUNC},
-    {QLatin1String("go"), Token::GO},
-    {QLatin1String("goto"), Token::GOTO},
-    {QLatin1String("if"), Token::IF},
-    {QLatin1String("import"), Token::IMPORT},
-    {QLatin1String("interface"), Token::INTERFACE},
-    {QLatin1String("map"), Token::MAP},
-    {QLatin1String("package"), Token::PACKAGE},
-    {QLatin1String("range"), Token::RANGE},
-    {QLatin1String("return"), Token::RETURN},
-    {QLatin1String("select"), Token::SELECT},
-    {QLatin1String("struct"), Token::STRUCT},
-    {QLatin1String("switch"), Token::SWITCH},
-    {QLatin1String("type"), Token::TYPE},
-    {QLatin1String("var"), Token::VAR},
+static const QMap<QString, GoToken::Kind> GoKeywords{
+    {QLatin1String("break"), GoToken::BREAK},
+    {QLatin1String("case"), GoToken::CASE},
+    {QLatin1String("chan"), GoToken::CHAN},
+    {QLatin1String("const"), GoToken::CONST},
+    {QLatin1String("continue"), GoToken::CONTINUE},
+    {QLatin1String("default"), GoToken::DEFAULT},
+    {QLatin1String("defer"), GoToken::DEFER},
+    {QLatin1String("else"), GoToken::ELSE},
+    {QLatin1String("fallthrough"), GoToken::FALLTHROUGH},
+    {QLatin1String("for"), GoToken::FOR},
+    {QLatin1String("func"), GoToken::FUNC},
+    {QLatin1String("go"), GoToken::GO},
+    {QLatin1String("goto"), GoToken::GOTO},
+    {QLatin1String("if"), GoToken::IF},
+    {QLatin1String("import"), GoToken::IMPORT},
+    {QLatin1String("interface"), GoToken::INTERFACE},
+    {QLatin1String("map"), GoToken::MAP},
+    {QLatin1String("package"), GoToken::PACKAGE},
+    {QLatin1String("range"), GoToken::RANGE},
+    {QLatin1String("return"), GoToken::RETURN},
+    {QLatin1String("select"), GoToken::SELECT},
+    {QLatin1String("struct"), GoToken::STRUCT},
+    {QLatin1String("switch"), GoToken::SWITCH},
+    {QLatin1String("type"), GoToken::TYPE},
+    {QLatin1String("var"), GoToken::VAR},
 };
 
 static const QString GoOperators(QLatin1String("+-*/%&|^<>=!;:.,()[]{}"));
@@ -72,7 +72,7 @@ inline static bool isExponent(const QChar &c)
     return c == QLatin1Char('e') || c == QLatin1Char('E');
 }
 
-Scanner::Scanner(const QString &text)
+GoScanner::GoScanner(const QString &text)
     : _source(text)
     , _line(0)
     , _indent(0)
@@ -80,10 +80,10 @@ Scanner::Scanner(const QString &text)
 {
 }
 
-Token Scanner::read()
+GoToken GoScanner::read()
 {
     if (_source.atEnd()) {
-        return {Token::EOF, _source.pos(), 0};
+        return {GoToken::EOF, _source.pos(), 0};
     }
 
     switch (_state) {
@@ -93,19 +93,19 @@ Token Scanner::read()
     }
 }
 
-int Scanner::line() const { return _line; }
+int GoScanner::line() const { return _line; }
 
-int Scanner::column(const Token &t) const { return t.pos; }
+int GoScanner::column(const GoToken &t) const { return t.pos; }
 
-int Scanner::indent() const { return _indent; }
+int GoScanner::indent() const { return _indent; }
 
-void Scanner::setState(int state) { _state = state; }
+void GoScanner::setState(int state) { _state = state; }
 
-int Scanner::state() const { return _state; }
+int GoScanner::state() const { return _state; }
 
-QString Scanner::value(const Token &t) const { return _source.value(t.pos, t.len).toString(); }
+QString GoScanner::value(const GoToken &t) const { return _source.value(t.pos, t.len).toString(); }
 
-QChar Scanner::character(const Token &t) const
+QChar GoScanner::character(const GoToken &t) const
 {
     if (t.len == 0) {
         return QChar();
@@ -114,7 +114,7 @@ QChar Scanner::character(const Token &t) const
     return _source.value(t.pos, t.len).at(0);
 }
 
-Token Scanner::readIdentifier()
+GoToken GoScanner::readIdentifier()
 {
     QChar c = _source.peek();
 
@@ -129,10 +129,10 @@ Token Scanner::readIdentifier()
         return {GoKeywords.value(ident), _source.anchor(), _source.len()};
     }
 
-    return {Token::IDENT, _source.anchor(), _source.len()};
+    return {GoToken::IDENT, _source.anchor(), _source.len()};
 }
 
-Token Scanner::readMultiLineComment()
+GoToken GoScanner::readMultiLineComment()
 {
     _state = MultiLineComment;
 
@@ -154,10 +154,10 @@ Token Scanner::readMultiLineComment()
         clearState();
     }
 
-    return {Token::COMMENT, _source.anchor(), _source.len()};
+    return {GoToken::COMMENT, _source.anchor(), _source.len()};
 }
 
-Token Scanner::readLineComment()
+GoToken GoScanner::readLineComment()
 {
     QChar c = _source.peek();
 
@@ -173,10 +173,10 @@ Token Scanner::readLineComment()
 
     _source.advance(); // Eat '\n'
 
-    return {Token::COMMENT, _source.anchor(), _source.len()};
+    return {GoToken::COMMENT, _source.anchor(), _source.len()};
 }
 
-Token Scanner::readOperator()
+GoToken GoScanner::readOperator()
 {
     const QChar c1 = _source.peek();
     _source.advance(); // Eat beginning
@@ -187,17 +187,17 @@ Token Scanner::readOperator()
         // ++
         if (c2 == QLatin1Char('+')) {
             _source.advance(); // Eat second '+'
-            return {Token::INC, _source.anchor(), _source.len()};
+            return {GoToken::INC, _source.anchor(), _source.len()};
         }
 
         // +=
         if (c2 == QLatin1Char('=')) {
             _source.advance(); // Eat '='
-            return {Token::ADD_ASSIGN, _source.anchor(), _source.len()};
+            return {GoToken::ADD_ASSIGN, _source.anchor(), _source.len()};
         }
 
         // Simple +
-        return {Token::ADD, _source.anchor(), _source.len()};
+        return {GoToken::ADD, _source.anchor(), _source.len()};
     }
 
     // --, -=, -
@@ -206,17 +206,17 @@ Token Scanner::readOperator()
         // --
         if (c2 == QLatin1Char('-')) {
             _source.advance(); // Eat second '-'
-            return {Token::DEC, _source.anchor(), _source.len()};
+            return {GoToken::DEC, _source.anchor(), _source.len()};
         }
 
         // -=
         if (c2 == QLatin1Char('=')) {
             _source.advance(); // Eat '='
-            return {Token::SUB_ASSIGN, _source.anchor(), _source.len()};
+            return {GoToken::SUB_ASSIGN, _source.anchor(), _source.len()};
         }
 
         // Simple -
-        return {Token::SUB, _source.anchor(), _source.len()};
+        return {GoToken::SUB, _source.anchor(), _source.len()};
     }
 
     // *=, *
@@ -224,11 +224,11 @@ Token Scanner::readOperator()
         // *=
         if (_source.peek() == QLatin1Char('=')) {
             _source.advance(); // Eat '='
-            return {Token::MUL_ASSIGN, _source.anchor(), _source.len()};
+            return {GoToken::MUL_ASSIGN, _source.anchor(), _source.len()};
         }
 
         // Simple *
-        return {Token::MUL, _source.anchor(), _source.len()};
+        return {GoToken::MUL, _source.anchor(), _source.len()};
     }
 
     // /=, /
@@ -236,11 +236,11 @@ Token Scanner::readOperator()
         // /=
         if (_source.peek() == QLatin1Char('=')) {
             _source.advance(); // Eat '='
-            return {Token::QUO_ASSIGN, _source.anchor(), _source.len()};
+            return {GoToken::QUO_ASSIGN, _source.anchor(), _source.len()};
         }
 
         // Simple /
-        return {Token::QUO, _source.anchor(), _source.len()};
+        return {GoToken::QUO, _source.anchor(), _source.len()};
     }
 
     // %=, %
@@ -248,11 +248,11 @@ Token Scanner::readOperator()
         // %=
         if (_source.peek() == QLatin1Char('=')) {
             _source.advance(); // Eat '='
-            return {Token::REM_ASSIGN, _source.anchor(), _source.len()};
+            return {GoToken::REM_ASSIGN, _source.anchor(), _source.len()};
         }
 
         // Simple %
-        return {Token::REM, _source.anchor(), _source.len()};
+        return {GoToken::REM, _source.anchor(), _source.len()};
     }
 
     // &&, &=, &^, &^=, &
@@ -262,13 +262,13 @@ Token Scanner::readOperator()
         // &&
         if (c2 == QLatin1Char('&')) {
             _source.advance(); // Eat second '&'
-            return {Token::LAND, _source.anchor(), _source.len()};
+            return {GoToken::LAND, _source.anchor(), _source.len()};
         }
 
         // &=
         if (c2 == QLatin1Char('=')) {
             _source.advance(); // Eat '='
-            return {Token::AND_ASSIGN, _source.anchor(), _source.len()};
+            return {GoToken::AND_ASSIGN, _source.anchor(), _source.len()};
         }
 
         // &^=, &^
@@ -278,14 +278,14 @@ Token Scanner::readOperator()
             // &^=
             if (_source.peek() == QLatin1Char('=')) {
                 _source.advance(); // Eat '='
-                return {Token::AND_NOT_ASSIGN, _source.anchor(), _source.len()};
+                return {GoToken::AND_NOT_ASSIGN, _source.anchor(), _source.len()};
             }
 
-            return {Token::AND_NOT, _source.anchor(), _source.len()};
+            return {GoToken::AND_NOT, _source.anchor(), _source.len()};
         }
 
         // Simple &
-        return {Token::AND, _source.anchor(), _source.len()};
+        return {GoToken::AND, _source.anchor(), _source.len()};
     }
 
     // ||, |=, |
@@ -295,17 +295,17 @@ Token Scanner::readOperator()
         // ||
         if (c2 == QLatin1Char('|')) {
             _source.advance(); // Eat second '|'
-            return {Token::LOR, _source.anchor(), _source.len()};
+            return {GoToken::LOR, _source.anchor(), _source.len()};
         }
 
         // |=
         if (c2 == QLatin1Char('=')) {
             _source.advance(); // Eat '='
-            return {Token::OR_ASSIGN, _source.anchor(), _source.len()};
+            return {GoToken::OR_ASSIGN, _source.anchor(), _source.len()};
         }
 
         // Simple |
-        return {Token::OR, _source.anchor(), _source.len()};
+        return {GoToken::OR, _source.anchor(), _source.len()};
     }
 
     // ^=, ^
@@ -313,11 +313,11 @@ Token Scanner::readOperator()
         // ^=
         if (_source.peek() == QLatin1Char('=')) {
             _source.advance(); // Eat '='
-            return {Token::XOR_ASSIGN, _source.anchor(), _source.len()};
+            return {GoToken::XOR_ASSIGN, _source.anchor(), _source.len()};
         }
 
         // Simple ^
-        return {Token::XOR, _source.anchor(), _source.len()};
+        return {GoToken::XOR, _source.anchor(), _source.len()};
     }
 
     // <<, <-, <=, <<=, <
@@ -331,27 +331,27 @@ Token Scanner::readOperator()
             // <<=
             if (_source.peek() == QLatin1Char('=')) {
                 _source.advance(); // Eat '='
-                return {Token::SHL_ASSIGN, _source.anchor(), _source.len()};
+                return {GoToken::SHL_ASSIGN, _source.anchor(), _source.len()};
             }
 
             // <<
-            return {Token::SHL, _source.anchor(), _source.len()};
+            return {GoToken::SHL, _source.anchor(), _source.len()};
         }
 
         // <-
         if (c2 == QLatin1Char('-')) {
             _source.advance(); // Eat '-'
-            return {Token::ARROW, _source.anchor(), _source.len()};
+            return {GoToken::ARROW, _source.anchor(), _source.len()};
         }
 
         // <=
         if (c2 == QLatin1Char('=')) {
             _source.advance(); // Eat '='
-            return {Token::LEQ, _source.anchor(), _source.len()};
+            return {GoToken::LEQ, _source.anchor(), _source.len()};
         }
 
         // Simple <
-        return {Token::LSS, _source.anchor(), _source.len()};
+        return {GoToken::LSS, _source.anchor(), _source.len()};
     }
 
     // >>, >=, >>=, >
@@ -365,21 +365,21 @@ Token Scanner::readOperator()
             // >>=
             if (_source.peek() == QLatin1Char('=')) {
                 _source.advance(); // Eat '='
-                return {Token::SHR_ASSIGN, _source.anchor(), _source.len()};
+                return {GoToken::SHR_ASSIGN, _source.anchor(), _source.len()};
             }
 
             // >>
-            return {Token::SHR, _source.anchor(), _source.len()};
+            return {GoToken::SHR, _source.anchor(), _source.len()};
         }
 
         // >=
         if (c2 == QLatin1Char('=')) {
             _source.advance(); // Eat '='
-            return {Token::GEQ, _source.anchor(), _source.len()};
+            return {GoToken::GEQ, _source.anchor(), _source.len()};
         }
 
         // Simple >
-        return {Token::GTR, _source.anchor(), _source.len()};
+        return {GoToken::GTR, _source.anchor(), _source.len()};
     }
 
     // ==, =
@@ -387,11 +387,11 @@ Token Scanner::readOperator()
         // ==
         if (_source.peek() == QLatin1Char('=')) {
             _source.advance(); // Eat second '='
-            return {Token::EQL, _source.anchor(), _source.len()};
+            return {GoToken::EQL, _source.anchor(), _source.len()};
         }
 
         // Simple =
-        return {Token::ASSIGN, _source.anchor(), _source.len()};
+        return {GoToken::ASSIGN, _source.anchor(), _source.len()};
     }
 
     // !, !=
@@ -399,11 +399,11 @@ Token Scanner::readOperator()
         // !=
         if (_source.peek() == QLatin1Char('=')) {
             _source.advance(); // Eat '='
-            return {Token::NEQ, _source.anchor(), _source.len()};
+            return {GoToken::NEQ, _source.anchor(), _source.len()};
         }
 
         // Simple !
-        return {Token::NOT, _source.anchor(), _source.len()};
+        return {GoToken::NOT, _source.anchor(), _source.len()};
     }
 
     // :, :=
@@ -411,51 +411,51 @@ Token Scanner::readOperator()
         // :=
         if (_source.peek() == QLatin1Char('=')) {
             _source.advance(); // Eat '='
-            return {Token::DEFINE, _source.anchor(), _source.len()};
+            return {GoToken::DEFINE, _source.anchor(), _source.len()};
         }
 
         // Simple :
-        return {Token::COLON, _source.anchor(), _source.len()};
+        return {GoToken::COLON, _source.anchor(), _source.len()};
     }
 
     // ,
     if (c1 == QLatin1Char(',')) {
-        return {Token::COMMA, _source.anchor(), _source.len()};
+        return {GoToken::COMMA, _source.anchor(), _source.len()};
     }
 
     // ;
     if (c1 == QLatin1Char(';')) {
-        return {Token::SEMICOLON, _source.anchor(), _source.len()};
+        return {GoToken::SEMICOLON, _source.anchor(), _source.len()};
     }
 
     // (
     if (c1 == QLatin1Char('(')) {
-        return {Token::LPAREN, _source.anchor(), _source.len()};
+        return {GoToken::LPAREN, _source.anchor(), _source.len()};
     }
 
     // )
     if (c1 == QLatin1Char(')')) {
-        return {Token::RPAREN, _source.anchor(), _source.len()};
+        return {GoToken::RPAREN, _source.anchor(), _source.len()};
     }
 
     // [
     if (c1 == QLatin1Char('[')) {
-        return {Token::LBRACK, _source.anchor(), _source.len()};
+        return {GoToken::LBRACK, _source.anchor(), _source.len()};
     }
 
     // ]
     if (c1 == QLatin1Char(']')) {
-        return {Token::RBRACK, _source.anchor(), _source.len()};
+        return {GoToken::RBRACK, _source.anchor(), _source.len()};
     }
 
     // {
     if (c1 == QLatin1Char('{')) {
-        return {Token::LBRACE, _source.anchor(), _source.len()};
+        return {GoToken::LBRACE, _source.anchor(), _source.len()};
     }
 
     // }
     if (c1 == QLatin1Char('}')) {
-        return {Token::RBRACE, _source.anchor(), _source.len()};
+        return {GoToken::RBRACE, _source.anchor(), _source.len()};
     }
 
     // ., ...
@@ -464,19 +464,19 @@ Token Scanner::readOperator()
         if (_source.peek() == QLatin1Char('.') && _source.peek(1) == QLatin1Char('.')) {
             _source.advance(); // Eat '.'
             _source.advance(); // Eat '.'
-            return {Token::ELLIPSIS, _source.anchor(), _source.len()};
+            return {GoToken::ELLIPSIS, _source.anchor(), _source.len()};
         }
 
         // Simple .
-        return {Token::PERIOD, _source.anchor(), _source.len()};
+        return {GoToken::PERIOD, _source.anchor(), _source.len()};
     }
 
     // Never reached
-    Q_ASSERT_X(false, "Go::Scanner::readOperator", "Unknown operator character");
+    Q_ASSERT_X(false, "Go::Internal::GoScanner::readOperator", "Unknown operator character");
     return {}; // Prevent compiler warning.
 }
 
-Token Scanner::readMultiLineStringLiteral()
+GoToken GoScanner::readMultiLineStringLiteral()
 {
     _state = MultiLineString;
 
@@ -501,10 +501,10 @@ Token Scanner::readMultiLineStringLiteral()
         clearState();
     }
 
-    return {Token::STRING, _source.anchor(), _source.len()};
+    return {GoToken::STRING, _source.anchor(), _source.len()};
 }
 
-Token Scanner::readStringLiteral()
+GoToken GoScanner::readStringLiteral()
 {
     QChar c = _source.peek();
 
@@ -524,10 +524,10 @@ Token Scanner::readStringLiteral()
 
     _source.advance(); // Eat '"'
 
-    return {Token::STRING, _source.anchor(), _source.len()};
+    return {GoToken::STRING, _source.anchor(), _source.len()};
 }
 
-Token Scanner::readCharLiteral()
+GoToken GoScanner::readCharLiteral()
 {
     QChar c = _source.peek();
 
@@ -547,10 +547,10 @@ Token Scanner::readCharLiteral()
 
     _source.advance(); // Eat '\''
 
-    return {Token::STRING, _source.anchor(), _source.len()};
+    return {GoToken::STRING, _source.anchor(), _source.len()};
 }
 
-Token Scanner::readNumberLiteral()
+GoToken GoScanner::readNumberLiteral()
 {
     enum NumberState
     {
@@ -628,13 +628,13 @@ Token Scanner::readNumberLiteral()
     }
 
     if (state == NS_INT && maybeOctal && !isOctal) {
-        return {Token::ILLEGAL, _source.anchor(), _source.len()};
+        return {GoToken::ILLEGAL, _source.anchor(), _source.len()};
     }
 
-    return {(state == NS_INT ? Token::INT : Token::FLOAT), _source.anchor(), _source.len()};
+    return {(state == NS_INT ? GoToken::INT : GoToken::FLOAT), _source.anchor(), _source.len()};
 }
 
-Token Scanner::readDefaultState()
+GoToken GoScanner::readDefaultState()
 {
     // Skip any whitespace.
     while (_source.peek().isSpace()) {
@@ -694,14 +694,14 @@ Token Scanner::readDefaultState()
 
     // Check if EOF.
     if (_source.atEnd()) {
-        return {Token::EOF, _source.pos(), 0};
+        return {GoToken::EOF, _source.pos(), 0};
     }
 
     _source.advance();
-    return {Token::ILLEGAL, _source.anchor(), _source.len()};
+    return {GoToken::ILLEGAL, _source.anchor(), _source.len()};
 }
 
-void Scanner::clearState() { _state = Default; }
+void GoScanner::clearState() { _state = Default; }
 
 } // Internal
 } // Go

@@ -8,18 +8,18 @@
 namespace Go {
 namespace Internal {
 
-CodeStylePageWidget::CodeStylePageWidget(QWidget *parent)
+GoCodeStylePageWidget::GoCodeStylePageWidget(QWidget *parent)
     : QWidget(parent)
-    , _ui(new Ui::CodeStylePageWidget)
+    , _ui(new Ui::GoCodeStylePageWidget)
 {
     _ui->setupUi(this);
 }
 
-CodeStylePageWidget::~CodeStylePageWidget() { delete _ui; }
+GoCodeStylePageWidget::~GoCodeStylePageWidget() { delete _ui; }
 
 // CodeStylePage
 
-CodeStylePage::CodeStylePage(QWidget *parent)
+GoCodeStylePage::GoCodeStylePage(QWidget *parent)
     : Core::IOptionsPage(parent)
     , _widget(nullptr)
 {
@@ -30,18 +30,18 @@ CodeStylePage::CodeStylePage(QWidget *parent)
     setCategoryIcon(Utils::Icon(QLatin1String(Constants::Icon)));
 }
 
-QWidget *CodeStylePage::widget()
+QWidget *GoCodeStylePage::widget()
 {
     if (!_widget) {
-        _widget = new CodeStylePageWidget;
+        _widget = new GoCodeStylePageWidget;
     }
 
     return _widget;
 }
 
-void CodeStylePage::apply() {}
+void GoCodeStylePage::apply() {}
 
-void CodeStylePage::finish()
+void GoCodeStylePage::finish()
 {
     delete _widget;
     _widget = nullptr;

@@ -31,8 +31,8 @@ HEADERS += goplugin.h \
     editor/goeditorfactory.h \
     editor/gosyntaxhighlighter.h \
     editor/goscanner.h \
-    editor/gosourcecodestream.h \
     editor/goindenter.h \
+    editor/sourcecodestream.h \
     settings/gocodestylepage.h \
     projects/goapplicationwizardfactory.h \
     projects/goimportwizardfactory.h \
@@ -40,17 +40,17 @@ HEADERS += goplugin.h \
     projects/gotemplaterenderer.h \
     gotoolchain.h \
     projects/goprojectfile.h \
-    gogeneralmessages.h \
     settings/gobuildnrunsettingspage.h \
     gotoolmanager.h \
-    gotool.h
+    gotool.h \
+    generalmessages.h
 
 RESOURCES += \
     go.qrc
 
 FORMS += \
     settings/gocodestylepage.ui \
-    settings/buildnrunsettingspagewidget.ui
+    settings/gobuildnrunsettingspagewidget.ui
 
 ## uncomment to build plugin into user config directory
 ## <localappdata>/plugins/<ideversion>

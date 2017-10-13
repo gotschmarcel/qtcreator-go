@@ -15,7 +15,7 @@
 namespace Go {
 namespace Internal {
 
-EditorFactory::EditorFactory()
+GoEditorFactory::GoEditorFactory()
 {
     setId(Constants::EditorID);
     setDisplayName(qApp->translate("OpenWith::Editors", Constants::EditorDisplayName));
@@ -28,11 +28,11 @@ EditorFactory::EditorFactory()
         return doc;
     });
 
-    setIndenterCreator([]() { return new Indenter; });
-    setSyntaxHighlighterCreator([]() { return new SyntaxHighlighter; });
+    setIndenterCreator([]() { return new GoIndenter; });
+    setSyntaxHighlighterCreator([]() { return new GoSyntaxHighlighter; });
 
-    setEditorCreator([]() { return new Editor; });
-    setEditorWidgetCreator([]() { return new EditorWidget; });
+    setEditorCreator([]() { return new GoEditor; });
+    setEditorWidgetCreator([]() { return new GoEditorWidget; });
 
     //    setAutoCompleterCreator([]() { return new AutoCompleter; }});
     //    setCompletionAssistProvider([]() { return new CompletionAssistProvider; });

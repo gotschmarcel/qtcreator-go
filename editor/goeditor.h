@@ -7,12 +7,12 @@
 namespace Go {
 namespace Internal {
 
-class Editor : public TextEditor::BaseTextEditor
+class GoEditor : public TextEditor::BaseTextEditor
 {
     Q_OBJECT
 
 public:
-    Editor();
+    GoEditor();
 };
 
 } // namespace Internal
