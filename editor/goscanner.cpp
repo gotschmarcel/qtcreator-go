@@ -2,7 +2,9 @@
 
 #include <QMap>
 
-using namespace Go::Internal;
+namespace Go {
+namespace Internal {
+
 
 static const QMap<QString, Token::Kind> GoKeywords{
     {QLatin1String("break"), Token::BREAK},
@@ -700,3 +702,6 @@ Token Scanner::readDefaultState()
 }
 
 void Scanner::clearState() { _state = Default; }
+
+} // Internal
+} // Go

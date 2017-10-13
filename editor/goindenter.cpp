@@ -7,7 +7,8 @@
 
 #include "goscanner.h"
 
-using namespace Go::Internal;
+namespace Go {
+namespace Internal {
 
 Indenter::Indenter() {}
 
@@ -88,3 +89,6 @@ int Indenter::indentDiff(const QString &previousLine,
 
     return 0;
 }
+
+} // Internal
+} // Go

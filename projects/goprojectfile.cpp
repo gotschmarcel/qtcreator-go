@@ -5,7 +5,8 @@
 
 #include "../goconstants.h"
 
-using namespace Go::Internal;
+namespace Go {
+namespace Internal {
 
 GoProjectFile::GoProjectFile(const Utils::FileName &fileName)
 {
@@ -18,3 +19,6 @@ Core::IDocument::ReloadBehavior GoProjectFile::reloadBehavior(ChangeTrigger, Cha
 {
     return BehaviorAsk;
 }
+
+} // Internal
+} // Go

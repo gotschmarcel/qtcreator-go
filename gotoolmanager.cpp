@@ -8,7 +8,8 @@
 #include "goconstants.h"
 #include "gotool.h"
 
-using namespace Go::Internal;
+namespace Go {
+namespace Internal {
 
 void GoToolManager::autoDetectTools(const QStringList &additionalLocations)
 {
@@ -70,3 +71,6 @@ GoToolManager::~GoToolManager()
     qDeleteAll(_tools);
     _tools.clear();
 }
+
+} // Internal
+} // Go

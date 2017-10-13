@@ -3,7 +3,8 @@
 #include <QMap>
 #include <QStringBuilder>
 
-using namespace Go::Internal;
+namespace Go {
+namespace Internal {
 
 class CharacterStream
 {
@@ -104,3 +105,6 @@ QString TemplateRenderer::render(const QMap<QString, QString> &&locals) const
 
     return result;
 }
+
+} // Internal
+} // Go

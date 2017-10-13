@@ -5,7 +5,8 @@
 
 #include "../goconstants.h"
 
-using namespace Go::Internal;
+namespace Go {
+namespace Internal {
 
 CodeStylePageWidget::CodeStylePageWidget(QWidget *parent)
     : QWidget(parent)
@@ -45,3 +46,6 @@ void CodeStylePage::finish()
     delete _widget;
     _widget = nullptr;
 }
+
+} // Internal
+} // Go

@@ -30,7 +30,8 @@
 #include "settings/gobuildnrunsettingspage.h"
 #include "settings/gocodestylepage.h"
 
-using namespace Go::Internal;
+namespace Go {
+namespace Internal {
 
 GoPlugin::GoPlugin()
 {
@@ -105,3 +106,6 @@ ExtensionSystem::IPlugin::ShutdownFlag GoPlugin::aboutToShutdown()
     // Hide UI (if you add UI that is not in the main window directly)
     return SynchronousShutdown;
 }
+
+} // Internal
+} // Go

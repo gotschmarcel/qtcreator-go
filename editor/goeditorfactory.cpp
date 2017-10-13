@@ -12,7 +12,8 @@
 #include "goindenter.h"
 #include "gosyntaxhighlighter.h"
 
-using namespace Go::Internal;
+namespace Go {
+namespace Internal {
 
 EditorFactory::EditorFactory()
 {
@@ -49,3 +50,6 @@ EditorFactory::EditorFactory()
                             | TextEditor::TextEditorActionHandler::UnCollapseAll
                             | TextEditor::TextEditorActionHandler::FollowSymbolUnderCursor);
 }
+
+} // Internal
+} // Go

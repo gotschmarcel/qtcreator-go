@@ -4,7 +4,8 @@
 
 #include "goscanner.h"
 
-using namespace Go::Internal;
+namespace Go {
+namespace Internal {
 
 static const QVector<QString> GoBuiltins = {
     // Functions
@@ -170,3 +171,6 @@ QTextCharFormat SyntaxHighlighter::formatForToken(const Token &token, const QStr
 
     return formatForCategory(style);
 }
+
+} // Internal
+} // Go

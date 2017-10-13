@@ -4,9 +4,13 @@
 
 #include "goconstants.h"
 
-using namespace Go::Internal;
+namespace Go {
+namespace Internal {
 
 QString Toolchain::goPath()
 {
     return QProcessEnvironment::systemEnvironment().value(QLatin1String(Constants::GoPathEnvName));
 }
+
+} // Internal
+} // Go

@@ -5,7 +5,8 @@
 
 #include <utils/fileutils.h>
 
-using namespace Go::Internal;
+namespace Go {
+namespace Internal {
 
 ProjectNode::ProjectNode(const Utils::FileName &projectFilePath)
     : ProjectExplorer::ProjectNode(projectFilePath)
@@ -64,3 +65,6 @@ bool ProjectNode::renameFile(const QString &filePath, const QString &newFilePath
     Q_UNUSED(newFilePath);
     return true;
 }
+
+} // Internal
+} // Go

@@ -11,7 +11,8 @@
 #include "goprojectfile.h"
 #include "goprojectnode.h"
 
-using namespace Go::Internal;
+namespace Go {
+namespace Internal {
 
 Project::Project(const Utils::FileName& fileName)
     : ProjectExplorer::Project(Constants::ProjectMIMEType, fileName)
@@ -162,3 +163,6 @@ ProjectExplorer::FolderNode *Project::findFolderForRelPath(const QString &relPat
 
     return folder;
 }
+
+} // Internal
+} // Go

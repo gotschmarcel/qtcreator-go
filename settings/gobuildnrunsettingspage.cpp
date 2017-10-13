@@ -11,7 +11,8 @@
 #include "../gotool.h"
 #include "../gotoolmanager.h"
 
-using namespace Go::Internal;
+namespace Go {
+namespace Internal {
 
 static const QString defaultToolName(QLatin1String("Go"));
 
@@ -154,3 +155,6 @@ void BuildNRunSettingsPage::finish()
     delete _widget;
     _widget = nullptr;
 }
+
+} // Internal
+} // Go

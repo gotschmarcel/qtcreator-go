@@ -2,7 +2,8 @@
 
 #include <QUuid>
 
-using namespace Go::Internal;
+namespace Go {
+namespace Internal {
 
 GoTool::GoTool(const GoTool::Detection &detection, const Utils::FileName &executablePath)
     : _detection(detection)
@@ -21,3 +22,6 @@ bool GoTool::isAutodetected() const { return _detection == Detection::AUTO; }
 Core::Id GoTool::id() const { return _id; }
 
 Utils::FileName GoTool::executablePath() const { return _executablePath; }
+
+} // Internal
+} // Go

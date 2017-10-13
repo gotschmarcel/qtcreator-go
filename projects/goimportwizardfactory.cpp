@@ -11,7 +11,8 @@
 
 #include "../goconstants.h"
 
-using namespace Go::Internal;
+namespace Go {
+namespace Internal {
 
 ImportWizardFactory::ImportWizardFactory()
 {
@@ -66,3 +67,6 @@ bool ImportWizardFactory::postGenerateFiles(const QWizard *, const Core::Generat
 {
     return ProjectExplorer::CustomProjectWizard::postGenerateOpen(files, errorMessage);
 }
+
+} // Internal
+} // Go

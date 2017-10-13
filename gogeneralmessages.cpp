@@ -1,7 +1,8 @@
 #include "gogeneralmessages.h"
 #include "goconstants.h"
 
-using namespace Go::Internal;
+namespace Go {
+namespace Internal {
 
 GeneralMessages::Stream GeneralMessages::append() { return Stream() << Constants::MessagePrefix; }
 
@@ -14,3 +15,6 @@ GeneralMessages::Stream GeneralMessages::error()
 {
     return Stream() << Constants::MessagePrefix << "Error: ";
 }
+
+} // Internal
+} // Go

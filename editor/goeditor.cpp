@@ -1,6 +1,10 @@
 #include "goeditor.h"
 #include "../goconstants.h"
 
-using namespace Go::Internal;
+namespace Go {
+namespace Internal {
 
 Editor::Editor() { addContext(Constants::LangGo); }
+
+} // Internal
+} // Go

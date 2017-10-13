@@ -14,7 +14,8 @@
 #include "../goconstants.h"
 #include "gotemplaterenderer.h"
 
-using namespace Go::Internal;
+namespace Go {
+namespace Internal {
 
 LibraryWizardFactory::LibraryWizardFactory()
 {
@@ -98,3 +99,6 @@ bool LibraryWizardFactory::postGenerateFiles(const QWizard *, const Core::Genera
 {
     return ProjectExplorer::CustomProjectWizard::postGenerateOpen(files, errorMessage);
 }
+
+} // Internal
+} // Go
