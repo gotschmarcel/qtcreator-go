@@ -10,7 +10,7 @@ namespace Internal {
 
 class GoTool;
 
-class GOSHARED_EXPORT GoToolManager : public QObject
+class GoToolManager : public QObject
 {
     Q_OBJECT
 public:

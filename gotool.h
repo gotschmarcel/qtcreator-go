@@ -8,7 +8,7 @@
 namespace Go {
 namespace Internal {
 
-class GOSHARED_EXPORT GoTool
+class GoTool
 {
 public:
     enum class Detection

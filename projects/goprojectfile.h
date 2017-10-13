@@ -11,7 +11,7 @@ class FileName;
 namespace Go {
 namespace Internal {
 
-class GOSHARED_EXPORT GoProjectFile : public Core::IDocument
+class GoProjectFile : public Core::IDocument
 {
 public:
     GoProjectFile(const Utils::FileName &fileName);

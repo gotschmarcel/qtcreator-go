@@ -24,7 +24,7 @@ private:
     Ui::CodeStylePageWidget *_ui;
 };
 
-class GOSHARED_EXPORT CodeStylePage : public Core::IOptionsPage
+class CodeStylePage : public Core::IOptionsPage
 {
     Q_OBJECT
 

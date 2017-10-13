@@ -7,7 +7,7 @@
 namespace Go {
 namespace Internal {
 
-class GOSHARED_EXPORT Indenter : public TextEditor::Indenter
+class Indenter : public TextEditor::Indenter
 {
 public:
     Indenter();

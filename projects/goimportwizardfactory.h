@@ -7,7 +7,7 @@
 namespace Go {
 namespace Internal {
 
-class GOSHARED_EXPORT ImportWizardFactory : public Core::BaseFileWizardFactory
+class ImportWizardFactory : public Core::BaseFileWizardFactory
 {
     Q_OBJECT
 

@@ -7,7 +7,7 @@
 namespace Go {
 namespace Internal {
 
-class GOSHARED_EXPORT SourceCodeStream
+class SourceCodeStream
 {
 public:
     SourceCodeStream(const QString &text)

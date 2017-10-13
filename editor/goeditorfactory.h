@@ -7,7 +7,7 @@
 namespace Go {
 namespace Internal {
 
-class GOSHARED_EXPORT EditorFactory : public TextEditor::TextEditorFactory
+class EditorFactory : public TextEditor::TextEditorFactory
 {
     Q_OBJECT
 

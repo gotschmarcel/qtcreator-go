@@ -12,7 +12,7 @@ namespace Internal {
 
 class Token;
 
-class GOSHARED_EXPORT SyntaxHighlighter : public TextEditor::SyntaxHighlighter
+class SyntaxHighlighter : public TextEditor::SyntaxHighlighter
 {
 public:
     SyntaxHighlighter(QTextDocument *parent = 0);

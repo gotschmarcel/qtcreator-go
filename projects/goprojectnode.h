@@ -11,7 +11,7 @@ class FileName;
 namespace Go {
 namespace Internal {
 
-class GOSHARED_EXPORT ProjectNode : public ProjectExplorer::ProjectNode
+class ProjectNode : public ProjectExplorer::ProjectNode
 {
 public:
     ProjectNode(const Utils::FileName &projectFilePath);

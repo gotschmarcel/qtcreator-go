@@ -8,7 +8,7 @@
 namespace Go {
 namespace Internal {
 
-class GOSHARED_EXPORT EditorWidget : public TextEditor::TextEditorWidget
+class EditorWidget : public TextEditor::TextEditorWidget
 {
     Q_OBJECT
 
