@@ -10,7 +10,7 @@
 namespace Go {
 namespace Internal {
 
-class GOSHARED_EXPORT BuildNRunSettingsPageWidget final : public QWidget
+class GOSHARED_EXPORT BuildNRunSettingsPageWidget : public QWidget
 {
     Q_OBJECT
 
@@ -36,7 +36,7 @@ private:
     QStandardItemModel _model;
 };
 
-class GOSHARED_EXPORT BuildNRunSettingsPage final : public Core::IOptionsPage
+class GOSHARED_EXPORT BuildNRunSettingsPage : public Core::IOptionsPage
 {
     Q_OBJECT
 

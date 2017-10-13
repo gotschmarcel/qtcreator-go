@@ -17,7 +17,7 @@ namespace Internal {
 class ProjectManager;
 class ProjectNode;
 
-class GOSHARED_EXPORT Project final : public ProjectExplorer::Project
+class GOSHARED_EXPORT Project : public ProjectExplorer::Project
 {
     Q_OBJECT
 
