@@ -5,7 +5,7 @@
 #include <coreplugin/dialogs/ioptionspage.h>
 
 #include "../go_global.h"
-#include "ui_buildnrunsettingspagewidget.h"
+#include "ui_gobuildnrunsettingspagewidget.h"
 
 namespace Go {
 namespace Internal {
@@ -32,7 +32,7 @@ private:
     QStandardItem *manualItem() const;
     QStandardItem *selectedItem() const;
 
-    Ui::BuildNRunSettingsPageWidget _ui;
+    Ui::GoBuildNRunSettingsPageWidget _ui;
     QStandardItemModel _model;
 };
 
