@@ -2,6 +2,8 @@
 
 A Qt Creator plugin for the **Go** programming language.
 
+> This plugin is not well maintained, since I don't have the time for it.
+
 ## Features
 
 - Managing projects (work in progress)
